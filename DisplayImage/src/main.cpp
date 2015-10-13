@@ -102,7 +102,7 @@ printf ( "ans \n");
 struct matrix ans = mult_matrix(MA,MB);
 print_matrix(ans);
 printf ( "\n");
-printf ( "ok");
+printf ( "ok2");
   cvWaitKey(0);
   cvDestroyAllWindows();
   cvReleaseImage(&img);
