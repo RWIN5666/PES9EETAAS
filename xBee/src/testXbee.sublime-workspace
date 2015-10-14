@@ -1,0 +1,518 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"taille",
+				"tailleTest"
+			],
+			[
+				"trame",
+				"trameToPrint"
+			],
+			[
+				"tram",
+				"trameRetour"
+			],
+			[
+				"tra",
+				"trame"
+			],
+			[
+				"recu",
+				"recupTrame"
+			],
+			[
+				"Trame",
+				"TrameXbee"
+			],
+			[
+				"uint",
+				"uint8_t"
+			],
+			[
+				"xbee",
+				"xbee1"
+			],
+			[
+				"Dat",
+				"_DataRecord"
+			],
+			[
+				"files",
+				"filesink"
+			],
+			[
+				"que",
+				"queue"
+			],
+			[
+				"m",
+				"mux1"
+			],
+			[
+				"q",
+				"queue1"
+			],
+			[
+				"qu",
+				"queue"
+			],
+			[
+				"queue",
+				"queue1"
+			],
+			[
+				"video",
+				"videorate"
+			],
+			[
+				"gst_ele",
+				"gst_element_factory_make"
+			],
+			[
+				"rtsp",
+				"rtsp_avi_test"
+			],
+			[
+				"sink",
+				"sinkstream2"
+			],
+			[
+				"file",
+				"filesrc"
+			],
+			[
+				"playin",
+				"playbin2"
+			],
+			[
+				"data",
+				"data2"
+			],
+			[
+				"pa",
+				"pay0"
+			],
+			[
+				"gst_rt",
+				"gst_rtsp_media_factory_set_launch"
+			],
+			[
+				"test",
+				"test2003"
+			],
+			[
+				"pad",
+				"pad_added_handler_decode"
+			],
+			[
+				"demux",
+				"demux2"
+			],
+			[
+				"Gst",
+				"GstElement"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "comXbee.c",
+			"settings":
+			{
+				"buffer_size": 3138,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "checksum.c",
+			"settings":
+			{
+				"buffer_size": 2961,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "checksum.h",
+			"settings":
+			{
+				"buffer_size": 217,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Makefile",
+			"settings":
+			{
+				"buffer_size": 334,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "comXbee.old",
+			"settings":
+			{
+				"buffer_size": 3083,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/erwin/Documents/PROJETELEC/Tests/comXbee/comXbee.c",
+		"/home/erwin/Documents/Tests/Experimentations/TCP/testErase.c",
+		"/home/erwin/Documents/Tests/Experimentations/TCP/client_TCP.c",
+		"/home/erwin/Documents/Tests/Experimentations/TCP/decrassage_TCP.c",
+		"/home/erwin/Documents/Tests/Gstreamer/gstreamer_serveur_pc/test_mkv.sdp",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/test.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/mp4stream-gst-server.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/mp4record-gst-server.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/kill-gst.sh",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/rtsp_mkv_test.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/rtsp_avi_test.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/test_mp4_ok.sdp",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/makefile",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/basic_tuto_seek.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/basic-tutorial-1.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/avistream-gst-server.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/avirecord-gst-server.c",
+		"/home/erwin/Téléchargements/matroska/matroska-mux.c",
+		"/home/erwin/Téléchargements/matroska/matroska-demux.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/mkvstream-gst-server.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/commande_gstreamer_pc.txt",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/rtsp-mkv.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/test_avi_ok.sdp",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/caps_mp4.txt",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/mp4record-gst-server-erwin.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/gst-server-erwin.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/gst-server-erwin-stream.c",
+		"/home/erwin/Documents/Tests/Gstreamer/test_RTSP/rtsptest.c",
+		"/home/erwin/Documents/Tests/Gstreamer/test_RTSP/test-mp4.c",
+		"/home/erwin/Documents/Tests/Gstreamer/test_RTSP/test-mp4_2.c",
+		"/home/erwin/Documents/Tests/Gstreamer/TCP_RTP/brouillon.c",
+		"/home/erwin/Documents/Tests/Gstreamer/test_RTSP/test-mp4.c_copie",
+		"/home/erwin/Documents/Tests/Gstreamer/RSTP_test/makefile",
+		"/home/erwin/Documents/Tests/Gstreamer/RSTPserver/gst-rtsp-0.10.8/examples/test-mp4.c",
+		"/home/erwin/Documents/Tests/Gstreamer/RSTP_test/rtsptest.c",
+		"/home/erwin/Documents/Tests/Gstreamer/RTP_TCP/basic_tuto_seek.c",
+		"/home/erwin/Documents/Tests/Gstreamer/RTP_TCP/gst-server-erwin.c",
+		"/home/erwin/Documents/Tests/Gstreamer/RTP_TCP/gst-server-erwin-stream.c",
+		"/home/erwin/Documents/Tests/Gstreamer/RSTP_test/levraimakefile",
+		"/home/erwin/Documents/Tests/Gstreamer/truc/brouillon.c",
+		"/home/erwin/Documents/Tests/Gstreamer/truc/commande_gstreamer_pc.txt",
+		"/home/erwin/Documents/Tests/Gstreamer/truc/gst-server-erwin.c",
+		"/home/erwin/Documents/Tests/Gstreamer/truc/gst-server-erwin-stream.c",
+		"/home/erwin/Documents/Tests/Gstreamer/truc/basic_tuto_seek.c",
+		"/home/erwin/Documents/UWC/drvcgunv1.c",
+		"/home/erwin/Documents/UWC/Iscout_svr.c",
+		"/home/erwin/Documents/UWC/Iscout_svr_13_03_2012.c",
+		"/home/erwin/Documents/UWC/Iscout_svrgst.c",
+		"/home/erwin/Documents/UWC/Iscout_svrgst_30_janv_2012.c",
+		"/home/erwin/Documents/UWC/PC_server_test.c",
+		"/home/erwin/Documents/UWC/twl4030-madc.h",
+		"/home/erwin/Documents/UWC/Version.txt",
+		"/home/erwin/Documents/Tests/Gstreamer/truc/makefile",
+		"/home/erwin/Documents/Tests/Gstreamer/truc/kill-gst.sh",
+		"/home/erwin/Documents/Tests/Gstreamer/truc/basic-tutorial-1.c",
+		"/home/erwin/Documents/Tests/Gstreamer/truc/test.c",
+		"/home/erwin/Documents/Documents/Tests/Gstreamer/truc/gst-server-erwin.c"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"	\n	int xbee2 = serial_init(\"/dev/ttyUSB0\",9600);\n	int lu = read(xbee2, trameRetour, 100 * sizeof(char));",
+			"void * stream",
+			"port",
+			"res1",
+			"set_state",
+			" int comparo = strncmp(cmd,\"#test;\",5);\n  printf(\"resultat comparaison : %d\\n\", comparo);\n",
+			"pthread_exit",
+			"exit",
+			"pthread_exit",
+			"CustomData",
+			"pthread",
+			"Sstart",
+			"create",
+			"pthread",
+			"SStart",
+			"taille_buffer",
+			"recv",
+			"atoi",
+			"fd",
+			"process_cmd",
+			"Sstart_gst",
+			"process_cmd",
+			"input",
+			"VIDEO_MODE",
+			"TAILLE_BUFFER",
+			"device",
+			"bug",
+			"caps",
+			"percent",
+			"GST_STATE_Pause",
+			"GST_STATE_PLAYING",
+			"rate",
+			"pay0",
+			"pay°",
+			"ret",
+			"on_pad_added",
+			"Wall"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"DataRecord"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "comXbee.c",
+					"settings":
+					{
+						"buffer_size": 3138,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1875,
+								1875
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1396.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "checksum.c",
+					"settings":
+					{
+						"buffer_size": 2961,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2349,
+								2349
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 152.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "checksum.h",
+					"settings":
+					{
+						"buffer_size": 217,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								158,
+								158
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Makefile",
+					"settings":
+					{
+						"buffer_size": 334,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								221,
+								221
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 28.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "comXbee.old",
+					"settings":
+					{
+						"buffer_size": 3083,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								372,
+								372
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 665.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 112.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

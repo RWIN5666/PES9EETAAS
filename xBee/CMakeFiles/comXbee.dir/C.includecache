@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/erwin/Documents/PROJETELEC/Tests/comXbee/src/comXbee.c
+stdio.h
+-
+stdlib.h
+-
+termios.h
+-
+fcntl.h
+-
+unistd.h
+-
+string.h
+-
+stdint.h
+-
+poll.h
+-
+checksum.h
+/home/erwin/Documents/PROJETELEC/Tests/comXbee/src/checksum.h
+
+include/checksum.h
+

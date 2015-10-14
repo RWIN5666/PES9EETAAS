@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 
+
 int hex_to_int(char c){
         int first = c / 16 - 3;
         int second = c % 16;
@@ -24,15 +25,15 @@ int subHextoInt(unsigned char * chaine, int start, int longueur, int octet)
     int resultat = 0;
     int temp = 0;
     int mult =1;
-    int j = 0;
+
    int i =0;
 
-    for(j;j<= (longueur/octet -1);j++){
+    for(int j = 0;j<= (longueur/octet -1);j++){
         
                 i = start+ (octet-1) + (j)*octet;
                 temp = 0; 
                 mult =1;
-                for(i;i>=start + j*octet; i--){
+                for(   int i =0;i>=start + j*octet; i--){
                     
                         temp += (hex_to_int(chaine[i]) * mult); 
                         //printf("chaine[%d] = %c\n", i, chaine[i]);
@@ -102,34 +103,34 @@ int checksum (unsigned char *chaine, unsigned char *chaineFinale) {
 
 
 
-
-int main(int argc, char* argv[])
-{
+// EXEMPLE UTILISATION CHECKSUM
+// int main(int argc, char* argv[])
+// {
     
-    unsigned char* chaine = (unsigned char*) argv[1];
-    int i = 0;
+//     unsigned char* chaine = (unsigned char*) argv[1];
+//     int i = 0;
     
-    while(chaine[i] != '\0'){
+//     while(chaine[i] != '\0'){
         
-        i++;
+//         i++;
         
         
         
-    }
+//     }
     
-    unsigned char test[i+2+1]; 
+//     unsigned char test[i+2+1]; 
     
     
-    int  check = checksum(chaine,test);
+//     int  check = checksum(chaine,test);
      
      
      
-    printf ("checksum : %x\n", check );
-    printf ("chaine : %s\n", test );
-    return 0;
+//     printf ("checksum : %x\n", check );
+//     printf ("chaine : %s\n", test );
+//     return 0;
     
     
-}
+// }
 
 
 
