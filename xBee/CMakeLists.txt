@@ -1,25 +1,20 @@
-cmake_minimum_required(VERSION 2.6)
-set(CMAKE_BUILD_TYPE Debug)
+cmake_minimum_required(VERSION 2.8)
 
-project(comXbee)
-#librairies a inclure
-include_directories(/home/erwin/Documents/PROJETELEC/Tests/comXbee/include/)
-#
-# Global C_FLAGS
-#
+set(PRJ comXbee)
+set(MAIN main/comXbee.c)
+
+set(CMAKE_BUILD_TYPE Debug)
 SET(CMAKE_C_FLAGS               "${CMAKE_C_FLAGS} -W -Wall -ansi -pedantic -std=c99 -Wfatal-errors")
-# liste des fichiers source
-file(
-	GLOB_RECURSE
-	source_files
-	src/*
+
+project($PRJ)
+
+include_directories(
+	./include
 )
-#fichier executable
-add_executable(
-	comXbee
-	${source_files}
-)
-#edition de lien entre le programme et les librairies
-#target_link_libraries(
-#	comXbee
-#)
+
+add_subdirectory(src/serial)
+add_subdirectory(src/zigbee)
+
+add_executable(${PRJ} ${MAIN})
+target_link_libraries(${PRJ} serial zigbee)
+

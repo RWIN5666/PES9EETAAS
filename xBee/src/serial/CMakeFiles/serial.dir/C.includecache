@@ -18,9 +18,7 @@ fcntl.h
 unistd.h
 -
 
-./include/zigbee/zigbeeLib.h
-
-/home/erwin/Documents/PROJETELEC/Tests/cMake/main/comXbee.c
+/home/erwin/Documents/PROJETELEC/Tests/cMake/src/serial/serial0.c
 stdio.h
 -
 stdlib.h
@@ -37,8 +35,6 @@ stdint.h
 -
 poll.h
 -
-zigbee/zigbeeLib.h
-/home/erwin/Documents/PROJETELEC/Tests/cMake/main/zigbee/zigbeeLib.h
 serial/serial0.h
-/home/erwin/Documents/PROJETELEC/Tests/cMake/main/serial/serial0.h
+/home/erwin/Documents/PROJETELEC/Tests/cMake/src/serial/serial/serial0.h
 
