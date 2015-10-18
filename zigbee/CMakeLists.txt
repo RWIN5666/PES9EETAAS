@@ -12,9 +12,9 @@ include_directories(
 	./include
 )
 
-add_subdirectory(src/serial)
+add_subdirectory(src/serial0)
 add_subdirectory(src/zigbee)
 
 add_executable(${PRJ} ${MAIN})
-target_link_libraries(${PRJ} serial zigbee)
+target_link_libraries(${PRJ} serial0 zigbee)
 
