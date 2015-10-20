@@ -17,7 +17,7 @@ envoi : 7E 00 04 08 01 53 48 5B (ATSH)
 retour : 7E 00 09 88 01 53 48 00 00 13 A2 00 26
 
 envoi : 7E 00 04 08 01 53 4C 57 (ATSL)
-retour : 7E 00 09 88 01 53 4C 00 40 89 EC 32 F0
+retour : 7E 00 09 88 01 53 4C test00 40 89 EC 32 F0
 
 
 envoi : 7E 00 04 08 01 4E 49 5F (ATNI)
