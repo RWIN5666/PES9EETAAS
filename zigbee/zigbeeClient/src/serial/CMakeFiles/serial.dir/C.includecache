@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+./include/serial/serial0.h
+stdio.h
+-
+stdlib.h
+-
+termios.h
+-
+fcntl.h
+-
+unistd.h
+-
+
+/home/erwin/Documents/PROJETELEC/Tests/cMake/src/serial/serial0.c
+stdio.h
+-
+stdlib.h
+-
+termios.h
+-
+fcntl.h
+-
+unistd.h
+-
+string.h
+-
+stdint.h
+-
+poll.h
+-
+serial/serial0.h
+/home/erwin/Documents/PROJETELEC/Tests/cMake/src/serial/serial/serial0.h
+

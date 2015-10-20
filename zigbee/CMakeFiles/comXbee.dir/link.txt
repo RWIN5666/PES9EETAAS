@@ -1,1 +1,0 @@
-/usr/bin/gcc   -W -Wall -ansi -pedantic -std=c99 -Wfatal-errors -g   CMakeFiles/comXbee.dir/main/comXbee.c.o  -o comXbee -rdynamic src/serial/libserial.so src/zigbee/libzigbee.so -Wl,-rpath,/home/erwin/Documents/PROJETELEC/Tests/cMake/src/serial:/home/erwin/Documents/PROJETELEC/Tests/cMake/src/zigbee 
