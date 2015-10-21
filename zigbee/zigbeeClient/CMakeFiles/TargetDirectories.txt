@@ -1,3 +1,0 @@
-/home/erwin/Documents/S9/PRE/code/zigbee/zigbeeClient/CMakeFiles/clientXbee.dir
-/home/erwin/Documents/S9/PRE/code/zigbee/zigbeeClient/src/serial0/CMakeFiles/serial0.dir
-/home/erwin/Documents/S9/PRE/code/zigbee/zigbeeClient/src/zigbee/CMakeFiles/zigbee.dir
