@@ -43,7 +43,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/comXbee.dir/DependInfo.cmake"
+  "CMakeFiles/zigBeeServer.dir/DependInfo.cmake"
   "src/serial0/CMakeFiles/serial0.dir/DependInfo.cmake"
   "src/zigbee/CMakeFiles/zigbee.dir/DependInfo.cmake"
   )

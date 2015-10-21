@@ -8,7 +8,9 @@
 #include <stdint.h>
 #include <poll.h>
 #include "zigbee/zigbeeLib.h"
+#include "zigbee/checksum.h"
 #include "serial/serial0.h"
+
 
 #define MAX_LEN 128
 
@@ -88,8 +90,8 @@ static int serial_init(const char *devname, speed_t baudrate)
 {
 	int fd;
 	struct termios newattr;
- 	//| O_NOCTTY
-	if((fd = open(devname, O_RDWR)) < 0) {
+ 	//
+	if((fd = open(devname, O_RDWR| O_NOCTTY)) < 0) {
 		perror("Failed to open serial port");
 		exit(EXIT_FAILURE);
 	} else if(tcgetattr(fd, &oldattr) != 0) {

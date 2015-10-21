@@ -10,10 +10,9 @@ struct __attribute__((packed)) HeaderXbee
 struct __attribute__((packed)) TrameXbee
 {
 	struct HeaderXbee header;
-	uint8_t * trameData;
-	uint8_t checkSum;
-};
+	uint8_t trameData[];
 
+};
 
 
 struct __attribute__((packed)) moduleFPGA 

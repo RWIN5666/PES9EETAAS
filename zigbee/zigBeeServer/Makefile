@@ -103,17 +103,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named comXbee
+# Target rules for targets named zigBeeServer
 
 # Build rule for target.
-comXbee: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 comXbee
-.PHONY : comXbee
+zigBeeServer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 zigBeeServer
+.PHONY : zigBeeServer
 
 # fast build rule for target.
-comXbee/fast:
-	$(MAKE) -f CMakeFiles/comXbee.dir/build.make CMakeFiles/comXbee.dir/build
-.PHONY : comXbee/fast
+zigBeeServer/fast:
+	$(MAKE) -f CMakeFiles/zigBeeServer.dir/build.make CMakeFiles/zigBeeServer.dir/build
+.PHONY : zigBeeServer/fast
 
 #=============================================================================
 # Target rules for targets named serial0
@@ -146,7 +146,7 @@ main/comXbee.o: main/comXbee.c.o
 
 # target to build an object file
 main/comXbee.c.o:
-	$(MAKE) -f CMakeFiles/comXbee.dir/build.make CMakeFiles/comXbee.dir/main/comXbee.c.o
+	$(MAKE) -f CMakeFiles/zigBeeServer.dir/build.make CMakeFiles/zigBeeServer.dir/main/comXbee.c.o
 .PHONY : main/comXbee.c.o
 
 main/comXbee.i: main/comXbee.c.i
@@ -154,7 +154,7 @@ main/comXbee.i: main/comXbee.c.i
 
 # target to preprocess a source file
 main/comXbee.c.i:
-	$(MAKE) -f CMakeFiles/comXbee.dir/build.make CMakeFiles/comXbee.dir/main/comXbee.c.i
+	$(MAKE) -f CMakeFiles/zigBeeServer.dir/build.make CMakeFiles/zigBeeServer.dir/main/comXbee.c.i
 .PHONY : main/comXbee.c.i
 
 main/comXbee.s: main/comXbee.c.s
@@ -162,7 +162,7 @@ main/comXbee.s: main/comXbee.c.s
 
 # target to generate assembly for a file
 main/comXbee.c.s:
-	$(MAKE) -f CMakeFiles/comXbee.dir/build.make CMakeFiles/comXbee.dir/main/comXbee.c.s
+	$(MAKE) -f CMakeFiles/zigBeeServer.dir/build.make CMakeFiles/zigBeeServer.dir/main/comXbee.c.s
 .PHONY : main/comXbee.c.s
 
 # Help Target
@@ -171,9 +171,9 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... comXbee"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... zigBeeServer"
 	@echo "... serial0"
 	@echo "... zigbee"
 	@echo "... main/comXbee.o"

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-set(PRJ comXbee)
+set(PRJ zigBeeServer)
 set(MAIN main/comXbee.c)
 
 set(CMAKE_BUILD_TYPE Debug)
@@ -17,4 +17,3 @@ add_subdirectory(src/zigbee)
 
 add_executable(${PRJ} ${MAIN})
 target_link_libraries(${PRJ} serial0 zigbee)
-

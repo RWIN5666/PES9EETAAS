@@ -8,10 +8,6 @@
 
 ./include/zigbee/zigbeeLib.h
 
-/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/src/zigbee/checksum.c
-stdio.h
--
-
 /home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/src/zigbee/zigbeeLib.c
 stdio.h
 -

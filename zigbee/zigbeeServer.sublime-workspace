@@ -19,7 +19,7 @@
 			"file": "zigBeeServer/main/comXbee.c",
 			"settings":
 			{
-				"buffer_size": 2895,
+				"buffer_size": 2925,
 				"line_ending": "Unix"
 			}
 		},
@@ -27,7 +27,15 @@
 			"file": "zigBeeServer/src/zigbee/zigbeeLib.c",
 			"settings":
 			{
-				"buffer_size": 3669,
+				"buffer_size": 3979,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "zigBeeServer/include/zigbee/zigbeeLib.h",
+			"settings":
+			{
+				"buffer_size": 821,
 				"line_ending": "Unix"
 			}
 		}
@@ -68,12 +76,16 @@
 	"expanded_folders":
 	[
 		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer",
+		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/include",
+		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/include/zigbee",
 		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/main",
 		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/src",
 		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/src/zigbee"
 	],
 	"file_history":
 	[
+		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/src/zigbee/CMakeLists.txt",
+		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/CMakeLists.txt",
 		"/home/erwin/Documents/S9/PRE/code/zigbee/include/zigbee/zigbeeLib.h",
 		"/home/erwin/Documents/S9/PRE/code/zigbee/main/comXbee.c",
 		"/home/erwin/Documents/S9/PRE/code/zigbee/zigbeeClient/main/client.c",
@@ -122,15 +134,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2895,
+						"buffer_size": 2925,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1670,
-								1670
+								1308,
+								1308
 							]
 						],
 						"settings":
@@ -139,7 +151,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1275.0,
+						"translation.y": 969.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -148,18 +160,18 @@
 				{
 					"buffer": 1,
 					"file": "zigBeeServer/src/zigbee/zigbeeLib.c",
-					"semi_transient": true,
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3669,
+						"buffer_size": 3979,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2830,
+								2830
 							]
 						],
 						"settings":
@@ -168,10 +180,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1742.0,
+						"translation.y": 1043.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "zigBeeServer/include/zigbee/zigbeeLib.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 821,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								219,
+								219
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]

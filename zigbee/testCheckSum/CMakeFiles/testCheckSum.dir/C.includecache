@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+./include/zigbee/checksum.h
+
+./include/zigbee/zigbeeLib.h
+
+/home/erwin/Documents/S9/PRE/code/zigbee/testCheckSum/main/main.c
+stdio.h
+-
+stdlib.h
+-
+termios.h
+-
+fcntl.h
+-
+unistd.h
+-
+string.h
+-
+stdint.h
+-
+poll.h
+-
+stdint.h
+-
+zigbee/zigbeeLib.h
+/home/erwin/Documents/S9/PRE/code/zigbee/testCheckSum/main/zigbee/zigbeeLib.h
+zigbee/checksum.h
+/home/erwin/Documents/S9/PRE/code/zigbee/testCheckSum/main/zigbee/checksum.h
+
