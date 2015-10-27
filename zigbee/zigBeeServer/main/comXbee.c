@@ -28,18 +28,20 @@ struct moduleFPGA tableauFPGA[10];
 int main(void){
 
 
-	 char *filename = "main/image2.txt";
-	 FILE *fptr = NULL;
+	 // char *filename = "main/image2.txt";
+	 // FILE *fptr = NULL;
 	 
-	 if((fptr = fopen(filename,"r")) == NULL)
-	  {
-		fprintf(stderr,"error opening %s\n",filename);
-		return 1;
-	    }
+	 // if((fptr = fopen(filename,"r")) == NULL)
+	 //  {
+		// fprintf(stderr,"error opening %s\n",filename);
+		// return 1;
+	 //    }
 	 
-	 print_image(fptr);
+	 // print_image(fptr);
 	 
-	 fclose(fptr);
+	 // fclose(fptr);
+
+	 // fprintf(stderr,"\n");
 
 	printf("Lancement du programme de test XBEE\n");
 	printf("Nous allons tester l'envoi de la trame suivante : 7E 00 04 08 01 4D 59 50\nAllez, c'est parti !\n");

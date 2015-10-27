@@ -4,20 +4,20 @@
 		"selected_items":
 		[
 			[
-				"uint",
-				"uint16_t"
+				"frame",
+				"frameID"
 			],
 			[
-				"taille",
-				"tailleData"
+				"uint",
+				"uint8_t"
 			],
 			[
 				"trame",
-				"trameRetour"
+				"trameData"
 			],
 			[
-				"tram",
-				"trameData"
+				"data",
+				"dataSize"
 			]
 		]
 	},
@@ -27,7 +27,7 @@
 			"file": "zigBeeClient/main/client.c",
 			"settings":
 			{
-				"buffer_size": 2676,
+				"buffer_size": 2788,
 				"line_ending": "Unix"
 			}
 		},
@@ -35,7 +35,15 @@
 			"file": "zigBeeClient/src/zigbee/zigbeeLib.c",
 			"settings":
 			{
-				"buffer_size": 4086,
+				"buffer_size": 4500,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "zigBeeClient/include/zigbee/zigbeeLib.h",
+			"settings":
+			{
+				"buffer_size": 839,
 				"line_ending": "Unix"
 			}
 		}
@@ -56,12 +64,9 @@
 	},
 	"console":
 	{
-		"height": 139.0,
+		"height": 0.0,
 		"history":
 		[
-			";",
-			"ls",
-			"s"
 		]
 	},
 	"distraction_free":
@@ -75,27 +80,18 @@
 	},
 	"expanded_folders":
 	[
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/include",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/include/zigbee",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/main",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/src",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/src/zigbee"
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeClient",
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeClient/include",
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeClient/include/zigbee",
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeClient/src",
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeClient/src/zigbee"
 	],
 	"file_history":
 	[
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/include/zigbee/zigbeeLib.h",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/CMakeLists.txt",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigbeeClient/src/zigbee/zigbeeLib.c",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/include/zigbee/zigbeeLib.h",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/main/comXbee.c",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigbeeClient/main/client.c",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/src/serial0/serial0.c",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/src/zigbee/zigbeeLib.c"
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -136,15 +132,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2676,
+						"buffer_size": 2788,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1583,
-								1583
+								1072,
+								1072
 							]
 						],
 						"settings":
@@ -153,10 +149,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1653.0,
+						"translation.y": 1083.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -165,15 +161,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4086,
+						"buffer_size": 4500,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2756,
-								2756
+								2318,
+								2318
 							]
 						],
 						"settings":
@@ -182,10 +178,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1957.0,
+						"translation.y": 1539.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "zigBeeClient/include/zigbee/zigbeeLib.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 839,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								353,
+								353
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -265,10 +290,10 @@
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": true,
+	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 217.0,
+	"side_bar_width": 150.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

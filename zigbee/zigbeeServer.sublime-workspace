@@ -4,12 +4,8 @@
 		"selected_items":
 		[
 			[
-				"trame",
-				"trameRetour"
-			],
-			[
-				"tram",
-				"trameData"
+				"data",
+				"dataSize"
 			]
 		]
 	},
@@ -19,7 +15,7 @@
 			"file": "zigBeeServer/main/comXbee.c",
 			"settings":
 			{
-				"buffer_size": 2925,
+				"buffer_size": 2980,
 				"line_ending": "Unix"
 			}
 		},
@@ -27,7 +23,7 @@
 			"file": "zigBeeServer/src/zigbee/zigbeeLib.c",
 			"settings":
 			{
-				"buffer_size": 3979,
+				"buffer_size": 4271,
 				"line_ending": "Unix"
 			}
 		},
@@ -56,12 +52,9 @@
 	},
 	"console":
 	{
-		"height": 139.0,
+		"height": 0.0,
 		"history":
 		[
-			";",
-			"ls",
-			"s"
 		]
 	},
 	"distraction_free":
@@ -75,26 +68,19 @@
 	},
 	"expanded_folders":
 	[
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/include",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/include/zigbee",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/main",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/src",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/src/zigbee"
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeServer",
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeServer/include",
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeServer/include/zigbee",
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeServer/main",
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeServer/src",
+		"/home/erwin/Bureau/Lien vers PES9EETAAS/zigbee/zigBeeServer/src/zigbee"
 	],
 	"file_history":
 	[
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/src/zigbee/CMakeLists.txt",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeServer/CMakeLists.txt",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/include/zigbee/zigbeeLib.h",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/main/comXbee.c",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/zigbeeClient/main/client.c",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/src/serial0/serial0.c",
-		"/home/erwin/Documents/S9/PRE/code/zigbee/src/zigbee/zigbeeLib.c"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 0.0
 	},
 	"find_in_files":
 	{
@@ -125,7 +111,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -134,15 +120,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2925,
+						"buffer_size": 2980,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1308,
-								1308
+								508,
+								508
 							]
 						],
 						"settings":
@@ -151,10 +137,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 969.0,
+						"translation.y": 912.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -163,15 +149,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3979,
+						"buffer_size": 4271,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2830,
-								2830
+								2438,
+								2438
 							]
 						],
 						"settings":
@@ -180,10 +166,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1043.0,
+						"translation.y": 1984.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -199,8 +185,8 @@
 						"selection":
 						[
 							[
-								219,
-								219
+								102,
+								102
 							]
 						],
 						"settings":
@@ -208,11 +194,11 @@
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
+						"translation.x": -0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -220,7 +206,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 25.0
+		"height": 0.0
 	},
 	"input":
 	{
@@ -257,7 +243,7 @@
 	"project": "zigbeeServer.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 0.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -292,10 +278,10 @@
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": true,
+	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 217.0,
+	"side_bar_width": 150.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

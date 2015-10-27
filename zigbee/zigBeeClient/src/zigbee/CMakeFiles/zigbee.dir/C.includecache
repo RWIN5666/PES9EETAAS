@@ -8,7 +8,7 @@
 
 ./include/zigbee/zigbeeLib.h
 
-/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/src/zigbee/zigbeeLib.c
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/src/zigbee/zigbeeLib.c
 stdio.h
 -
 stdlib.h
@@ -26,5 +26,5 @@ stdint.h
 poll.h
 -
 zigbee/zigbeeLib.h
-/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/src/zigbee/zigbee/zigbeeLib.h
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/src/zigbee/zigbee/zigbeeLib.h
 

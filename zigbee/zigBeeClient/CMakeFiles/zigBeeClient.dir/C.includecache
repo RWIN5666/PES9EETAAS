@@ -22,7 +22,7 @@ unistd.h
 
 ./include/zigbee/zigbeeLib.h
 
-/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/main/client.c
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/main/client.c
 stdio.h
 -
 stdlib.h
@@ -40,9 +40,9 @@ stdint.h
 poll.h
 -
 zigbee/zigbeeLib.h
-/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/main/zigbee/zigbeeLib.h
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/main/zigbee/zigbeeLib.h
 zigbee/checksum.h
-/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/main/zigbee/checksum.h
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/main/zigbee/checksum.h
 serial/serial0.h
-/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/main/serial/serial0.h
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/main/serial/serial0.h
 
