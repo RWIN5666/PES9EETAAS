@@ -5,14 +5,15 @@ struct __attribute__((packed)) HeaderXbee
 {
 	uint8_t firstByte;
 	uint16_t taille;
+	uint8_t frameID;
 };
 
 struct __attribute__((packed)) TrameXbee
 {
 	struct HeaderXbee header;
 	uint8_t trameData[];
-
 };
+
 
 
 struct __attribute__((packed)) moduleFPGA 

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-./include/serial/serial0.h
+./include/serial0/serial0.h
 stdio.h
 -
 stdlib.h
@@ -43,6 +43,6 @@ zigbee/zigbeeLib.h
 /home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/main/zigbee/zigbeeLib.h
 zigbee/checksum.h
 /home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/main/zigbee/checksum.h
-serial/serial0.h
-/home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/main/serial/serial0.h
+serial0/serial0.h
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeClient/main/serial0/serial0.h
 

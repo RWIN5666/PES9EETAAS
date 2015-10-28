@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <poll.h>
+#include <netinet/in.h>
 #include "zigbee/zigbeeLib.h"
 
 
@@ -139,11 +140,7 @@ struct TrameXbee * getTrame(int * usedXbee){
 
 	uint8_t premier = bufferHeader[0];
 	uint16_t tailleData = ntohs(((uint16_t)bufferHeader[2] << 8) | bufferHeader[1]);
-
 	uint8_t ID = bufferHeader[3];
-
-
-
 	fprintf(stderr," taille data %04x\n", tailleData);
 
 
@@ -151,9 +148,6 @@ struct TrameXbee * getTrame(int * usedXbee){
 	trameRetour->header.firstByte = premier;
 	trameRetour->header.taille = tailleData;
 	trameRetour->header.frameID = ID;
-
-
-
 
 	int dataSize = (int) trameRetour->header.taille;
 

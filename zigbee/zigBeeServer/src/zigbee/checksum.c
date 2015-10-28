@@ -1,7 +1,8 @@
 
 #include <stdio.h>
+#include <assert.h>
 
-
+int i;
 
 int hex_to_int(char c){
         int first = c / 16 - 3;
@@ -25,8 +26,7 @@ int subHextoInt(unsigned char * chaine, int start, int longueur, int octet)
     int resultat = 0;
     int temp = 0;
     int mult =1;
-
-   int i =0;
+    i =0;
 
     for(int j = 0;j<= (longueur/octet -1);j++){
         
@@ -60,6 +60,7 @@ int checksum (unsigned char *chaine, unsigned char *chaineFinale) {
       
     
     unsigned int bitDeStart  = subHextoInt(chaine,0,2,2);
+    assert(bitDeStart);
     //printf("bitDeStart  -> %X\n",bitDeStart);
     unsigned int dataLenght  = subHextoInt(chaine,2,4,4);
     //printf("dataLenght  -> %X\n",dataLenght);
@@ -80,7 +81,10 @@ int checksum (unsigned char *chaine, unsigned char *chaineFinale) {
     //printf(" lenght %d\n", hex_to_ascii(chaine[2],chaine[3])* 255 +  hex_to_ascii(chaine[4],chaine[5]) );
     //printf( "hexToInt %d\n" , hexToInt(chaine,2));
     
-    unsigned char hex[3];
+    // A REMETTRE SI CA DECONNE
+    //unsigned char hex[3];
+
+    char hex[3];
     sprintf(hex, "%x", check);
     
     int i =0;

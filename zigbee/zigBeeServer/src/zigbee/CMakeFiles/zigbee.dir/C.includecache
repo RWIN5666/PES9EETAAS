@@ -25,6 +25,8 @@ stdint.h
 -
 poll.h
 -
+netinet/in.h
+-
 zigbee/zigbeeLib.h
 /home/erwin/Documents/PRE/PES9EETAAS/zigbee/zigBeeServer/src/zigbee/zigbee/zigbeeLib.h
 

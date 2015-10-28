@@ -10,7 +10,7 @@
 #include "serial0/serial0.h"
 struct termios oldattr;
 
-static int serial_init(const char *devname, speed_t baudrate)
+int serial_init(const char *devname, speed_t baudrate)
 {
 	int fd;
 	struct termios newattr;

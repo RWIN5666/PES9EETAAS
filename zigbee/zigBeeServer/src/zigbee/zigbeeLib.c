@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <poll.h>
+#include <netinet/in.h>
 #include "zigbee/zigbeeLib.h"
 
 
@@ -28,7 +29,7 @@ struct TrameXbee * computeTrame(uint16_t taille, char * trameData){
 	// printf("Valeur Checksum : %02x \n", trame->checkSum);
 
 	afficherTrame(trame);
-	printf("Trame générée !\n\n\n\n\n");
+	printf("Trame générée !\nn");
 	return trame;
 }
 
@@ -85,7 +86,7 @@ int sendTrame(int * xbeeToUse, struct TrameXbee * trameToSend){
 
 
 
-	printf("Envoi terminé !\n\n\n\n\n\n\n");
+	printf("Envoi terminé !\n\n");
 	return sentSize;
 }
 
@@ -96,11 +97,12 @@ void afficherTrame(struct TrameXbee * trameToPrint){
 		printf("Voici votre trame : \n");
 		fprintf(stderr,"%02x ", trameToPrint->header.firstByte);
 		fprintf(stderr,"%04x ", trameToPrint->header.taille);
+		fprintf(stderr,"%02x ", trameToPrint->header.frameID);
 		for(int i = 0; i<(trameToPrint->header.taille);i++){
 			fprintf(stderr,"%02x ", trameToPrint->trameData[i]);
 		}
 	
-		printf("\n\n\n\n");
+		printf("\n");
 	}
 }
 
@@ -112,39 +114,40 @@ struct TrameXbee * getTrame(int * usedXbee){
 	struct TrameXbee * trameRetour = NULL;
 	fds[0].fd = *usedXbee;
 	fds[0].events = POLLIN;
+	int retour = 0;
+	uint8_t bufferHeader[4];
+	
 
-	uint8_t bufferHeader[3];
-	
-	int retour = poll(fds,(nfds_t) 1, (int)10000);
-	
-	if(retour == -1){ 
+	do{
+
+		retour = poll(fds,(nfds_t) 1, (int)10000);
+	}while(retour == 0);
+
+	if(retour < 0){ 
 			perror("error");
 		return NULL;
 	}
 	
 
-	fprintf(stderr,"erreur\n");
 	if(fds[0].revents & POLLIN){
 	// on recupere lentete de la trame
 	
-	if (!read(fds[0].fd, bufferHeader, 3)) {
+	if (!read(fds[0].fd, bufferHeader, 4)) {
 		perror("error header");
 		return NULL;
 	}
 
 
 	uint8_t premier = bufferHeader[0];
-	uint16_t tailleData = (uint16_t)(((uint16_t)(bufferHeader[2] << 8)) | ((uint16_t)(bufferHeader[1])));
-
+	uint16_t tailleData = ntohs(((uint16_t)bufferHeader[2] << 8) | bufferHeader[1]);
+	uint8_t ID = bufferHeader[3];
 	fprintf(stderr," taille data %04x\n", tailleData);
 
 
 	trameRetour = malloc(sizeof(struct TrameXbee) + (tailleData +1)*sizeof(uint8_t));
 	trameRetour->header.firstByte = premier;
 	trameRetour->header.taille = tailleData;
-
-	printf("erreur\n");
-
+	trameRetour->header.frameID = ID;
 
 	int dataSize = (int) trameRetour->header.taille;
 
@@ -156,13 +159,25 @@ struct TrameXbee * getTrame(int * usedXbee){
 		return NULL;
 		}
 
+
+
+
 	printf("Test Affichage bufferData :\n");
-	for(int i = 0; i < dataSize ; i++){
+	for(int i = 0; i < dataSize + 1 ; i++){
 
 		fprintf(stderr,"%02x ",bufferData[i]);
 
 	}
 	printf("\nFini !\n");
+
+
+	printf("Copie dans la trame\n");
+
+	for(int i = 0; i < dataSize + 1; i++){
+
+		trameRetour->trameData[i] = bufferData[i];
+
+	}
 
 	// if (!read(fds[0].fd, bufferCheckSum, 1)) {
 	// 	perror("error frame");
