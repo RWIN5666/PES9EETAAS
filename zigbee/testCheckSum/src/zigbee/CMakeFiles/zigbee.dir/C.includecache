@@ -6,9 +6,27 @@
 
 #IncludeRegexTransform: 
 
-/home/erwin/Documents/S9/PRE/code/zigbee/testCheckSum/src/zigbee/checksum.c
+./include/zigbee/zigbeeLib.h
+
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/testCheckSum/src/zigbee/zigbeeLib.c
 stdio.h
+-
+stdlib.h
+-
+termios.h
+-
+fcntl.h
+-
+unistd.h
+-
+string.h
 -
 stdint.h
 -
+poll.h
+-
+netinet/in.h
+-
+zigbee/zigbeeLib.h
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/testCheckSum/src/zigbee/zigbee/zigbeeLib.h
 

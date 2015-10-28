@@ -45,18 +45,10 @@ int main(int argc, char**argv){
 	// Trame Test envoie donnée : 7E 00 11 10 01 00 00 00 00 00 00 FF FF FF FE 00 00 01 02 03 ED
 	struct TrameXbee * trameTest = computeTrame(0x0011, "\x10\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
 
+	uint8_t check = checksum2(trameTest);   
+	printf ("checksum : %02x\n", check );
 
-	uint8_t* chaine = (uint8_t*) argv[1];
-    int i = 0;    
-     while(chaine[i] != '\0'){        
-         i++;      
-     }
-    
-     uint8_t test[i+2+1];    
-     int  check = checksum(chaine,test);   
-     printf ("checksum : %x\n", check );
-     printf ("chaine : %s\n", test );
-     return 0;
+	return 0;
 
 }
 

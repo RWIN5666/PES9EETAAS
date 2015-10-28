@@ -7,10 +7,12 @@
 #IncludeRegexTransform: 
 
 ./include/zigbee/checksum.h
+zigbee/zigbeeLib.h
+./include/zigbee/zigbee/zigbeeLib.h
 
 ./include/zigbee/zigbeeLib.h
 
-/home/erwin/Documents/S9/PRE/code/zigbee/testCheckSum/main/main.c
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/testCheckSum/main/main.c
 stdio.h
 -
 stdlib.h
@@ -30,7 +32,7 @@ poll.h
 stdint.h
 -
 zigbee/zigbeeLib.h
-/home/erwin/Documents/S9/PRE/code/zigbee/testCheckSum/main/zigbee/zigbeeLib.h
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/testCheckSum/main/zigbee/zigbeeLib.h
 zigbee/checksum.h
-/home/erwin/Documents/S9/PRE/code/zigbee/testCheckSum/main/zigbee/checksum.h
+/home/erwin/Documents/PRE/PES9EETAAS/zigbee/testCheckSum/main/zigbee/checksum.h
 

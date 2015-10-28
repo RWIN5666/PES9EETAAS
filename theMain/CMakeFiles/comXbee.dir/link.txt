@@ -1,0 +1,1 @@
+/usr/bin/cc   -W -Wall -ansi -pedantic -std=c99 -Wfatal-errors -g    CMakeFiles/comXbee.dir/main/comXbee.c.o  -o comXbee -rdynamic src/serial0/libserial0.so src/zigbee/libzigbee.so -Wl,-rpath,/home/erwin/Documents/S9/PRE/code/zigbee/src/serial0:/home/erwin/Documents/S9/PRE/code/zigbee/src/zigbee 

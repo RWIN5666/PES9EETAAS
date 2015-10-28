@@ -1,10 +1,12 @@
 
 #include <stdio.h>
+#include <assert.h>
 #include <stdint.h>
+#include "zigbee/zigbeeLib.h"
 
+int i;
 
-
-int hex_to_int(uint8_t c){
+int hex_to_int(char c){
         int first = c / 16 - 3;
         int second = c % 16;
         int result = first*10 + second;
@@ -21,13 +23,12 @@ int hex_to_int(uint8_t c){
 }*/
 
 
-int subHextoInt(uint8_t * chaine, int start, int longueur, int octet)
+int subHextoInt(unsigned char * chaine, int start, int longueur, int octet)
 {
     int resultat = 0;
     int temp = 0;
     int mult =1;
-
-   int i =0;
+    i =0;
 
     for(int j = 0;j<= (longueur/octet -1);j++){
         
@@ -53,56 +54,33 @@ int subHextoInt(uint8_t * chaine, int start, int longueur, int octet)
 
 
 
-
-
-
-int checksum (uint8_t *chaine, uint8_t *chaineFinale) {
+uint8_t checksum2 (struct TrameXbee * trame,unsigned char *chaine, unsigned char *chaineFinale) {
     
       
+    uint32_t soustracteur = 0;
+    int i;
+    uint8_t bitDeStart  = trame->header.firstByte;
+    assert(bitDeStart);
+    fprintf(stderr,"bitDeStart  -> %02x\n",bitDeStart);
+    uint16_t dataLength  = trame->header.taille;
+    fprintf(stderr,"dataLenght  -> %04x\n",dataLength);
+    uint8_t ID  = trame->header.frameID;
+    fprintf("Frame ID  -> %02x\n",ID);
     
-    unsigned int bitDeStart  = subHextoInt(chaine,0,2,2);
-    //printf("bitDeStart  -> %X\n",bitDeStart);
-    unsigned int dataLenght  = subHextoInt(chaine,2,4,4);
-    //printf("dataLenght  -> %X\n",dataLenght);
-    unsigned int aT  = subHextoInt(chaine,6,2,2);
-    //printf("aT  -> %X\n",aT);
-    unsigned int requestCode  = subHextoInt(chaine,8,2,2);
-    //printf("requestCode  -> %X\n",requestCode);
-    unsigned int data  = subHextoInt(chaine,10,dataLenght,2);
-    //printf("data  -> %d\n",data);
-    unsigned int check = aT + requestCode +data;
-    
-    
-    check = check <<( sizeof(unsigned int)*8 - 8) >> ( sizeof(unsigned int)*8 - 8)  ; // on garde les 8 derniers bits
-                
-    check = 255- check;//on soustrait 0xFF
-    //printf("checksum  -> %X\n", check);
- 
-    //printf(" lenght %d\n", hex_to_ascii(chaine[2],chaine[3])* 255 +  hex_to_ascii(chaine[4],chaine[5]) );
-    //printf( "hexToInt %d\n" , hexToInt(chaine,2));
-    
-    uint8_t hex[3];
-    sprintf(hex, "%x", check);
-    
-    int i =0;
-    
-    while(chaine[i] != '\0'){
-        
-        chaineFinale[i] = chaine[i];
-        i++;
-        
+    soustracteur += ID;
+    for(i = 0; i < dataLength ; i++){
+        soustracteur += trame->trameData[i];
     }
-    
 
-    chaineFinale[i] = hex[0];
-    chaineFinale[i+1] = hex[1];
-    chaineFinale[i+2] = '\0';
+    uint8_t check = 0xFF - (uint8_t)(soustracteur & 0xFF);
+
+    fprintf(stderr,"Le checksum : %02x\n",check);
+
+
 
     return check;
       
 }
-
-
 
 // EXEMPLE UTILISATION CHECKSUM
 // int main(int argc, char* argv[])

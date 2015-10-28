@@ -5,13 +5,13 @@ struct __attribute__((packed)) HeaderXbee
 {
 	uint8_t firstByte;
 	uint16_t taille;
+	uint8_t frameID;
 };
 
 struct __attribute__((packed)) TrameXbee
 {
 	struct HeaderXbee header;
-	uint8_t * trameData;
-	uint8_t checkSum;
+	uint8_t trameData[];
 };
 
 

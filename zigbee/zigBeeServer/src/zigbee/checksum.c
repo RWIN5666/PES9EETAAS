@@ -50,11 +50,6 @@ int subHextoInt(unsigned char * chaine, int start, int longueur, int octet)
 }
 
 
-
-
-
-
-
 int checksum (unsigned char *chaine, unsigned char *chaineFinale) {
     
       
