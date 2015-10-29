@@ -14,22 +14,6 @@ struct __attribute__((packed)) TrameXbee
 	uint8_t trameData[];
 };
 
-struct __attribute__((packed)) moduleFPGA 
-{
-	uint8_t myFPGA[2];
-	uint8_t destFPGA[8];
-	uint8_t numberCaptors;
-	struct donneeCaptor* listeCapteur; 
-};
-
-struct __attribute__((packed)) donneeCaptor 
-{
-	uint8_t idCaptor;
-	uint8_t dataSize;
-	uint8_t unitData;
-	uint8_t* minData;
-	uint8_t* maxData;
-};
 
 // TYPES DE TRAMES NECESSAIRES
 #define ID_AT (0x08)
@@ -56,11 +40,5 @@ struct TrameXbee * computeTrame(uint16_t taille,uint8_t idFrame, char * trameDat
 int sendTrame(int * xbeeToUse, struct TrameXbee * trameToSend);
 void afficherTrame(struct TrameXbee * trameToPrint);
 struct TrameXbee * getTrame(int * usedXbee);
-
-
-
-
-
-
 
 #endif

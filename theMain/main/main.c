@@ -20,8 +20,10 @@ WEB PAR WEBSOCKET
 // include persos
 #include "zigbee/zigbeeLib.h"
 #include "zigbee/checksum.h"
+#include "zigbee/fpgalib.h"
 #include "serial0/serial0.h"
 #include "dessinterminal/drawterminal.h"
+
 
 
 
@@ -35,16 +37,17 @@ void *thread_XBee(void *arg);
 
 // TABLE DE MODULES FPGA
 // On se dit qu'on en aura que 10 au maximum pour le moment...
+int tailleTableau;
 struct moduleFPGA tableauFPGA[10];
-
-
-
-
-
 
 
 // MAIN
 int main(void){
+
+
+	// INITIALISATION VALEURS
+	tailleTableau = 0;
+
 
 	//POUR AFFICHER UN TRUC SYMPA AU LANCEMENT DU PROGRAMME
 	char *filename = "main/image2.txt";
@@ -107,34 +110,42 @@ void *thread_XBee(void *arg)
     (void) arg;
 
     // POUR TESTER LA CREATION D'UNE TRAME
-    printf("Test calcul checksum :\n");
-    struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
-
-	// printf("Nous allons attendre une trame!\nAllez, c'est parti !\n");
-	// /*Initialisation UART XBEE */
-	// int xbee1 = serial_init("/dev/ttyUSB1",9600);
-	// int * xbee1Pointer = &xbee1;
-	// // Fonction pour creer une trame : computeTrame(uint16_t taille, uint8_t type, uint8_t * trameData)
-	// // On envoie cette trame pour le test : 7E 00 04 08 01 4D 59 50
-	// // TODO : calculer la taille de la chaine envoyee
-	// // struct TrameXbee * trameTest = computeTrame(0x0004, "\x08\x01\x4D\x59");
-	// // on va envoyer la trame créée avec sendTrame(int xbeeToUse, struct TrameXbee * trameToSend){
-	// // sendTrame(xbee1Pointer, trameTest);
-	// // ON VEUT RECUPERER LA TRAME RETOUR
-	// printf("test\n");
-	// struct TrameXbee * trameRetour = getTrame(xbee1Pointer);
-	// // j'essaie d'afficher la trame trouvee
-	afficherTrame(trameTest);
-	// assert(trameRetour);
-	// // FIN DU PROGRAMME
-	// close(xbee1);
+    // printf("Test calcul checksum :\n");
+    // Pour creer une trame on utilise la fonction computeTrame codee dans zigbeeLib.c
+    // struct TrameXbee * computeTrame(uint16_t taille,uint8_t idFrame, char * trameData);
+    // L'exemple suivant envoie une trame TX avec 010203 en donnée en broadcast
+    //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
 
 
+
+	//Initialisation UART XBEE
+	int xbeeCNE = serial_init("/dev/ttyUSB0",9600);
+	int * xbeeCNEPointer = &xbeeCNE;
+
+
+	printf("Nous allons attendre une trame!\nAllez, c'est parti !\n");
 	printf("Veuillez connecter un FPGA...\n");
+	// ON S'ATTEND A RECUPERER UNE TRAME LORS DE LA CONNEXION
+	struct TrameXbee * trameRetour = getTrame(xbeeCNEPointer);
+	afficherTrame(trameRetour);
+	// // FIN DU PROGRAMME
+	uint8_t idRetour = trameRetour->header.frameID;
+
+	switch(idRetour){
+
+
+
+
+		default:
+			break;
+
+
+	}
+
 
 	
   
 
-
+	close(xbeeCNE);
     pthread_exit(NULL);
 }
