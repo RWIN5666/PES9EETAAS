@@ -40,55 +40,137 @@ int computeData(uint8_t* s, uint8_t taille){
 }
 
 
-
-
-
-
-
 struct donneeCaptor * computeCaptor(uint8_t id, uint8_t size, uint8_t unit, uint8_t* min, uint8_t* max){
 
-	struct donneeCaptor * captor = malloc(sizeof(struct donneeCaptor) + sizeof(uint8_t)*(dataSize) + sizeof(uint8_t)*(dataSize));
+	struct donneeCaptor * captor = malloc(sizeof(struct donneeCaptor) + sizeof(uint8_t)*(size) + sizeof(uint8_t)*(size) + sizeof(struct donneeCaptor *));
 	captor->idCaptor = id;
 	captor->dataSize = size;
 	captor->unitData = unit;
 	uint8_t minCopy[size];
 	uint8_t maxCopy[size];
 	for(int i = 0; i < size ; i++){
-		minCopy[i] = min;
-		maxCopy[i] = max;
+		minCopy[i] = min[i];
+		maxCopy[i] = max[i];
 	}
 
 	rev(minCopy,size);
 	rev(maxCopy,size);
 
+	for(int j = 0; j < size ; j++){
+		captor->minData[j] = minCopy[j];
+		captor->maxData[j] = maxCopy[j];
+	}
 
-	captor->minData = minCopy;
-	captor->maxData = maxCopy;
+
 	return captor;
 
 }
 
 
-struct moduleFPGA * computeModule(uint8_t * my, uint8_t * dest, uint8_t number, struct donneeCaptor * liste){
+captorsList * initCaptorsList(){
 
-	struct moduleFPGA * fpga = malloc(sizeof(struct moduleFPGA) + sizeof(donneeCaptor)*(number));
-	captor->idCaptor = id;
-	captor->dataSize = size;
-	captor->unitData = unit;
-	uint8_t minCopy[size];
-	uint8_t maxCopy[size];
-	for(int i = 0; i < size ; i++){
-		minCopy[i] = min;
-		maxCopy[i] = max;
+    captorsList *liste = malloc(sizeof(*liste));
+    struct donneeCaptor *captor = malloc(sizeof(*captor));
+    if (liste == NULL || captor == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+    captor->suivant = NULL;
+    liste->premier = captor;
+    return liste;
+
+}
+
+
+void addCaptor(captorsList *liste, uint8_t id, uint8_t size, uint8_t unit, uint8_t* min, uint8_t* max)
+{
+    /* Création du nouvel élément */
+    struct donneeCaptor* nouveau = computeCaptor( id, size,  unit, min,  max);
+    if (liste == NULL || nouveau == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+    /* Insertion de l'élément au début de la liste */
+    nouveau->suivant = liste->premier;
+    liste->premier = nouveau;
+
+}
+
+void deleteCaptor(captorsList *liste)
+{
+    if (liste == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+
+    if (liste->premier != NULL)
+    {
+        struct donneeCaptor *aSupprimer = liste->premier;
+        liste->premier = liste->premier->suivant;
+        free(aSupprimer);
+    }
+}
+
+
+
+
+struct moduleFPGA * computeModule(uint8_t * my, uint8_t * dest, uint8_t number, captorsList * liste){
+
+	struct moduleFPGA * fpga = malloc(sizeof(struct moduleFPGA) + sizeof(struct donneeCaptor)*(number));
+	for(int i = 0; i<2 ; i++){
+		fpga->myFPGA[i] = my[i];
+	}
+	for(int j = 0; j<8 ; j++){
+		fpga->destFPGA[j] = dest[j];
 	}
 
-	rev(minCopy,size);
-	rev(maxCopy,size);
+	fpga->listeCapteurs = liste;
+	return fpga;
+
+}
 
 
-	captor->minData = minCopy;
-	captor->maxData = maxCopy;
-	return captor;
+fpgaList * initFpgaList(){
+
+    fpgaList *liste = malloc(sizeof(*liste));
+    struct moduleFPGA *fpga = malloc(sizeof(*fpga));
+    if (liste == NULL || fpga == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+    fpga->suivant = NULL;
+    liste->premier = fpga;
+    return liste;
+
+}
 
 
+void addFpga(fpgaList *liste, uint8_t * my, uint8_t * dest, uint8_t number, captorsList * listeCapteurs)
+{
+    /* Création du nouvel élément */
+    struct moduleFPGA* nouveau = computeModule(my, dest, number, listeCapteurs);
+    if (liste == NULL || nouveau == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+    /* Insertion de l'élément au début de la liste */
+    nouveau->suivant = liste->premier;
+    liste->premier = nouveau;
+
+}
+
+
+void deleteFpga(fpgaList *liste)
+{
+    if (liste == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+
+    if (liste->premier != NULL)
+    {
+        struct moduleFPGA *aSupprimer = liste->premier;
+        liste->premier = liste->premier->suivant;
+        free(aSupprimer);
+    }
 }

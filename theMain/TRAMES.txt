@@ -36,11 +36,6 @@ de RNE2 à tout le monde
 
 
 
-
-
-
-
-
 De RNE1 vers RNE1 
 Trame 0x08
 envoi : 7E 00 04 08 01 4D 59 50 (ATID)
@@ -64,3 +59,14 @@ retour : 7E 00 09 88 01 53 4C 00 40 89 EC 32 F0
 
 envoi : 7E 00 04 08 01 4E 49 5F (ATNI)
 retour : 7E 00 09 88 01 53 4C 00 40 89 EC 32 F
+
+
+
+
+
+DE RNE2 à CNE
+7E 00 27 95 00 13 A2 00 - 40 89 EC 00 B4 BA 02 B4    ~.'.....  @.......
+BA 00 13 A2 00 40 89 EC - 00 52 4E 45 32 00 FF FE    .....@..  .RNE2...
+01 03 C1 05 10 1E 00 02 - 00 00 AA
+
+

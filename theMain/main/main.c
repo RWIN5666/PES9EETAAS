@@ -33,8 +33,6 @@ void *thread_XBee(void *arg);
 
 
 
-
-
 // TABLE DE MODULES FPGA
 // On se dit qu'on en aura que 10 au maximum pour le moment...
 int tailleTableau;
@@ -131,18 +129,15 @@ void *thread_XBee(void *arg)
 	// // FIN DU PROGRAMME
 	uint8_t idRetour = trameRetour->header.frameID;
 
+
 	switch(idRetour){
+	    case ID_NI  :
+	    	// ARRIVEE D'UN NOUVEAU FPGA DANS LE RESEAU, ON VA METTRE A JOUR LA TABLE
 
-
-
-
-		default:
-			break;
-
-
+	       	break;
+	    default :  
+	       break;
 	}
-
-
 	
   
 

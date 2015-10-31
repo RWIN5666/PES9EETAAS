@@ -1,4 +1,4 @@
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/CMakeFiles/42main.dir
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/CMakeFiles/dessinterminal.dir
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/serial0/CMakeFiles/serial0.dir
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/CMakeFiles/zigbee.dir
+/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/CMakeFiles/42main.dir
+/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/src/serial0/CMakeFiles/serial0.dir
+/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/src/zigbee/CMakeFiles/zigbee.dir
+/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/src/dessinterminal/CMakeFiles/dessinterminal.dir
