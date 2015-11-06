@@ -13,6 +13,8 @@ zigbee/zigbeeLib.h
 ./include/zigbee/zigbee/zigbeeLib.h
 
 ./include/zigbee/fpgalib.h
+zigbee/zigbeeLib.h
+./include/zigbee/zigbee/zigbeeLib.h
 
 ./include/zigbee/zigbeeLib.h
 

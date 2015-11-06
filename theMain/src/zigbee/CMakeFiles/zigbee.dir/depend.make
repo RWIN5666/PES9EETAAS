@@ -5,6 +5,7 @@ src/zigbee/CMakeFiles/zigbee.dir/checksum.c.o: ./include/zigbee/zigbeeLib.h
 src/zigbee/CMakeFiles/zigbee.dir/checksum.c.o: src/zigbee/checksum.c
 
 src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.o: ./include/zigbee/fpgalib.h
+src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.o: ./include/zigbee/zigbeeLib.h
 src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.o: src/zigbee/fpgalib.c
 
 src/zigbee/CMakeFiles/zigbee.dir/zigbeeLib.c.o: ./include/zigbee/checksum.h

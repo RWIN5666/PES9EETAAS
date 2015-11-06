@@ -114,17 +114,15 @@ void deleteCaptor(captorsList *liste)
 
 
 
-struct moduleFPGA * computeModule(uint8_t * my, uint8_t * dest, uint8_t number, captorsList * liste){
+struct moduleFPGA * computeModule(uint8_t * my, uint8_t * dest){
 
-	struct moduleFPGA * fpga = malloc(sizeof(struct moduleFPGA) + sizeof(struct donneeCaptor)*(number));
+	struct moduleFPGA * fpga = malloc(sizeof(struct moduleFPGA));
 	for(int i = 0; i<2 ; i++){
 		fpga->myFPGA[i] = my[i];
 	}
 	for(int j = 0; j<8 ; j++){
 		fpga->destFPGA[j] = dest[j];
 	}
-
-	fpga->listeCapteurs = liste;
 	return fpga;
 
 }
@@ -145,17 +143,16 @@ fpgaList * initFpgaList(){
 }
 
 
-void addFpga(fpgaList *liste, uint8_t * my, uint8_t * dest, uint8_t number, captorsList * listeCapteurs)
+void addFpga(fpgaList *liste, struct moduleFPGA * fpga)
 {
     /* Création du nouvel élément */
-    struct moduleFPGA* nouveau = computeModule(my, dest, number, listeCapteurs);
-    if (liste == NULL || nouveau == NULL)
+    if (liste == NULL || fpga == NULL)
     {
         exit(EXIT_FAILURE);
     }
     /* Insertion de l'élément au début de la liste */
-    nouveau->suivant = liste->premier;
-    liste->premier = nouveau;
+    fpga->suivant = liste->premier;
+    liste->premier = fpga;
 
 }
 
@@ -173,4 +170,23 @@ void deleteFpga(fpgaList *liste)
         liste->premier = liste->premier->suivant;
         free(aSupprimer);
     }
+}
+
+
+void addCaptorsListToFpga(struct moduleFPGA * fpga, int number, captorsList * listeCapteurs)
+{
+    fpga->numberCaptors = number;
+    fpga->listeCapteurs = listeCapteurs;
+}
+
+void copyMyandDest(uint8_t * myFPGA, uint8_t * destFPGA, struct TrameXbee * trame)
+{
+	for(int i = 0; i < 8 ; i++){
+    		destFPGA[i] = trame->trameData[i];
+    }
+
+	for(int j = 0; j < 2  ; j++){
+    		myFPGA[j] = trame->trameData[8+j];
+    }
+
 }

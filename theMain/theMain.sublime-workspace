@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"trame",
+				"trameData"
+			],
+			[
 				"max",
 				"maxCopy"
 			],
@@ -28,10 +32,6 @@
 				"bitDeStart"
 			],
 			[
-				"trame",
-				"trameRetour"
-			],
-			[
 				"frame",
 				"frameID"
 			],
@@ -48,10 +48,18 @@
 	"buffers":
 	[
 		{
+			"file": "terminal.glue",
+			"settings":
+			{
+				"buffer_size": 2,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "main/main.c",
 			"settings":
 			{
-				"buffer_size": 3391,
+				"buffer_size": 5705,
 				"line_ending": "Unix"
 			}
 		},
@@ -59,15 +67,7 @@
 			"file": "include/zigbee/fpgalib.h",
 			"settings":
 			{
-				"buffer_size": 650,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/zigbee/fpgalib.c",
-			"settings":
-			{
-				"buffer_size": 1916,
+				"buffer_size": 1359,
 				"line_ending": "Unix"
 			}
 		},
@@ -75,7 +75,7 @@
 			"file": "src/zigbee/zigbeeLib.c",
 			"settings":
 			{
-				"buffer_size": 4471,
+				"buffer_size": 5264,
 				"line_ending": "Unix"
 			}
 		},
@@ -120,18 +120,15 @@
 	},
 	"expanded_folders":
 	[
-		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain",
-		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/include",
-		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/include/dessinterminal",
-		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/include/serial0",
-		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/include/zigbee",
-		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/main",
-		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/src",
-		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/src/dessinterminal",
-		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/src/zigbee"
+		"/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/include",
+		"/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/include/dessinterminal",
+		"/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/main",
+		"/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/src"
 	],
 	"file_history":
 	[
+		"/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/src/zigbee/fpgalib.c",
+		"/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/terminal.glue",
 		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/include/zigbee/checksum.h",
 		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/src/dessinterminal/drawterminal.c",
 		"/home/erwin/Bureau/Lien vers PES9EETAAS/theMain/src/zigbee/checksum.c",
@@ -182,19 +179,47 @@
 			[
 				{
 					"buffer": 0,
-					"file": "main/main.c",
+					"file": "terminal.glue",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3391,
+						"buffer_size": 2,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3335,
-								3335
+								2,
+								2
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "main/main.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5705,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								900,
+								900
 							]
 						],
 						"settings":
@@ -203,64 +228,36 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1850.0,
+						"translation.y": 1852.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "include/zigbee/fpgalib.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 650,
+						"buffer_size": 1359,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								638,
-								638
+								1128,
+								1128
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/zigbee/fpgalib.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1916,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1585,
-								1585
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 76.0,
-						"translation.y": 919.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -272,15 +269,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4471,
+						"buffer_size": 5264,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								435,
-								435
+								4043,
+								4043
 							]
 						],
 						"settings":
@@ -289,10 +286,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2145.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -308,8 +305,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								335,
+								335
 							]
 						],
 						"settings":
@@ -321,7 +318,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -333,7 +330,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 35.0
 	},
 	"layout":
 	{

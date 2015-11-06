@@ -16,6 +16,7 @@ WEB PAR WEBSOCKET
 #include <poll.h>
 #include <assert.h>
 #include <pthread.h>
+#include <unistd.h>
 
 // include persos
 #include "zigbee/zigbeeLib.h"
@@ -25,7 +26,14 @@ WEB PAR WEBSOCKET
 #include "dessinterminal/drawterminal.h"
 
 
-
+typedef struct
+{
+   int requestFromServer;
+   uint8_t requestCode;
+   uint8_t destRequest[8];
+   pthread_mutex_t mutex_server;
+}
+requestStruct;
 
 // prototypes Threads & fonctions persos
 void *thread_WebServer(void *arg);
@@ -36,7 +44,10 @@ void *thread_XBee(void *arg);
 // TABLE DE MODULES FPGA
 // On se dit qu'on en aura que 10 au maximum pour le moment...
 int tailleTableau;
-struct moduleFPGA tableauFPGA[10];
+fpgaList * listeFPGA = NULL;
+int premierPassage = 0;
+int finish = 0;
+requestStruct requestTester;
 
 
 // MAIN
@@ -45,6 +56,11 @@ int main(void){
 
 	// INITIALISATION VALEURS
 	tailleTableau = 0;
+	listeFPGA = initFpgaList();
+
+	requestTester.requestFromServer = 0;
+	requestTester.requestCode = 0x00;
+	pthread_mutex_init(&requestTester.mutex_server, NULL); /* Création du mutex */
 
 
 	//POUR AFFICHER UN TRUC SYMPA AU LANCEMENT DU PROGRAMME
@@ -60,8 +76,6 @@ int main(void){
 	fprintf(stderr,"\n");
 	printf("Lancement du programme 42main\n");
 	
-
-
 
 	// CREATIONS DES DEUX THREADS PRINCIPAUX
 	// ET LEUR LANCEMENT
@@ -98,6 +112,13 @@ void *thread_WebServer(void *arg)
 
     /* Pour enlever le warning */
     (void) arg;
+
+    pthread_mutex_lock(&requestTester.mutex_server);
+    for(int i = 0; i < 1000 ; i++){
+    	i++;
+    }
+    pthread_mutex_unlock(&requestTester.mutex_server);
+
     pthread_exit(NULL);
 }
 
@@ -114,32 +135,92 @@ void *thread_XBee(void *arg)
     // L'exemple suivant envoie une trame TX avec 010203 en donnée en broadcast
     //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
 
-
-
 	//Initialisation UART XBEE
 	int xbeeCNE = serial_init("/dev/ttyUSB0",9600);
 	int * xbeeCNEPointer = &xbeeCNE;
 
+	while(!finish){
+ 		pthread_mutex_lock(&requestTester.mutex_server);
+		if(requestTester.requestFromServer){
+			printf("On a reçu une requete du serveur");
+			uint8_t code = requestTester.requestCode;
+			uint8_t * dest = requestTester.destRequest;
+			struct TrameXbee * atToSend = computeATTrame(0x0F, dest,&code);
+			sendTrame(xbeeCNEPointer, atToSend);
+			}
+		
+		pthread_mutex_unlock(&requestTester.mutex_server);
 
-	printf("Nous allons attendre une trame!\nAllez, c'est parti !\n");
-	printf("Veuillez connecter un FPGA...\n");
-	// ON S'ATTEND A RECUPERER UNE TRAME LORS DE LA CONNEXION
-	struct TrameXbee * trameRetour = getTrame(xbeeCNEPointer);
-	afficherTrame(trameRetour);
-	// // FIN DU PROGRAMME
-	uint8_t idRetour = trameRetour->header.frameID;
+
+		// ROUTINE CLASSIQUE D'ATTENTE DE TRAME RETOUR
+		printf("Nous allons attendre une trame!\nAllez, c'est parti !\n");
+		printf("Veuillez connecter un FPGA...\n");
+		// ON S'ATTEND A RECUPERER UNE TRAME LORS DE LA CONNEXION
+		struct TrameXbee * trameRetour = getTrame(xbeeCNEPointer);
+
+		if(trameRetour){
+			afficherTrame(trameRetour);
+			// // FIN DU PROGRAMME
+			uint8_t idRetour = trameRetour->header.frameID;
+			uint8_t destFPGA[8];
+			uint8_t myFPGA[2];
+			switch(idRetour){
+			    case ID_NI :{
+			    // ARRIVEE D'UN NOUVEAU FPGA DANS LE RESEAU, ON VA METTRE A JOUR LA TABLE
+			    	printf("J'ai recu une trame\n");
+					copyMyandDest(myFPGA, destFPGA, trameRetour);
+				    struct moduleFPGA * nouveau = computeModule(myFPGA,destFPGA);
+				    addFpga(listeFPGA,nouveau);
+				    sleep(10);
+				    //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
+				    struct TrameXbee * trameTest = computeTrame(0x000F,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x3F");
+					//on va envoyer la trame créée avec sendTrame(int xbeeToUse, struct TrameXbee * trameToSend)
+					sendTrame(xbeeCNEPointer, trameTest);
+
+					sleep(10);
+					
+					trameRetour = getTrame(xbeeCNEPointer);
+			       	if(trameRetour->trameData[12] == 0x3F){
+			       		captorsList * capList = initCaptorsList();
+			       		uint8_t numberCaptors = trameRetour->trameData[13];
+			       		uint8_t tempSize = 0x00;
+			       		// BOUCLE POUR CHAQUE CAPTEUR
+			       		for(int i = 0; i < (int)numberCaptors; i++){
+			       		uint8_t id = trameRetour->trameData[14+i*(2*tempSize+3)];
+			       		uint8_t dataSize = trameRetour->trameData[15+i*(2*tempSize+3)];
+			       		tempSize = dataSize;
+			       		uint8_t unit = trameRetour->trameData[16+i*(2*tempSize+3)];
+			       		uint8_t * minValue = trameRetour->trameData + (17+i*(2*tempSize+3));
+			       		uint8_t * maxValue = trameRetour->trameData + (17+dataSize+i*(2*tempSize+3));
+			       		addCaptor(capList, id, dataSize, unit, minValue, maxValue);
+			       	}
+			       		addCaptorsListToFpga(nouveau, numberCaptors, capList);
+			       	}
+			       	break;
+			       }
+
+			    case ID_TX_STATUS :{
+			    	if (trameRetour->trameData[4] == 0x00){
+			    		printf("La trame a bien ete tranmise");
+			    	} 			    	
+			    	break;
+			    }
+
+			    case ID_RX :{
 
 
-	switch(idRetour){
-	    case ID_NI  :
-	    	// ARRIVEE D'UN NOUVEAU FPGA DANS LE RESEAU, ON VA METTRE A JOUR LA TABLE
 
-	       	break;
-	    default :  
-	       break;
+			    	break;
+			    }
+			    default :  
+			       break;
+			}
+
+		}
+		else printf("Pas de trame reçu on recommence !\n");
 	}
-	
-  
+
+
 
 	close(xbeeCNE);
     pthread_exit(NULL);

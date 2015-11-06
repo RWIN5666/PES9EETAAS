@@ -31,6 +31,44 @@ struct TrameXbee * computeTrame(uint16_t taille, uint8_t idFrame, char * trameDa
 	return trame;
 }
 
+struct TrameXbee * computeATTrame(uint16_t taille, uint8_t * dest, uint8_t * data){
+	struct TrameXbee * trame = malloc(sizeof(struct TrameXbee) + sizeof(uint8_t)*(taille+1));
+	trame->header.firstByte = 0x7E;
+	trame->header.taille = taille;
+	trame->header.frameID = 0x10;
+	trame->trameData[0] = 0x01;
+	uint8_t my[2];
+	my[0] = 0xFF;
+	my[1] = 0xFE;
+	int i = 0;
+	int j = 0;
+	int writeSize = (int)taille;
+	for(; i < 8 ; i++){
+		trame->trameData[1+i] = dest[i];
+	}
+	for( ; j < 2 ; j++){
+		trame->trameData[1+i+j] = my[j];
+	}
+
+	trame->trameData[1+i+j+1] = 0x00;
+	trame->trameData[1+i+j+1+1] = 0x00;
+	trame->trameData[1+i+j+1+1+1] = 0x2A;
+	printf("Taille convertie : %d\n", writeSize);
+	int k;
+	for(k = 0;k<writeSize-1-i-j-1-1;k++){
+		trame->trameData[1+i+j+k] = (uint8_t)data[k];	
+	}
+	uint8_t check = checksum(trame);   
+	trame->trameData[i] = check;
+	afficherTrame(trame);
+	printf("Trame générée !\n\n");
+	return trame;
+}
+
+
+
+
+
 
 int sendTrame(int * xbeeToUse, struct TrameXbee * trameToSend){
 
@@ -65,7 +103,9 @@ int sendTrame(int * xbeeToUse, struct TrameXbee * trameToSend){
 	// 	}
 	// sentSize += tailleTemp;
 
-	
+	if((tailleTemp = write(*xbeeToUse,&(trameToSend->header.frameID),1)) == -1){
+		perror("error");
+	}
 
 	if((tailleTemp = write(*xbeeToUse,trameToSend->trameData, (trameToSend->header.taille+1)) == -1)){
 		perror("error");

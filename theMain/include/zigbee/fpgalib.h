@@ -1,7 +1,7 @@
 #ifndef FPGALIB_H
 #define FPGALIB_H
 
-
+#include "zigbee/zigbeeLib.h"
 
 struct __attribute__((packed)) donneeCaptor 
 {
@@ -37,17 +37,25 @@ struct __attribute__((packed)) fpgaList
 };
 
 
+// TYPE DE CAPTEUR
+#define ID_TEMPERATURE (0xCC)
+#define ID_LIGHT (0xDD)
+#define ID_GYRO (0xEE)
+#define ID_ANALOG (0xBB)
+
+
+
+
 void swap(uint8_t* s, int i, int j);
 void rev(uint8_t* s, uint8_t taille);
 struct donneeCaptor * computeCaptor(uint8_t id, uint8_t size, uint8_t unit, uint8_t* min, uint8_t* max);
 captorsList * initCaptorsList();
 void addCaptor(captorsList *liste, uint8_t id, uint8_t size, uint8_t unit, uint8_t* min, uint8_t* max);
-struct moduleFPGA * computeModule(uint8_t * my, uint8_t * dest, uint8_t number, captorsList * liste);
+struct moduleFPGA * computeModule(uint8_t * my, uint8_t * dest);
 fpgaList * initFpgaList();
-void addFpga(fpgaList *liste, uint8_t * my, uint8_t * dest, uint8_t number, captorsList * listeCapteurs);
+void addFpga(fpgaList *liste, struct moduleFPGA * fpga);
+void addCaptorsListToFpga(struct moduleFPGA * fpga, int number, captorsList * listeCapteurs);
 int computeData(uint8_t* s, uint8_t taille);
-
-
-
+void copyMyandDest(uint8_t * myFPGA, uint8_t * destFPGA, struct TrameXbee * trame);
 
 #endif

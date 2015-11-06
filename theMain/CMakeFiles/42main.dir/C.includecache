@@ -27,6 +27,8 @@ zigbee/zigbeeLib.h
 ./include/zigbee/zigbee/zigbeeLib.h
 
 ./include/zigbee/fpgalib.h
+zigbee/zigbeeLib.h
+./include/zigbee/zigbee/zigbeeLib.h
 
 ./include/zigbee/zigbeeLib.h
 
@@ -50,6 +52,8 @@ poll.h
 assert.h
 -
 pthread.h
+-
+unistd.h
 -
 zigbee/zigbeeLib.h
 /home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/main/zigbee/zigbeeLib.h

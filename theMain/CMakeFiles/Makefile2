@@ -56,8 +56,8 @@ CMAKE_BINARY_DIR = /home/erwin/Documents/S9/PRE/PES9EETAAS/theMain
 # Target rules for target CMakeFiles/42main.dir
 
 # All Build rule for target.
-CMakeFiles/42main.dir/all: src/dessinterminal/CMakeFiles/dessinterminal.dir/all
 CMakeFiles/42main.dir/all: src/serial0/CMakeFiles/serial0.dir/all
+CMakeFiles/42main.dir/all: src/dessinterminal/CMakeFiles/dessinterminal.dir/all
 CMakeFiles/42main.dir/all: src/zigbee/CMakeFiles/zigbee.dir/all
 	$(MAKE) -f CMakeFiles/42main.dir/build.make CMakeFiles/42main.dir/depend
 	$(MAKE) -f CMakeFiles/42main.dir/build.make CMakeFiles/42main.dir/build
