@@ -52,11 +52,9 @@ requestStruct requestTester;
 // MAIN
 int main(void){
 
-
 	// INITIALISATION VALEURS
 	tailleTableau = 0;
 	listeFPGA = initFpgaList();
-
 	requestTester.requestFromServer = 0;
 	requestTester.requestCode = 0x00;
 	pthread_mutex_init(&requestTester.mutex_server, NULL); /* Création du mutex */
@@ -73,13 +71,12 @@ int main(void){
 	print_image(fptr);
 	fclose(fptr);
 	fprintf(stderr,"\n");
+
+
 	printf("Lancement du programme 42main\n");
-	
 	int xbeeRNE = serial_init("/dev/ttyUSB1",9600);
 	int * xbeeRNEPointer = &xbeeRNE;
-
 	struct TrameXbee * trameRetour = getTrame(xbeeRNEPointer);
-
 
 	if(trameRetour){
 			afficherTrame(trameRetour);
@@ -98,11 +95,9 @@ int main(void){
 				    //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
 				    struct TrameXbee * trameTest = computeTrame(0x000F,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x3F");
 					//on va envoyer la trame créée avec sendTrame(int xbeeToUse, struct TrameXbee * trameToSend)
-					sendTrame(xbeeCNEPointer, trameTest);
-
+					sendTrame(xbeeRNEPointer, trameTest);
 					sleep(10);
-					
-					trameRetour = getTrame(xbeeCNEPointer);
+					trameRetour = getTrame(xbeeRNEPointer);
 			       	if(trameRetour->trameData[12] == 0x3F){
 			       		captorsList * capList = initCaptorsList();
 			       		uint8_t numberCaptors = trameRetour->trameData[13];
@@ -130,28 +125,21 @@ int main(void){
 			    }
 
 			    case ID_RX :{
-
-
-
 			    	break;
 			    }
+
 			    default :  
 			       break;
 			}
-
 		}
-		else printf("Pas de trame reçu on recommence !\n");
-	}
+		else {
+			printf("Pas de trame reçu on recommence !\n");
+		}
 
-
-
+		
     printf("Fin Du Programme. Merci d'avoir participe au test!\n");
-
-
-
     close(xbeeRNE);
-	return EXIT_SUCCESS;
-
+	
 }
 
 
