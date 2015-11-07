@@ -47,7 +47,8 @@ int tailleTableau;
 fpgaList * listeFPGA = NULL;
 int premierPassage = 0;
 int finish = 0;
-requestStruct requestTester;
+requestStruct requestTester; 	// POUR TESTER LES REQUETES RECUES PAR LE SERVEUR
+								// LE THREAD SERVER METTRA A JOUR CES VALEURS POUR LA PARTIE ZIGBEE
 
 
 // MAIN
@@ -57,9 +58,10 @@ int main(void){
 	// INITIALISATION VALEURS
 	tailleTableau = 0;
 	listeFPGA = initFpgaList();
-
-	requestTester.requestFromServer = 0;
-	requestTester.requestCode = 0x00;
+	// ON PREND LE CAS OU LE SERVEUR VEUT LA TEMPERATURE
+	requestTester.requestFromServer = 1;
+	requestTester.requestCode = ID_TEMPERATURE;
+	requestTester.destRequest = {0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0xFF};
 	pthread_mutex_init(&requestTester.mutex_server, NULL); /* Création du mutex */
 
 
