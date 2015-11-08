@@ -1,10 +1,10 @@
-file(REMOVE_RECURSE
+FILE(REMOVE_RECURSE
   "CMakeFiles/dessinterminal.dir/drawterminal.c.o"
   "libdessinterminal.pdb"
   "libdessinterminal.so"
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang C)
-  include(CMakeFiles/dessinterminal.dir/cmake_clean_${lang}.cmake OPTIONAL)
-endforeach()
+FOREACH(lang C)
+  INCLUDE(CMakeFiles/dessinterminal.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

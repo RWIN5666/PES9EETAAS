@@ -15,7 +15,9 @@ include_directories(
 add_subdirectory(src/dessinterminal)
 add_subdirectory(src/serial0)
 add_subdirectory(src/zigbee)
+add_subdirectory(src/hexLib)
+
 
 add_executable(${PRJ} ${MAIN})
-target_link_libraries(${PRJ} pthread serial0 zigbee dessinterminal)
+target_link_libraries(${PRJ} pthread serial0 zigbee dessinterminal hexLib)
 

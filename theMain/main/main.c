@@ -24,6 +24,7 @@ WEB PAR WEBSOCKET
 #include "zigbee/fpgalib.h"
 #include "serial0/serial0.h"
 #include "dessinterminal/drawterminal.h"
+#include "hexLib/hexLib.h"
 
 
 typedef struct
@@ -59,9 +60,16 @@ int main(void){
 	tailleTableau = 0;
 	listeFPGA = initFpgaList();
 	// ON PREND LE CAS OU LE SERVEUR VEUT LA TEMPERATURE
-	requestTester.requestFromServer = 1;
+	requestTester.requestFromServer = 0;
 	requestTester.requestCode = ID_TEMPERATURE;
-	requestTester.destRequest = {0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0xFF};
+	requestTester.destRequest[0] = 0x00;
+	requestTester.destRequest[1] = 0x00;
+	requestTester.destRequest[2] = 0x00;
+	requestTester.destRequest[3] = 0x00;
+	requestTester.destRequest[4] = 0x00;
+	requestTester.destRequest[5] = 0x00;
+	requestTester.destRequest[6] = 0xFF;
+	requestTester.destRequest[7] = 0xFF;
 	pthread_mutex_init(&requestTester.mutex_server, NULL); /* Création du mutex */
 
 
@@ -146,8 +154,18 @@ void *thread_XBee(void *arg)
 		if(requestTester.requestFromServer){
 			printf("On a reçu une requete du serveur");
 			uint8_t code = requestTester.requestCode;
+			fprintf(stderr,"code : %02x\n", code);
+			uint8_t testString [2*2 +1];
+			sprintf(&testString[0],"%02x",0x2A);
+			sprintf(&testString[2],"%02x",code);
+			uint8_t bufferInfo[2];
+   			convertZeroPadedHexIntoByte(testString,bufferInfo);
+
 			uint8_t * dest = requestTester.destRequest;
-			struct TrameXbee * atToSend = computeATTrame(0x0F, dest,&code);
+
+
+			struct TrameXbee * atToSend = computeATTrame(0x10, dest,bufferInfo);
+			requestTester.requestFromServer = 0;
 			sendTrame(xbeeCNEPointer, atToSend);
 			}
 		
@@ -198,6 +216,7 @@ void *thread_XBee(void *arg)
 			       	}
 			       		addCaptorsListToFpga(nouveau, numberCaptors, capList);
 			       	}
+			       	requestTester.requestFromServer = 1;
 			       	break;
 			       }
 

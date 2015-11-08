@@ -8,7 +8,7 @@
 
 ./include/dessinterminal/drawterminal.h
 
-/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/src/dessinterminal/drawterminal.c
+/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/drawterminal.c
 stdio.h
 -
 stdlib.h
@@ -20,5 +20,5 @@ unistd.h
 string.h
 -
 dessinterminal/drawterminal.h
-/home/erwin/Documents/S9/PRE/PES9EETAAS/theMain/src/dessinterminal/dessinterminal/drawterminal.h
+/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/dessinterminal/drawterminal.h
 

@@ -23,7 +23,7 @@ WEB PAR WEBSOCKET
 #include "zigbee/fpgalib.h"
 #include "serial0/serial0.h"
 #include "dessinterminal/drawterminal.h"
-
+#include "hexLib/hexLib.h"
 
 typedef struct
 {
@@ -97,22 +97,42 @@ int main(void){
 			    	fprintf(stderr, "Voici le code reçu : %02x\n", capteurCode);
 			    	switch(capteurCode){
 						case ID_TEMPERATURE :{
-					    
+					    printf("On a recu une requête du maitre qui veut connaitre la temperature\n");
+					    uint8_t valeur = 0xEF;
+					    uint8_t destRequest[8];
+					    destRequest[0] = 0x00;
+						destRequest[1] = 0x00;
+						destRequest[2] = 0x00;
+						destRequest[3] = 0x00;
+						destRequest[4] = 0x00;
+						destRequest[5] = 0x00;
+						destRequest[6] = 0x00;
+						destRequest[7] = 0x00;
+						uint8_t testString [3*2 +1];
+						sprintf(&testString[0],"%02x",0x2A);
+						sprintf(&testString[2],"%02x",capteurCode);
+						sprintf(&testString[4],"%02x",valeur);
+						uint8_t bufferInfo[3];
+
+   						convertZeroPadedHexIntoByte(testString,bufferInfo);
+
+					    struct TrameXbee * atToSend = computeATTrame(0x10, destRequest ,bufferInfo);
 					    break;
 					    }
 					    case ID_LIGHT :{
-					 
+					 	printf("On a recu une requête du maitre qui veut connaitre la luminosite\n");
 					    break;
 					    }
 					    case ID_GYRO :{
-					
+						printf("On a recu une requête du maitre qui veut connaitre l'orientation\n");
 					    break;
 					    }
 					    case ID_ANALOG :{
-					   	
+					   	printf("On a recu une requête du maitre qui veut connaitre la valeur analogique\n");
 					    break;
 					    }
 					    default :  
+					    printf("ERREUR PAS DE CAPTEUR ICI...\n");
 			       		break;
 			    	}
 

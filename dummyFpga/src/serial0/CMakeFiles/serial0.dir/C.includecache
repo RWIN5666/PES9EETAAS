@@ -18,7 +18,7 @@ fcntl.h
 unistd.h
 -
 
-/home/erwin/Documents/S9/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0.c
+/home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0.c
 stdio.h
 -
 stdlib.h
@@ -36,5 +36,5 @@ stdint.h
 poll.h
 -
 serial0/serial0.h
-/home/erwin/Documents/S9/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0/serial0.h
+/home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0/serial0.h
 
