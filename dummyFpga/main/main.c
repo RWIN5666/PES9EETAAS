@@ -25,36 +25,23 @@ WEB PAR WEBSOCKET
 #include "dessinterminal/drawterminal.h"
 #include "hexLib/hexLib.h"
 
-typedef struct
-{
-   int requestFromServer;
-   uint8_t requestCode;
-   uint8_t destRequest[8];
-   pthread_mutex_t mutex_server;
-}
-requestStruct;
-
-// prototypes Threads & fonctions persos
-void *thread_WebServer(void *arg);
-void *thread_XBee(void *arg);
-
-
-
-// TABLE DE MODULES FPGA
-// On se dit qu'on en aura que 10 au maximum pour le moment...
-int tailleTableau;
-fpgaList * listeFPGA = NULL;
-int premierPassage = 0;
-int finish = 0;
-requestStruct requestTester;
+// POUR SIMULER LE FONCTIONNEMENT
+captorsList * listeCapteurs;
 
 
 // MAIN
 int main(void){
 
 	// INITIALISATION VALEURS
-	
-
+	listeCapteurs = initCaptorsList();
+	uint8_t minTemp[2];
+	uint8_t maxTemp[2];
+	minTemp[0] = 0x00;
+	minTemp[1] = 0x00;
+	maxTemp[0] = 0x00;
+	maxTemp[1] = 0x40;
+	int finish = 0;
+	addCaptor(listeCapteurs,ID_TEMPERATURE,0x02,0x0C,minTemp,maxTemp);
 	//POUR AFFICHER UN TRUC SYMPA AU LANCEMENT DU PROGRAMME
 	char *filename = "main/image2.txt";
 	FILE *fptr = NULL;
@@ -71,6 +58,15 @@ int main(void){
 	printf("Lancement du programme DUMMYFPGA\n");
 	int xbeeRNE = serial_init("/dev/ttyUSB1",9600);
 	int * xbeeRNEPointer = &xbeeRNE;
+
+
+
+
+	while(!finish){
+
+
+
+
 	struct TrameXbee * trameRetour = getTrame(xbeeRNEPointer);
 
 	if(trameRetour){
@@ -83,6 +79,7 @@ int main(void){
 			    case ID_NI :{
 			    // ARRIVEE D'UN NOUVEAU FPGA DANS LE RESEAU, ON VA METTRE A JOUR LA TABLE
 			    // ICI ON NE SERA PAS DANS CE CAS LA
+
 			       	break;
 			       }
 			    case ID_TX_STATUS :{
@@ -93,49 +90,97 @@ int main(void){
 			    }
 
 			    case ID_RX :{
-			    	uint8_t capteurCode = trameRetour->trameData[11];
-			    	fprintf(stderr, "Voici le code reçu : %02x\n", capteurCode);
-			    	switch(capteurCode){
-						case ID_TEMPERATURE :{
-					    printf("On a recu une requête du maitre qui veut connaitre la temperature\n");
-					    uint8_t valeur = 0xEF;
-					    uint8_t destRequest[8];
-					    destRequest[0] = 0x00;
-						destRequest[1] = 0x00;
-						destRequest[2] = 0x00;
-						destRequest[3] = 0x00;
-						destRequest[4] = 0x00;
-						destRequest[5] = 0x00;
-						destRequest[6] = 0x00;
-						destRequest[7] = 0x00;
-						uint8_t testString [3*2 +1];
-						sprintf(&testString[0],"%02x",0x2A);
-						sprintf(&testString[2],"%02x",capteurCode);
-						sprintf(&testString[4],"%02x",valeur);
-						uint8_t bufferInfo[3];
 
-   						convertZeroPadedHexIntoByte(testString,bufferInfo);
+			    	uint8_t askCode = trameRetour->trameData[11];
+			    	switch(askCode){
+						case 0x3F :{
+							// REQUETE INFO CAPTEUR
+							printf("On a reçu une requete de demande d'infos sur les capteurs !\n");
+							minTemp[0] = 0x00;
+							minTemp[1] = 0x00;
+							maxTemp[0] = 0x00;
+							maxTemp[1] = 0x40;
+							uint8_t question = 0x3F;
+							uint8_t numberCaptors = 0x01;
+							uint8_t id = ID_TEMPERATURE;
+							uint8_t tailleData = 0x02;
+							uint8_t unitData = 0x0C;
+						    uint8_t destRequest[8];
+						    destRequest[0] = 0x00;
+							destRequest[1] = 0x00;
+							destRequest[2] = 0x00;
+							destRequest[3] = 0x00;
+							destRequest[4] = 0x00;
+							destRequest[5] = 0x00;
+							destRequest[6] = 0x00;
+							destRequest[7] = 0x00;
+							uint8_t testString [9*2 +1];
+							sprintf(&testString[0],"%02x",question);
+							sprintf(&testString[2],"%02x",numberCaptors);
+							sprintf(&testString[4],"%02x",id);
+							sprintf(&testString[6],"%02x",tailleData);
+							sprintf(&testString[8],"%02x",unitData);
+							sprintf(&testString[10],"%02x",minTemp[0]);
+							sprintf(&testString[12],"%02x",minTemp[1]);
+							sprintf(&testString[14],"%02x",maxTemp[0]);
+							sprintf(&testString[16],"%02x",maxTemp[1]);
+							uint8_t bufferInfo[9];
+				   			convertZeroPadedHexIntoByte(testString,bufferInfo);
+							struct TrameXbee * atToSend = computeATTrame(0x17, destRequest,bufferInfo);
+							sendTrame(xbeeRNEPointer, atToSend);
+							break;
+						}
 
-					    struct TrameXbee * atToSend = computeATTrame(0x10, destRequest ,bufferInfo);
-					    break;
-					    }
-					    case ID_LIGHT :{
-					 	printf("On a recu une requête du maitre qui veut connaitre la luminosite\n");
-					    break;
-					    }
-					    case ID_GYRO :{
-						printf("On a recu une requête du maitre qui veut connaitre l'orientation\n");
-					    break;
-					    }
-					    case ID_ANALOG :{
-					   	printf("On a recu une requête du maitre qui veut connaitre la valeur analogique\n");
-					    break;
-					    }
-					    default :  
-					    printf("ERREUR PAS DE CAPTEUR ICI...\n");
-			       		break;
-			    	}
+						case 0x2A :{
+						// REQUETE VALEUR CAPTEUR
+						uint8_t capteurCode = trameRetour->trameData[12];
+			    		fprintf(stderr, "Voici le code reçu : %02x\n", capteurCode);
+			    		switch(capteurCode){
+							case ID_TEMPERATURE :{
+						    printf("On a recu une requête du maitre qui veut connaitre la temperature\n");
+						    uint8_t valeur = 0xEF;
+						    uint8_t destRequest[8];
+						    destRequest[0] = 0x00;
+							destRequest[1] = 0x00;
+							destRequest[2] = 0x00;
+							destRequest[3] = 0x00;
+							destRequest[4] = 0x00;
+							destRequest[5] = 0x00;
+							destRequest[6] = 0x00;
+							destRequest[7] = 0x00;
+							uint8_t testString [3*2 +1];
+							sprintf(&testString[0],"%02x",0x2A);
+							sprintf(&testString[2],"%02x",capteurCode);
+							sprintf(&testString[4],"%02x",valeur);
+							uint8_t bufferInfo[3];
+	   						convertZeroPadedHexIntoByte(testString,bufferInfo);
+						    struct TrameXbee * atToSend = computeATTrame(0x11, destRequest ,bufferInfo);
+						    break;
+						    }
+						    case ID_LIGHT :{
+						 	printf("On a recu une requête du maitre qui veut connaitre la luminosite\n");
+						    break;
+						    }
+						    case ID_GYRO :{
+							printf("On a recu une requête du maitre qui veut connaitre l'orientation\n");
+						    break;
+						    }
+						    case ID_ANALOG :{
+						   	printf("On a recu une requête du maitre qui veut connaitre la valeur analogique\n");
+						    break;
+						    }
+						    default :  
+						    printf("ERREUR PAS DE CAPTEUR ICI...\n");
+				       		break;
+			    		}
 
+							break;
+						}
+						default:
+							break;
+						}
+
+			    	
 			    	break;
 			    }
 
@@ -147,7 +192,7 @@ int main(void){
 			printf("Pas de trame reçu on recommence !\n");
 		}
 
-		
+		}
     printf("Fin Du Programme. Merci d'avoir participe au test!\n");
     close(xbeeRNE);
 	

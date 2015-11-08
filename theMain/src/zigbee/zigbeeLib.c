@@ -50,16 +50,16 @@ struct TrameXbee * computeATTrame(uint16_t taille, uint8_t * dest, uint8_t * dat
 		trame->trameData[1+i+j] = my[j];
 	}
 
+	trame->trameData[1+i+j] = 0x00;
 	trame->trameData[1+i+j+1] = 0x00;
-	trame->trameData[1+i+j+1+1] = 0x00;
-	trame->trameData[1+i+j+1+1+1] = 0x2A;
+	//trame->trameData[1+i+j+1+1] = 0x2A;
 	printf("Taille convertie : %d\n", writeSize);
 	int k;
 	for(k = 0;k<writeSize-1-i-j-1-1;k++){
-		trame->trameData[1+i+j+k] = (uint8_t)data[k];	
+		trame->trameData[1+i+j+k+1+1] = (uint8_t)data[k];	
 	}
 	uint8_t check = checksum(trame);   
-	trame->trameData[i] = check;
+	trame->trameData[1+i+j+k+1] = check;
 	afficherTrame(trame);
 	printf("Trame générée !\n\n");
 	return trame;

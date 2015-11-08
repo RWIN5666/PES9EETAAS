@@ -31,8 +31,8 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
+# Escaping for special characters.
+EQUALS = =
 
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/erwin/Documents/PRE/PES9EETAAS/theMain
@@ -53,15 +53,15 @@ CMakeFiles/42main.dir/main/main.c.o: CMakeFiles/42main.dir/flags.make
 CMakeFiles/42main.dir/main/main.c.o: main/main.c
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/erwin/Documents/PRE/PES9EETAAS/theMain/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/42main.dir/main/main.c.o"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/42main.dir/main/main.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/main/main.c
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/42main.dir/main/main.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/main/main.c
 
 CMakeFiles/42main.dir/main/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/42main.dir/main/main.c.i"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/main/main.c > CMakeFiles/42main.dir/main/main.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/main/main.c > CMakeFiles/42main.dir/main/main.c.i
 
 CMakeFiles/42main.dir/main/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/42main.dir/main/main.c.s"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/main/main.c -o CMakeFiles/42main.dir/main/main.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/main/main.c -o CMakeFiles/42main.dir/main/main.c.s
 
 CMakeFiles/42main.dir/main/main.c.o.requires:
 .PHONY : CMakeFiles/42main.dir/main/main.c.o.requires
@@ -80,11 +80,11 @@ CMakeFiles/42main.dir/main/main.c.o.provides.build: CMakeFiles/42main.dir/main/m
 42main_EXTERNAL_OBJECTS =
 
 42main: CMakeFiles/42main.dir/main/main.c.o
+42main: CMakeFiles/42main.dir/build.make
 42main: src/serial0/libserial0.so
 42main: src/zigbee/libzigbee.so
 42main: src/dessinterminal/libdessinterminal.so
 42main: src/hexLib/libhexLib.so
-42main: CMakeFiles/42main.dir/build.make
 42main: CMakeFiles/42main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C executable 42main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/42main.dir/link.txt --verbose=$(VERBOSE)

@@ -8,6 +8,10 @@
 
 ./include/dessinterminal/drawterminal.h
 
+./include/hexLib/hexLib.h
+stdint.h
+-
+
 ./include/serial0/serial0.h
 stdio.h
 -
@@ -65,4 +69,6 @@ serial0/serial0.h
 /home/erwin/Documents/PRE/PES9EETAAS/theMain/main/serial0/serial0.h
 dessinterminal/drawterminal.h
 /home/erwin/Documents/PRE/PES9EETAAS/theMain/main/dessinterminal/drawterminal.h
+hexLib/hexLib.h
+/home/erwin/Documents/PRE/PES9EETAAS/theMain/main/hexLib/hexLib.h
 

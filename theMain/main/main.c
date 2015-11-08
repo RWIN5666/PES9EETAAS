@@ -52,6 +52,8 @@ requestStruct requestTester; 	// POUR TESTER LES REQUETES RECUES PAR LE SERVEUR
 								// LE THREAD SERVER METTRA A JOUR CES VALEURS POUR LA PARTIE ZIGBEE
 
 
+
+
 // MAIN
 int main(void){
 
@@ -124,7 +126,7 @@ void *thread_WebServer(void *arg)
     (void) arg;
 
     pthread_mutex_lock(&requestTester.mutex_server);
-    for(int i = 0; i < 1000 ; i++){
+    for(int i = 0; i < 10000 ; i++){
     	i++;
     }
     pthread_mutex_unlock(&requestTester.mutex_server);
@@ -137,7 +139,6 @@ void *thread_XBee(void *arg)
     printf("Nous sommes dans ce thread car vous etes prets a recevoir la connexion d'un FPGA.\n");
     /* Pour enlever le warning */
     (void) arg;
-
     // POUR TESTER LA CREATION D'UNE TRAME
     // printf("Test calcul checksum :\n");
     // Pour creer une trame on utilise la fonction computeTrame codee dans zigbeeLib.c
@@ -160,11 +161,8 @@ void *thread_XBee(void *arg)
 			sprintf(&testString[2],"%02x",code);
 			uint8_t bufferInfo[2];
    			convertZeroPadedHexIntoByte(testString,bufferInfo);
-
 			uint8_t * dest = requestTester.destRequest;
-
-
-			struct TrameXbee * atToSend = computeATTrame(0x10, dest,bufferInfo);
+			struct TrameXbee * atToSend = computeATTrame(0x0010, dest,bufferInfo);
 			requestTester.requestFromServer = 0;
 			sendTrame(xbeeCNEPointer, atToSend);
 			}
@@ -182,18 +180,26 @@ void *thread_XBee(void *arg)
 			afficherTrame(trameRetour);
 			// // FIN DU PROGRAMME
 			uint8_t idRetour = trameRetour->header.frameID;
-			uint8_t destFPGA[8];
-			uint8_t myFPGA[2];
 			switch(idRetour){
 			    case ID_NI :{
 			    // ARRIVEE D'UN NOUVEAU FPGA DANS LE RESEAU, ON VA METTRE A JOUR LA TABLE
 			    	printf("J'ai recu une trame\n");
+			    	uint8_t destFPGA[8];
+					uint8_t myFPGA[2];
 					copyMyandDest(myFPGA, destFPGA, trameRetour);
 				    struct moduleFPGA * nouveau = computeModule(myFPGA,destFPGA);
 				    addFpga(listeFPGA,nouveau);
 				    sleep(10);
 				    //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
-				    struct TrameXbee * trameTest = computeTrame(0x000F,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x3F");
+				   // struct TrameXbee * trameTest = computeTrame(0x000F,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x3F");
+				    printf("On a reçu une requete du serveur");
+					uint8_t code = requestTester.requestCode;
+					fprintf(stderr,"code : %02x\n", code);
+					uint8_t testString [1*2 +1];
+					sprintf(&testString[0],"%02x",0x3F);
+					uint8_t bufferInfo[1];
+		   			convertZeroPadedHexIntoByte(testString,bufferInfo);
+				   	struct TrameXbee * trameTest = computeATTrame(0x000F,destFPGA,bufferInfo);
 					//on va envoyer la trame créée avec sendTrame(int xbeeToUse, struct TrameXbee * trameToSend)
 					sendTrame(xbeeCNEPointer, trameTest);
 
@@ -216,6 +222,7 @@ void *thread_XBee(void *arg)
 			       	}
 			       		addCaptorsListToFpga(nouveau, numberCaptors, capList);
 			       	}
+			       	else printf("Ce n'est pas une requete comme prevu...\n");
 			       	requestTester.requestFromServer = 1;
 			       	break;
 			       }
@@ -242,7 +249,7 @@ void *thread_XBee(void *arg)
 	}
 
 
-
+	// FIN DU PROGRAMME 
 	close(xbeeCNE);
     pthread_exit(NULL);
 }
