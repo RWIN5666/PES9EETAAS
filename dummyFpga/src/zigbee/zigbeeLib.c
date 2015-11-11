@@ -145,84 +145,63 @@ void afficherTrame(struct TrameXbee * trameToPrint){
 
 struct TrameXbee * getTrame(int * usedXbee){
 
-	
 	struct pollfd fds[1];
 	struct TrameXbee * trameRetour = NULL;
 	fds[0].fd = *usedXbee;
 	fds[0].events = POLLIN;
-	int retour = 0;
+	int retour;
 	uint8_t bufferHeader[4];
 	
 
-	do{
-
-		retour = poll(fds,(nfds_t) 1, (int)10000);
-	}while(retour == 0);
-
+	retour = poll(fds, 1, 5000);
 	if(retour < 0){ 
-			perror("error");
+		perror("error poll");
+	}
+	else if(retour == 0){
+		printf("Timeout ! Nothing was read !\n");
 		return NULL;
 	}
-	
-
-	if(fds[0].revents & POLLIN){
+	else if(fds[0].revents & POLLIN){
 	// on recupere lentete de la trame
 	
-	if (!read(fds[0].fd, bufferHeader, 4)) {
-		perror("error header");
-		return NULL;
-	}
+		if (!read(fds[0].fd, bufferHeader, 4)) {
+			perror("error header");
+			return NULL;
+		}
+		uint8_t premier = bufferHeader[0];
+		uint16_t tailleData = ntohs(((uint16_t)bufferHeader[2] << 8) | bufferHeader[1]);
+		uint8_t ID = bufferHeader[3];
+		fprintf(stderr," taille data %04x\n", tailleData);
 
+		trameRetour = malloc(sizeof(struct TrameXbee) + (tailleData +1)*sizeof(uint8_t));
+		trameRetour->header.firstByte = premier;
+		trameRetour->header.taille = tailleData;
+		trameRetour->header.frameID = ID;
 
-	uint8_t premier = bufferHeader[0];
-	uint16_t tailleData = ntohs(((uint16_t)bufferHeader[2] << 8) | bufferHeader[1]);
-	uint8_t ID = bufferHeader[3];
-	fprintf(stderr," taille data %04x\n", tailleData);
+		int dataSize = (int) trameRetour->header.taille;
+		printf("\n Taille de la donnée qui arrive : %d\n",dataSize+1);
+		uint8_t bufferData[dataSize+1];
+		if (!read(fds[0].fd, bufferData, trameRetour->header.taille + 1)) {
+			perror("error frame");
+			return NULL;
+			}
 
-
-	trameRetour = malloc(sizeof(struct TrameXbee) + (tailleData +1)*sizeof(uint8_t));
-	trameRetour->header.firstByte = premier;
-	trameRetour->header.taille = tailleData;
-	trameRetour->header.frameID = ID;
-
-	int dataSize = (int) trameRetour->header.taille;
-
-	printf("\n Taille de la donnée qui arrive : %d\n",dataSize+1);
-
-	uint8_t bufferData[dataSize+1];
-	if (!read(fds[0].fd, bufferData, trameRetour->header.taille + 1)) {
-		perror("error frame");
-		return NULL;
+		printf("Test Affichage bufferData :\n");
+		for(int i = 0; i < dataSize + 1 ; i++){
+			fprintf(stderr,"%02x ",bufferData[i]);
 		}
 
-
-
-
-	printf("Test Affichage bufferData :\n");
-	for(int i = 0; i < dataSize + 1 ; i++){
-
-		fprintf(stderr,"%02x ",bufferData[i]);
-
+		printf("\nFini !\n");
+		printf("Copie dans la trame\n");
+		for(int i = 0; i < dataSize + 1; i++){
+			trameRetour->trameData[i] = bufferData[i];
+		}
+		printf("Bonjour\n");
+		afficherTrame(trameRetour);
 	}
-	printf("\nFini !\n");
-
-
-	printf("Copie dans la trame\n");
-
-	for(int i = 0; i < dataSize + 1; i++){
-
-		trameRetour->trameData[i] = bufferData[i];
-
-	}
-
-	// if (!read(fds[0].fd, bufferCheckSum, 1)) {
-	// 	perror("error frame");
-	// 	return NULL;
-	// 	}
-	// trameRetour->checkSum = bufferCheckSum[1];
-
-	printf("Bonjour\n");
-	afficherTrame(trameRetour);
+	else{
+		printf("Un truc etrange s'est passe... !\n");
+		return NULL;
 	}
 
 	return trameRetour;

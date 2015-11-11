@@ -8,14 +8,6 @@
 	"buffers":
 	[
 		{
-			"file": "main/image2.txt",
-			"settings":
-			{
-				"buffer_size": 1134,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "main/main.c",
 			"settings":
 			{
@@ -27,7 +19,7 @@
 			"file": "src/zigbee/zigbeeLib.c",
 			"settings":
 			{
-				"buffer_size": 5498,
+				"buffer_size": 5467,
 				"line_ending": "Unix"
 			}
 		}
@@ -64,6 +56,7 @@
 	},
 	"file_history":
 	[
+		"/home/erwin/Documents/PRE/PES9EETAAS/theMain/main/image2.txt"
 	],
 	"find":
 	{
@@ -99,41 +92,11 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "main/image2.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1134,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "main/main.c",
 					"semi_transient": false,
 					"settings":
@@ -145,8 +108,8 @@
 						"selection":
 						[
 							[
-								4691,
-								4691
+								3070,
+								3070
 							]
 						],
 						"settings":
@@ -155,27 +118,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3135.0,
+						"translation.y": 1766.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "src/zigbee/zigbeeLib.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5498,
+						"buffer_size": 5467,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1824,
-								1824
+								4951,
+								4951
 							]
 						],
 						"settings":
@@ -184,7 +147,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 459.0,
+						"translation.y": 2904.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -267,7 +230,7 @@
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": false,
+	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 150.0,

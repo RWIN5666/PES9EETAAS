@@ -42,28 +42,31 @@ int computeData(uint8_t* s, uint8_t taille){
 
 struct donneeCaptor * computeCaptor(uint8_t id, uint8_t size, uint8_t unit, uint8_t* min, uint8_t* max){
 
-	struct donneeCaptor * captor = malloc(sizeof(struct donneeCaptor) + sizeof(uint8_t)*(size) + sizeof(uint8_t)*(size) + sizeof(struct donneeCaptor *));
-	captor->idCaptor = id;
-	captor->dataSize = size;
-	captor->unitData = unit;
-	uint8_t minCopy[size];
-	uint8_t maxCopy[size];
-	for(int i = 0; i < size ; i++){
-		minCopy[i] = min[i];
-		maxCopy[i] = max[i];
-	}
-
-	rev(minCopy,size);
-	rev(maxCopy,size);
-
-	for(int j = 0; j < size ; j++){
-		captor->minData[j] = minCopy[j];
-		captor->maxData[j] = maxCopy[j];
-	}
+struct donneeCaptor * captor = malloc(sizeof(struct donneeCaptor) + sizeof(uint8_t *) + sizeof(uint8_t *) + sizeof(struct donneeCaptor *));
+    captor->idCaptor = id;
+    captor->dataSize = size;
+    captor->unitData = unit;
+    uint8_t minCopy[size];
+    uint8_t maxCopy[size];
+    for(int i = 0; i < size ; i++){
+        minCopy[i] = min[i];
+        maxCopy[i] = max[i];
+    }
 
 
-	return captor;
+    // rev(minCopy,size);
+    // rev(maxCopy,size);
 
+    captor->minData = malloc(sizeof(uint8_t) * (int)size);
+    captor->maxData = malloc(sizeof(uint8_t) * (int)size);
+
+    for(int j = 0; j < size ; j++){
+        captor->minData[j] = minCopy[j];
+        captor->maxData[j] = maxCopy[j];
+    }
+
+
+    return captor;
 }
 
 

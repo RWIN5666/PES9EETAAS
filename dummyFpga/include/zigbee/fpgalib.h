@@ -8,8 +8,8 @@ struct __attribute__((packed)) donneeCaptor
 	uint8_t idCaptor;
 	uint8_t dataSize;
 	uint8_t unitData;
-	uint8_t * minData;
-	uint8_t * maxData;
+	uint8_t  * minData;
+	uint8_t  * maxData;
 	struct donneeCaptor * suivant;
 };
 
@@ -25,6 +25,7 @@ struct __attribute__((packed)) moduleFPGA
 	uint8_t myFPGA[2];
 	uint8_t destFPGA[8];
 	uint8_t numberCaptors;
+	
 	captorsList * listeCapteurs; 
 	struct moduleFPGA * suivant;
 };
@@ -57,5 +58,6 @@ void addFpga(fpgaList *liste, struct moduleFPGA * fpga);
 void addCaptorsListToFpga(struct moduleFPGA * fpga, int number, captorsList * listeCapteurs);
 int computeData(uint8_t* s, uint8_t taille);
 void copyMyandDest(uint8_t * myFPGA, uint8_t * destFPGA, struct TrameXbee * trame);
+void showCaptor(struct donneeCaptor * capteur);
 
 #endif

@@ -42,7 +42,7 @@ int computeData(uint8_t* s, uint8_t taille){
 
 struct donneeCaptor * computeCaptor(uint8_t id, uint8_t size, uint8_t unit, uint8_t* min, uint8_t* max){
 
-	struct donneeCaptor * captor = malloc(sizeof(struct donneeCaptor) + sizeof(uint8_t)*(size) + sizeof(uint8_t)*(size) + sizeof(struct donneeCaptor *));
+	struct donneeCaptor * captor = malloc(sizeof(struct donneeCaptor) + sizeof(uint8_t *) + sizeof(uint8_t *) + sizeof(struct donneeCaptor *));
 	captor->idCaptor = id;
 	captor->dataSize = size;
 	captor->unitData = unit;
@@ -53,8 +53,12 @@ struct donneeCaptor * computeCaptor(uint8_t id, uint8_t size, uint8_t unit, uint
 		maxCopy[i] = max[i];
 	}
 
-	rev(minCopy,size);
-	rev(maxCopy,size);
+
+	// rev(minCopy,size);
+	// rev(maxCopy,size);
+
+    captor->minData = malloc(sizeof(uint8_t) * (int)size);
+    captor->maxData = malloc(sizeof(uint8_t) * (int)size);
 
 	for(int j = 0; j < size ; j++){
 		captor->minData[j] = minCopy[j];
@@ -63,6 +67,14 @@ struct donneeCaptor * computeCaptor(uint8_t id, uint8_t size, uint8_t unit, uint
 
 
 	return captor;
+
+}
+
+void showCaptor(struct donneeCaptor * capteur){
+
+    printf("Test\n");
+    fprintf(stderr,"idCaptor : %02x\n",capteur->idCaptor);
+
 
 }
 
