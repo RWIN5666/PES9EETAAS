@@ -36,7 +36,7 @@ struct __attribute__((packed)) TrameXbee
 
 
 void afficherTrame(struct TrameXbee * trameToPrint);
-struct TrameXbee * computeTrame(uint16_t taille,uint8_t idFrame, char * trameData);
+struct TrameXbee * computeTrame(uint16_t taille,uint8_t idFrame, uint8_t * trameData);
 struct TrameXbee * computeATTrame(uint16_t taille, uint8_t * dest, uint8_t * data);
 int sendTrame(int * xbeeToUse, struct TrameXbee * trameToSend);
 void afficherTrame(struct TrameXbee * trameToPrint);

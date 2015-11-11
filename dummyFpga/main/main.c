@@ -42,7 +42,7 @@ int main(void){
 	maxTemp[1] = 0x40;
 	int finish = 0;
 	addCaptor(listeCapteurs,ID_TEMPERATURE,0x02,0x0C,minTemp,maxTemp);
-	showCaptor(listeCapteurs->premier);
+	//showCaptor(listeCapteurs->premier);
 	//POUR AFFICHER UN TRUC SYMPA AU LANCEMENT DU PROGRAMME
 	char *filename = "main/image2.txt";
 	FILE *fptr = NULL;
@@ -129,7 +129,9 @@ int main(void){
 				    		switch(capteurCode){
 								case ID_TEMPERATURE :{
 							    printf("On a recu une requête du maitre qui veut connaitre la temperature\n");
-							    uint8_t valeur = 0xEF;
+							    uint8_t valeur[2];
+							    valeur[0] = 0x00;
+							    valeur[1] = 0xEF;
 							    uint8_t destRequest[8];
 							    destRequest[0] = 0x00;
 								destRequest[1] = 0x00;
@@ -139,13 +141,15 @@ int main(void){
 								destRequest[5] = 0x00;
 								destRequest[6] = 0x00;
 								destRequest[7] = 0x00;
-								uint8_t testString [3*2 +1];
+								uint8_t testString [4*2 +1];
 								sprintf(&testString[0],"%02x",0x2A);
 								sprintf(&testString[2],"%02x",capteurCode);
-								sprintf(&testString[4],"%02x",valeur);
-								uint8_t bufferInfo[3];
+								sprintf(&testString[4],"%02x",valeur[0]);
+								sprintf(&testString[6],"%02x",valeur[1]);
+								uint8_t bufferInfo[4];
 		   						convertZeroPadedHexIntoByte(testString,bufferInfo);
-							    struct TrameXbee * atToSend = computeATTrame(0x11, destRequest ,bufferInfo);
+							    struct TrameXbee * atToSend = computeATTrame(0x12, destRequest ,bufferInfo);
+							    sendTrame(xbeeRNEPointer, atToSend);
 							    break;
 							    }
 							    case ID_LIGHT :{

@@ -24,7 +24,7 @@ envoi : 7E 00 04 08 01 4E 49 5F (ATNI)
 retour : 7E 00 09 88 01 53 4C 00 40 89 EC 32 F
 
 
-Trame 0x10œ	
+Trame 0x10
 de coordinateur vers les RNE
 envoi : 7E 00 13 10 01 00 00 00 00 FF FF FF FF FF FE 00 00 73 61 6C 75 74 CC
 retour : 7E 00 09 88 01 53 4C 00 40 89 EC 32 F

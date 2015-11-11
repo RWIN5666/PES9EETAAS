@@ -57,7 +57,6 @@ requestStruct requestTester; 	// POUR TESTER LES REQUETES RECUES PAR LE SERVEUR
 // MAIN
 int main(void){
 
-
 	// INITIALISATION VALEURS
 	tailleTableau = 0;
 	listeFPGA = initFpgaList();
@@ -73,8 +72,6 @@ int main(void){
 	requestTester.destRequest[6] = 0xFF;
 	requestTester.destRequest[7] = 0xFF;
 	pthread_mutex_init(&requestTester.mutex_server, NULL); /* Création du mutex */
-
-
 	//POUR AFFICHER UN TRUC SYMPA AU LANCEMENT DU PROGRAMME
 	char *filename = "main/image2.txt";
 	FILE *fptr = NULL;
@@ -87,8 +84,6 @@ int main(void){
 	fclose(fptr);
 	fprintf(stderr,"\n");
 	printf("Lancement du programme 42main\n");
-	
-
 	// CREATIONS DES DEUX THREADS PRINCIPAUX
 	// ET LEUR LANCEMENT
 	pthread_t threadWebServer;
@@ -149,11 +144,11 @@ void *thread_XBee(void *arg)
 	//Initialisation UART XBEE
 	int xbeeCNE = serial_init("/dev/ttyUSB0",9600);
 	int * xbeeCNEPointer = &xbeeCNE;
-
+	struct TrameXbee * trameRetour = NULL;
 	while(!finish){
  		pthread_mutex_lock(&requestTester.mutex_server);
 		if(requestTester.requestFromServer){
-			printf("On a reçu une requete du serveur");
+			printf("On a reçu une requete du serveur\n");
 			uint8_t code = requestTester.requestCode;
 			fprintf(stderr,"code : %02x\n", code);
 			uint8_t testString [2*2 +1];
@@ -165,6 +160,7 @@ void *thread_XBee(void *arg)
 			struct TrameXbee * atToSend = computeATTrame(0x0010, dest,bufferInfo);
 			requestTester.requestFromServer = 0;
 			sendTrame(xbeeCNEPointer, atToSend);
+			printf("On a envoye la trame pour la requete serveur\n");
 			}
 		
 		pthread_mutex_unlock(&requestTester.mutex_server);
@@ -174,7 +170,7 @@ void *thread_XBee(void *arg)
 		printf("Nous allons attendre une trame!\nAllez, c'est parti !\n");
 		printf("Veuillez connecter un FPGA...\n");
 		// ON S'ATTEND A RECUPERER UNE TRAME LORS DE LA CONNEXION
-		struct TrameXbee * trameRetour = getTrame(xbeeCNEPointer);
+		trameRetour = getTrame(xbeeCNEPointer);
 
 		if(trameRetour){
 			afficherTrame(trameRetour);
@@ -192,7 +188,7 @@ void *thread_XBee(void *arg)
 				    sleep(10);
 				    //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
 				   // struct TrameXbee * trameTest = computeTrame(0x000F,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x3F");
-				    printf("On a reçu une requete du serveur");
+				    printf("On a un nouveau FPGA\n");
 					uint8_t code = requestTester.requestCode;
 					fprintf(stderr,"code : %02x\n", code);
 					uint8_t testString [1*2 +1];
@@ -202,11 +198,19 @@ void *thread_XBee(void *arg)
 				   	struct TrameXbee * trameTest = computeATTrame(0x000F,destFPGA,bufferInfo);
 					//on va envoyer la trame créée avec sendTrame(int xbeeToUse, struct TrameXbee * trameToSend)
 					sendTrame(xbeeCNEPointer, trameTest);
-
-					sleep(10);
-					
 					trameRetour = getTrame(xbeeCNEPointer);
-			       	if(trameRetour->trameData[12] == 0x3F){
+					printf("Avant de checker le resultat\n");
+					if(trameRetour->trameData[12] != 0x3F){
+						printf("On a eu autre chose\n");
+						trameRetour = getTrame(xbeeCNEPointer);
+						while(trameRetour == NULL){
+							trameRetour = getTrame(xbeeCNEPointer);
+						}
+						printf("On a recupere une autre trame\n");
+						afficherTrame(trameRetour);
+					}
+			       	else if(trameRetour->trameData[12] == 0x3F){
+			       		printf("On recoit une reponse a la requete ?\n");
 			       		captorsList * capList = initCaptorsList();
 			       		uint8_t numberCaptors = trameRetour->trameData[13];
 			       		uint8_t tempSize = 0x00;
@@ -222,22 +226,20 @@ void *thread_XBee(void *arg)
 			       	}
 			       		addCaptorsListToFpga(nouveau, numberCaptors, capList);
 			       	}
-			       	else printf("Ce n'est pas une requete comme prevu...\n");
+			       	else {printf("Ce n'est pas une requete comme prevu...\n");}
 			       	requestTester.requestFromServer = 1;
 			       	break;
 			       }
 
 			    case ID_TX_STATUS :{
 			    	if (trameRetour->trameData[4] == 0x00){
-			    		printf("La trame a bien ete tranmise");
+			    		printf("La trame a bien ete transmise\n");
 			    	} 			    	
 			    	break;
 			    }
 
 			    case ID_RX :{
-
-
-
+			    	printf("On a recu une trame RX.\n");
 			    	break;
 			    }
 			    default :  

@@ -31,8 +31,8 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# Escaping for special characters.
-EQUALS = =
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
 
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga
@@ -53,15 +53,15 @@ src/serial0/CMakeFiles/serial0.dir/serial0.c.o: src/serial0/CMakeFiles/serial0.d
 src/serial0/CMakeFiles/serial0.dir/serial0.c.o: src/serial0/serial0.c
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object src/serial0/CMakeFiles/serial0.dir/serial0.c.o"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0 && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/serial0.dir/serial0.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0.c
+	cd /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0 && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/serial0.dir/serial0.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0.c
 
 src/serial0/CMakeFiles/serial0.dir/serial0.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/serial0.dir/serial0.c.i"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0 && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0.c > CMakeFiles/serial0.dir/serial0.c.i
+	cd /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0 && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0.c > CMakeFiles/serial0.dir/serial0.c.i
 
 src/serial0/CMakeFiles/serial0.dir/serial0.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/serial0.dir/serial0.c.s"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0 && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0.c -o CMakeFiles/serial0.dir/serial0.c.s
+	cd /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0 && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0/serial0.c -o CMakeFiles/serial0.dir/serial0.c.s
 
 src/serial0/CMakeFiles/serial0.dir/serial0.c.o.requires:
 .PHONY : src/serial0/CMakeFiles/serial0.dir/serial0.c.o.requires

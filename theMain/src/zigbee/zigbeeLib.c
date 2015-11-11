@@ -12,7 +12,7 @@
 
 
 
-struct TrameXbee * computeTrame(uint16_t taille, uint8_t idFrame, char * trameData){
+struct TrameXbee * computeTrame(uint16_t taille, uint8_t idFrame, uint8_t * trameData){
 	struct TrameXbee * trame = malloc(sizeof(struct TrameXbee) + sizeof(uint8_t)*(taille+1));
 	trame->header.firstByte = 0x7E;
 	trame->header.taille = taille;
@@ -21,13 +21,13 @@ struct TrameXbee * computeTrame(uint16_t taille, uint8_t idFrame, char * trameDa
 	printf("Taille convertie : %d\n", writeSize);
 	int i;
 	for(i = 0;i<writeSize-1;i++){
-		trame->trameData[i] = (char)trameData[i];
+		trame->trameData[i] = (uint8_t)trameData[i];
 		//fprintf(stderr,"Caractere Hexa %d ecrit : %02x \n",i ,trame->trameData[i]);
 	}
 	uint8_t check = checksum(trame);   
 	trame->trameData[i] = check;
 	afficherTrame(trame);
-	printf("Trame générée !\n\n");
+	printf("Trame générée !\n");
 	return trame;
 }
 
@@ -61,7 +61,7 @@ struct TrameXbee * computeATTrame(uint16_t taille, uint8_t * dest, uint8_t * dat
 	uint8_t check = checksum(trame);   
 	trame->trameData[1+i+j+k+1] = check;
 	afficherTrame(trame);
-	printf("Trame générée !\n\n");
+	printf("Trame générée !\n");
 	return trame;
 }
 
@@ -82,7 +82,6 @@ int sendTrame(int * xbeeToUse, struct TrameXbee * trameToSend){
 
 	uint8_t tailleMSB = (uint8_t)(trameToSend->header.taille & 0xFF00) >> 8;
 	uint8_t tailleLSB = (uint8_t)(trameToSend->header.taille & 0x00FF);
-
 	
 	if((tailleTemp = write(*xbeeToUse,&(tailleMSB),1)) == -1){
 		perror("error");
@@ -106,6 +105,7 @@ int sendTrame(int * xbeeToUse, struct TrameXbee * trameToSend){
 	if((tailleTemp = write(*xbeeToUse,&(trameToSend->header.frameID),1)) == -1){
 		perror("error");
 	}
+	fprintf(stderr,"Frame Type : %02x \n", trameToSend->header.frameID);
 
 	if((tailleTemp = write(*xbeeToUse,trameToSend->trameData, (trameToSend->header.taille+1)) == -1)){
 		perror("error");
@@ -113,24 +113,15 @@ int sendTrame(int * xbeeToUse, struct TrameXbee * trameToSend){
 	sentSize += tailleTemp;
 	printf("Reste de la trame : ");
 	int i = 0;
-	for(i = 0;i<(trameToSend->header.taille + 1);i++){
+	for(i = 0;i<(trameToSend->header.taille);i++){
 		fprintf(stderr,"%02x ", trameToSend->trameData[i]);
 	}
-
-	// if((tailleTemp = write(*xbeeToUse,&(trameToSend->checkSum), 1)) == -1){
-	// 	perror("error");
-	// }
-	//	sentSize += tailleTemp;
-
-
-
-	printf("Envoi terminé !\n\n\n\n\n\n\n");
+	printf("\nEnvoi terminé !\n");
 	return sentSize;
 }
 
 
 void afficherTrame(struct TrameXbee * trameToPrint){
-
 	if(trameToPrint != NULL){
 		printf("Voici votre trame : \n");
 		fprintf(stderr,"%02x ", trameToPrint->header.firstByte);
@@ -140,23 +131,21 @@ void afficherTrame(struct TrameXbee * trameToPrint){
 			fprintf(stderr,"%02x ", trameToPrint->trameData[i]);
 		}
 	
-		printf("\n\n\n\n");
+		printf("\n");
 	}
 }
 
 
 struct TrameXbee * getTrame(int * usedXbee){
 
-	
-		struct pollfd fds[1];
+	struct pollfd fds[1];
 	struct TrameXbee * trameRetour = NULL;
 	fds[0].fd = *usedXbee;
 	fds[0].events = POLLIN;
 	int retour;
+	int decallage = 0;
 	uint8_t bufferHeader[4];
-	
-
-	retour = poll(fds, 1, 5000);
+	retour = poll(fds, 1, 1000);
 	if(retour < 0){ 
 		perror("error poll");
 	}
@@ -165,41 +154,51 @@ struct TrameXbee * getTrame(int * usedXbee){
 		return NULL;
 	}
 	else if(fds[0].revents & POLLIN){
-	// on recupere lentete de la trame
-	
+		// on recupere lentete de la trame
 		if (!read(fds[0].fd, bufferHeader, 4)) {
 			perror("error header");
 			return NULL;
 		}
-		uint8_t premier = bufferHeader[0];
-		uint16_t tailleData = ntohs(((uint16_t)bufferHeader[2] << 8) | bufferHeader[1]);
-		uint8_t ID = bufferHeader[3];
-		fprintf(stderr," taille data %04x\n", tailleData);
 
-		trameRetour = malloc(sizeof(struct TrameXbee) + (tailleData +1)*sizeof(uint8_t));
+
+		if(bufferHeader[0]!=0x7E){
+
+			decallage = 1;
+
+		}
+
+		uint8_t premier = 0x7E;
+		uint16_t tailleData = ntohs(((uint16_t)bufferHeader[2-decallage] << 8) | bufferHeader[1-decallage]);
+		uint8_t ID = bufferHeader[3-decallage];
+		fprintf(stderr," taille data %04x\n", tailleData);
+		trameRetour = malloc(sizeof(struct TrameXbee) + (tailleData+1)*sizeof(uint8_t));
 		trameRetour->header.firstByte = premier;
 		trameRetour->header.taille = tailleData;
 		trameRetour->header.frameID = ID;
-
+		fprintf(stderr,"Premier octet : %02x\n",trameRetour->header.firstByte);
 		int dataSize = (int) trameRetour->header.taille;
-		printf("\n Taille de la donnée qui arrive : %d\n",dataSize+1);
+		printf("\n Taille de la donnée qui arrive (checksum compris): %d\n",dataSize+1);
 		uint8_t bufferData[dataSize+1];
-		if (!read(fds[0].fd, bufferData, trameRetour->header.taille + 1)) {
+		if (!read(fds[0].fd, bufferData, trameRetour->header.taille + 1 - decallage)) {
 			perror("error frame");
 			return NULL;
 			}
 
-		printf("Test Affichage bufferData :\n");
-		for(int i = 0; i < dataSize + 1 ; i++){
-			fprintf(stderr,"%02x ",bufferData[i]);
+		// printf("Test Affichage bufferData :\n");
+		// for(int i = 0; i < dataSize + 1 ; i++){
+		// 	fprintf(stderr,"%02x ",bufferData[i]);
+		// }
+		if(decallage){
+			trameRetour->trameData[0] = bufferHeader[3];
+			for(int i = 0; i < dataSize; i++){
+			trameRetour->trameData[i+1] = bufferData[i];
+			}
 		}
-
-		printf("\nFini !\n");
-		printf("Copie dans la trame\n");
-		for(int i = 0; i < dataSize + 1; i++){
+		else {
+			for(int i = 0; i < dataSize + 1; i++){
 			trameRetour->trameData[i] = bufferData[i];
+			}
 		}
-		printf("Bonjour\n");
 		afficherTrame(trameRetour);
 	}
 	else{
