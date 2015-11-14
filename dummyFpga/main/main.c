@@ -65,8 +65,6 @@ int main(void){
 				afficherTrame(trameRetour);
 				// // FIN DU PROGRAMME
 				uint8_t idRetour = trameRetour->header.frameID;
-				uint8_t destFPGA[8];
-				uint8_t myFPGA[2];
 				switch(idRetour){
 				    case ID_NI :{
 				    // ARRIVEE D'UN NOUVEAU FPGA DANS LE RESEAU, ON VA METTRE A JOUR LA TABLE

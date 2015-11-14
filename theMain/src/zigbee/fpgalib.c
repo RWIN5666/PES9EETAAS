@@ -109,7 +109,22 @@ void deleteCaptor(captorsList *liste)
     }
 }
 
+void showCaptor(struct donneeCaptor * captor){
 
+    fprintf(stderr,"idCaptor : %02x\n",captor->idCaptor);
+    fprintf(stderr,"dataSize : %02x\n",captor->dataSize);
+    fprintf(stderr,"unitData : %02x\n",captor->unitData);
+    for(int i = 0; i < captor->dataSize ; i++){
+        fprintf(stderr,"octet n°%d : %02x\n",i,captor->minData[i]);
+    }
+    
+    for(int j = 0; j < captor->dataSize ; j++){
+        fprintf(stderr,"octet n°%d : %02x\n",j,captor->maxData[j]);
+    }
+    fprintf(stderr,"suivant : %p\n",(void *)captor->suivant);
+
+
+}
 
 
 struct moduleFPGA * computeModule(uint8_t * my, uint8_t * dest){
@@ -197,7 +212,7 @@ void getDest(uint8_t * destCopy, struct TrameXbee * trameOrigine)
 
 }
 
-uint8_t compareDest(uint8_t * destCopy, uint8_t * destFPGA)
+int compareDest(uint8_t * destCopy, uint8_t * destFPGA)
 {
     int i = 0;
     int enCommun = 0;
@@ -207,43 +222,61 @@ uint8_t compareDest(uint8_t * destCopy, uint8_t * destFPGA)
     }
     if(enCommun == 8){
         printf("Les deux dest sont identiques !\n");
-        return 0x01;
+        return 1;
     }
     else{
         printf("Les deux dest ne sont pas identiques !\n");
-        return 0x00;
+        return 0;
     }
 }
 
 
 void getUnitAndSize(uint8_t * dest, uint8_t typeCapteur, fpgaList * fpgaListe, uint8_t * unitRetour, uint8_t * sizeRetour)
-{
-   
-     if (fpgaListe == NULL)
+{  
+    if (fpgaListe == NULL)
     {
         printf("Il n'y a pas de liste !\n");
-
     }
     struct moduleFPGA *actuel = fpgaListe->premier;
     while (actuel != NULL)
     {
         if (compareDest(dest,actuel->destFPGA))
         {
+            printf("Avant actualCaptor\n");
             struct donneeCaptor * actualCaptor = actuel->listeCapteurs->premier;
+            showCaptor(actualCaptor);
+            if(actualCaptor == NULL){
+                printf("ActualCaptor est NULL\n");
+            }
+            printf("Après actualCaptor\n");
             while (actualCaptor != NULL)
             {
-            if (typeCapteur == actualCaptor->unitData)
+            printf("apres while actualCaptor\n");
+            if (typeCapteur == actualCaptor->idCaptor)
             {
+                
+                printf("Avant unitRetour\n");
+                fprintf(stderr,"actualCaptor->unitData : %02x\n", actualCaptor->unitData);
+                fprintf(stderr,"actualCaptor->dataSize : %02x\n", actualCaptor->dataSize);
                *unitRetour = actualCaptor->unitData;
-               *sizeRetour = actualCaptor->dataSize; 
+               *sizeRetour= actualCaptor->dataSize;
+               printf("Après unitRetour\n"); 
+               break;
             }
-            else actualCaptor = actualCaptor->suivant;
+            else {
+                actualCaptor = actualCaptor->suivant;
+                
             }
+            }
+            break;
         }
         else actuel = actuel->suivant;
     }
-    if(unitRetour == 0x00){
-        printf("Impossible de trouver l'unité pour ce capteur");
+    if(unitRetour == NULL){
+        printf("Impossible de trouver l'unité pour ce capteur\n");
+    }
+    if(sizeRetour == NULL){
+        printf("Impossible de trouver la taille des donnees pour ce capteur\n");
     }
 }
 
