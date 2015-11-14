@@ -208,3 +208,32 @@ struct TrameXbee * getTrame(int * usedXbee){
 
 	return trameRetour;
 }
+
+int checkFPGAState(uint8_t * dest, int * xbeeCNEPointer){
+    // We'll send 3 FPGA frames to check the suspicious FPGA
+	
+	uint8_t diagCode = DIAG_CODE;   
+    struct TrameXbee * trameCheck = computeATTrame(0x0F, dest, &diagCode);
+
+    int timeSent = 0;
+    int failCount = 0;
+
+    sendTrame(xbeeCNEPointer, trameCheck);
+    struct TrameXbee * trameCheckRetour = getTrame(xbeeCNEPointer);
+    	
+    while(failCount < 3){	
+	    if(trameCheckRetour->header.frameID != 0x8B){
+				printf("On examine la trame Transmit Status\n");
+				if(trameCheckRetour->trameData[5] == 0x00){					
+					return 1;
+				}
+				else{
+					printf("Un echec de plus");
+					failCount++;
+					trameCheckRetour = getTrame(xbeeCNEPointer);
+				}
+			}
+
+	}
+	return 0;
+}

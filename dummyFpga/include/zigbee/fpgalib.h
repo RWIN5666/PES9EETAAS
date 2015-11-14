@@ -45,10 +45,15 @@ struct __attribute__((packed)) fpgaList
 
 
 // UNITE CAPTEURS
+#define LUM_LUMEN (0x0A)
+#define LUM_CANDELA (0x0B)
 #define TEMP_KELVIN (0x0E)
 #define TEMP_CELSIUS (0x0C)
 #define TEMP_FAHRENHEIT (0x0F)
-#define LUM_LUMEN (0xBB)
+
+
+
+
 void swap(uint8_t* s, int i, int j);
 void rev(uint8_t* s, uint8_t taille);
 struct donneeCaptor * computeCaptor(uint8_t id, uint8_t size, uint8_t unit, uint8_t* min, uint8_t* max);

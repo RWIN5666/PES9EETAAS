@@ -258,3 +258,5 @@ void getResult(uint8_t * result, int size, struct TrameXbee * trameResult)
         result[i] = trameResult->trameData[i+15];
     }
 }
+
+

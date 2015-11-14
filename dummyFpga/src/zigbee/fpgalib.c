@@ -198,7 +198,7 @@ void copyMyandDest(uint8_t * myFPGA, uint8_t * destFPGA, struct TrameXbee * tram
 void getDest(uint8_t * destCopy, struct TrameXbee * trameOrigine)
 {
     for(int i = 0; i < 8 ; i++){
-            destCopy[i] = trame->trameData[i];
+            destCopy[i] = trameOrigine->trameData[i];
     }
 
 }
@@ -260,7 +260,8 @@ void getResult(uint8_t * result, int size, struct TrameXbee * trameResult)
         printf("Il n'y a pas de trame donc pas de resultat a recuperer\n");
     }
     int taille = (int)size;
-    for(int i = 0;i<taille<i++){
+    for(int i = 0;i<taille;i++){
         result[i] = trameResult->trameData[i+15];
     }
 }
+

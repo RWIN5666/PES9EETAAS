@@ -284,6 +284,7 @@ void *thread_XBee(void *arg)
 					    			
 					       			break;
 					       			}
+
 					       		case ID_LIGHT:{
 					    			printf("On a la valeur retour pour la lumiere\n");
 					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
@@ -291,6 +292,9 @@ void *thread_XBee(void *arg)
 					       			}
 					       		case ID_GYRO:{
 					    			printf("On a la valeur retour pour l'accelerometre\n");
+					    			printf("Sur l'axe X : \n");
+					    			printf("Sur l'axe Y : \n");
+					    			printf("Sur l'axe Z : \n");
 					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
 					       			break;
 					       			}

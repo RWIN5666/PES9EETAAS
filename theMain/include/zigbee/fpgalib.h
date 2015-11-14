@@ -44,10 +44,11 @@ struct __attribute__((packed)) fpgaList
 #define ID_ANALOG (0xBB)
 
 // UNITE CAPTEURS
+#define LUM_LUMEN (0x0A)
+#define LUM_CANDELA (0x0B)
 #define TEMP_KELVIN (0x0E)
 #define TEMP_CELSIUS (0x0C)
 #define TEMP_FAHRENHEIT (0x0F)
-#define LUM_LUMEN (0xBB)
 
 
 
