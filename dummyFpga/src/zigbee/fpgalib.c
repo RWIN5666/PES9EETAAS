@@ -193,3 +193,74 @@ void copyMyandDest(uint8_t * myFPGA, uint8_t * destFPGA, struct TrameXbee * tram
     }
 
 }
+
+
+void getDest(uint8_t * destCopy, struct TrameXbee * trameOrigine)
+{
+    for(int i = 0; i < 8 ; i++){
+            destCopy[i] = trame->trameData[i];
+    }
+
+}
+
+uint8_t compareDest(uint8_t * destCopy, uint8_t * destFPGA)
+{
+    int i = 0;
+    int enCommun = 0;
+    while(i<8){
+        if(destCopy[i] == destFPGA[i]) enCommun++;
+        i++;
+    }
+    if(enCommun == 8){
+        printf("Les deux dest sont identiques !\n");
+        return 0x01;
+    }
+    else{
+        printf("Les deux dest ne sont pas identiques !\n");
+        return 0x00;
+    }
+}
+
+
+void getUnitAndSize(uint8_t * dest, uint8_t typeCapteur, fpgaList * fpgaListe, uint8_t * unitRetour, uint8_t * sizeRetour)
+{
+   
+     if (fpgaListe == NULL)
+    {
+        printf("Il n'y a pas de liste !\n");
+
+    }
+    struct moduleFPGA *actuel = fpgaListe->premier;
+    while (actuel != NULL)
+    {
+        if (compareDest(dest,actuel->destFPGA))
+        {
+            struct donneeCaptor * actualCaptor = actuel->listeCapteurs->premier;
+            while (actualCaptor != NULL)
+            {
+            if (typeCapteur == actualCaptor->unitData)
+            {
+               *unitRetour = actualCaptor->unitData;
+               *sizeRetour = actualCaptor->dataSize; 
+            }
+            else actualCaptor = actualCaptor->suivant;
+            }
+        }
+        else actuel = actuel->suivant;
+    }
+    if(unitRetour == 0x00){
+        printf("Impossible de trouver l'unité pour ce capteur");
+    }
+}
+
+void getResult(uint8_t * result, int size, struct TrameXbee * trameResult)
+{
+     if (trameResult == NULL)
+    {
+        printf("Il n'y a pas de trame donc pas de resultat a recuperer\n");
+    }
+    int taille = (int)size;
+    for(int i = 0;i<taille<i++){
+        result[i] = trameResult->trameData[i+15];
+    }
+}

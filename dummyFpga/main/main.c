@@ -131,7 +131,7 @@ int main(void){
 							    printf("On a recu une requête du maitre qui veut connaitre la temperature\n");
 							    uint8_t valeur[2];
 							    valeur[0] = 0x00;
-							    valeur[1] = 0xEF;
+							    valeur[1] = 0x3F;
 							    uint8_t destRequest[8];
 							    destRequest[0] = 0x00;
 								destRequest[1] = 0x00;

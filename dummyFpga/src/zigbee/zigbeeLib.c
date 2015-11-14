@@ -153,21 +153,11 @@ struct TrameXbee * getTrame(int * usedXbee){
 		return NULL;
 	}
 	else if(fds[0].revents & POLLIN){
-		// on recupere lentete de la trame
+		// on recupere l'entete de la trame
 		if (!read(fds[0].fd, bufferHeader, 4)) {
 			perror("error header");
 			return NULL;
 		}
-
-
-
-
-
-
-
-
-
-
 		uint8_t premier = bufferHeader[0];
 		uint16_t tailleData = ntohs(((uint16_t)bufferHeader[2] << 8) | bufferHeader[1]);
 		uint8_t ID = bufferHeader[3];
@@ -178,18 +168,12 @@ struct TrameXbee * getTrame(int * usedXbee){
 		trameRetour->header.frameID = ID;
 		fprintf(stderr,"Premier octet : %02x\n",trameRetour->header.firstByte);
 		int dataSize = (int) trameRetour->header.taille;
-		printf("\n Taille de la donnée qui arrive (checksum compris): %d\n",dataSize+1);
+		printf("\nTaille de la donnée qui arrive (checksum compris): %d\n",dataSize+1);
 		uint8_t bufferData[dataSize+1];
 		if (!read(fds[0].fd, bufferData, trameRetour->header.taille + 1)) {
 			perror("error frame");
 			return NULL;
 			}
-
-		printf("Test Affichage bufferData :\n");
-		for(int i = 0; i < dataSize + 1 ; i++){
-			fprintf(stderr,"%02x ",bufferData[i]);
-		}
-
 		printf("\nFini !\n");
 		printf("Copie dans la trame\n");
 		for(int i = 0; i < dataSize + 1; i++){
@@ -202,6 +186,5 @@ struct TrameXbee * getTrame(int * usedXbee){
 		printf("Un truc etrange s'est passe... !\n");
 		return NULL;
 	}
-
 	return trameRetour;
 }

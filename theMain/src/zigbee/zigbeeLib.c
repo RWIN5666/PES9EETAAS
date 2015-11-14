@@ -170,14 +170,14 @@ struct TrameXbee * getTrame(int * usedXbee){
 		uint8_t premier = 0x7E;
 		uint16_t tailleData = ntohs(((uint16_t)bufferHeader[2-decallage] << 8) | bufferHeader[1-decallage]);
 		uint8_t ID = bufferHeader[3-decallage];
-		fprintf(stderr," taille data %04x\n", tailleData);
+		fprintf(stderr,"Taille data %04x\n", tailleData);
 		trameRetour = malloc(sizeof(struct TrameXbee) + (tailleData+1)*sizeof(uint8_t));
 		trameRetour->header.firstByte = premier;
 		trameRetour->header.taille = tailleData;
 		trameRetour->header.frameID = ID;
 		fprintf(stderr,"Premier octet : %02x\n",trameRetour->header.firstByte);
 		int dataSize = (int) trameRetour->header.taille;
-		printf("\n Taille de la donnée qui arrive (checksum compris): %d\n",dataSize+1);
+		printf("\nTaille de la donnée qui arrive (checksum compris): %d\n",dataSize+1);
 		uint8_t bufferData[dataSize+1];
 		if (!read(fds[0].fd, bufferData, trameRetour->header.taille + 1 - decallage)) {
 			perror("error frame");

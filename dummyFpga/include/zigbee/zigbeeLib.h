@@ -34,6 +34,11 @@ struct __attribute__((packed)) TrameXbee
 #define AT_ID (0x4944)
 #define AT_ND (0x4E44)
 
+// CODE TRAME INFOS
+#define INFO_FPGA_REQUEST (0x3F)
+#define INFO_CAPTOR_REQUEST (0x3F)
+
+
 
 void afficherTrame(struct TrameXbee * trameToPrint);
 struct TrameXbee * computeTrame(uint16_t taille,uint8_t idFrame, uint8_t * trameData);

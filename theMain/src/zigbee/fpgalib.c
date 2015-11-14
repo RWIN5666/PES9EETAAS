@@ -28,21 +28,19 @@ void rev(uint8_t* s, uint8_t taille)
 }
 
 // Pour transformer les bouts de trame en vraie valeur a afficher 
-// fonction a affiner en fonction des formats et tout... etc...
+// TODO : fonction a affiner en fonction des formats et tout... etc...
 int computeData(uint8_t* s, uint8_t taille){
 	uint32_t result = 0;
 	for(int i = 0; i < taille ; i++){
 		printf("Resultat %d = %d\n", i, result);
 		result += s[i] << (i*8);
-
 	}
 	return result;
 }
 
 
 struct donneeCaptor * computeCaptor(uint8_t id, uint8_t size, uint8_t unit, uint8_t* min, uint8_t* max){
-
-struct donneeCaptor * captor = malloc(sizeof(struct donneeCaptor) + sizeof(uint8_t *) + sizeof(uint8_t *) + sizeof(struct donneeCaptor *));
+    struct donneeCaptor * captor = malloc(sizeof(struct donneeCaptor) + sizeof(uint8_t *) + sizeof(uint8_t *) + sizeof(struct donneeCaptor *));
     captor->idCaptor = id;
     captor->dataSize = size;
     captor->unitData = unit;
@@ -52,11 +50,8 @@ struct donneeCaptor * captor = malloc(sizeof(struct donneeCaptor) + sizeof(uint8
         minCopy[i] = min[i];
         maxCopy[i] = max[i];
     }
-
-
     // rev(minCopy,size);
     // rev(maxCopy,size);
-
     captor->minData = malloc(sizeof(uint8_t) * (int)size);
     captor->maxData = malloc(sizeof(uint8_t) * (int)size);
 
@@ -192,4 +187,74 @@ void copyMyandDest(uint8_t * myFPGA, uint8_t * destFPGA, struct TrameXbee * tram
     		myFPGA[j] = trame->trameData[8+j];
     }
 
+}
+
+void getDest(uint8_t * destCopy, struct TrameXbee * trameOrigine)
+{
+    for(int i = 0; i < 8 ; i++){
+            destCopy[i] = trameOrigine->trameData[i];
+    }
+
+}
+
+uint8_t compareDest(uint8_t * destCopy, uint8_t * destFPGA)
+{
+    int i = 0;
+    int enCommun = 0;
+    while(i<8){
+        if(destCopy[i] == destFPGA[i]) enCommun++;
+        i++;
+    }
+    if(enCommun == 8){
+        printf("Les deux dest sont identiques !\n");
+        return 0x01;
+    }
+    else{
+        printf("Les deux dest ne sont pas identiques !\n");
+        return 0x00;
+    }
+}
+
+
+void getUnitAndSize(uint8_t * dest, uint8_t typeCapteur, fpgaList * fpgaListe, uint8_t * unitRetour, uint8_t * sizeRetour)
+{
+   
+     if (fpgaListe == NULL)
+    {
+        printf("Il n'y a pas de liste !\n");
+
+    }
+    struct moduleFPGA *actuel = fpgaListe->premier;
+    while (actuel != NULL)
+    {
+        if (compareDest(dest,actuel->destFPGA))
+        {
+            struct donneeCaptor * actualCaptor = actuel->listeCapteurs->premier;
+            while (actualCaptor != NULL)
+            {
+            if (typeCapteur == actualCaptor->unitData)
+            {
+               *unitRetour = actualCaptor->unitData;
+               *sizeRetour = actualCaptor->dataSize; 
+            }
+            else actualCaptor = actualCaptor->suivant;
+            }
+        }
+        else actuel = actuel->suivant;
+    }
+    if(unitRetour == 0x00){
+        printf("Impossible de trouver l'unité pour ce capteur");
+    }
+}
+
+void getResult(uint8_t * result, int size, struct TrameXbee * trameResult)
+{
+     if (trameResult == NULL)
+    {
+        printf("Il n'y a pas de trame donc pas de resultat a recuperer\n");
+    }
+    int taille = (int)size;
+    for(int i = 0;i<taille;i++){
+        result[i] = trameResult->trameData[i+15];
+    }
 }

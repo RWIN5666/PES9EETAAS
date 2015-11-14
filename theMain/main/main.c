@@ -160,7 +160,7 @@ void *thread_XBee(void *arg)
 			struct TrameXbee * atToSend = computeATTrame(0x0010, dest,bufferInfo);
 			requestTester.requestFromServer = 0;
 			sendTrame(xbeeCNEPointer, atToSend);
-			printf("On a envoye la trame pour la requete serveur\n");
+			printf("On a envoye la trame pour la requete serveur\n\n");
 			}
 		
 		pthread_mutex_unlock(&requestTester.mutex_server);
@@ -168,7 +168,7 @@ void *thread_XBee(void *arg)
 
 		// ROUTINE CLASSIQUE D'ATTENTE DE TRAME RETOUR
 		printf("Nous allons attendre une trame!\nAllez, c'est parti !\n");
-		printf("Veuillez connecter un FPGA...\n");
+		printf("Veuillez connecter un FPGA...\n\n");
 		// ON S'ATTEND A RECUPERER UNE TRAME LORS DE LA CONNEXION
 		trameRetour = getTrame(xbeeCNEPointer);
 
@@ -206,7 +206,7 @@ void *thread_XBee(void *arg)
 						while(trameRetour == NULL){
 							trameRetour = getTrame(xbeeCNEPointer);
 						}
-						printf("On a recupere une autre trame\n");
+						printf("On a recupere une autre trame\n\n");
 						afficherTrame(trameRetour);
 					}
 			       	else if(trameRetour->trameData[12] == 0x3F){
@@ -226,20 +226,88 @@ void *thread_XBee(void *arg)
 			       	}
 			       		addCaptorsListToFpga(nouveau, numberCaptors, capList);
 			       	}
-			       	else {printf("Ce n'est pas une requete comme prevu...\n");}
+			       	else {printf("Ce n'est pas une requete comme prevu...\n\n");}
 			       	requestTester.requestFromServer = 1;
 			       	break;
 			       }
 
 			    case ID_TX_STATUS :{
 			    	if (trameRetour->trameData[4] == 0x00){
-			    		printf("La trame a bien ete transmise\n");
+			    		printf("La trame a bien ete transmise\n\n");
+
 			    	} 			    	
 			    	break;
 			    }
 
 			    case ID_RX :{
-			    	printf("On a recu une trame RX.\n");
+			    	printf("On a recu une trame RX.\n\n");
+			    	// NUMERO OCTET A DETERMINER
+			    	uint8_t action = trameRetour->trameData[13];
+			    	switch(action){
+			    		case INFO_FPGA_REQUEST:{
+			    			printf("FPGA_REQUEST : On aurait pas du avoir cela ici\n");
+			       			break;
+			       			}
+			       		case INFO_CAPTOR_REQUEST:{
+			    			printf("CAPTOR_REQUEST : On va recuperer la valeur\n");
+			    			uint8_t typeCapteur = trameRetour->trameData[14];
+			    			uint8_t destTemp[8];
+			    			getDest(destTemp, trameRetour);
+			    			uint8_t * sizeRetour = NULL;
+			    			uint8_t * unitRetour = NULL;
+			    			getUnitAndSize(destTemp, typeCapteur, listeFPGA, unitRetour, sizeRetour);
+			    			if(sizeRetour && unitRetour){
+			    				switch(typeCapteur){
+					    		case ID_TEMPERATURE:{
+					    			printf("On a la valeur retour pour la temperature\n");
+					    			int taille = (int)(*sizeRetour);
+					    			uint8_t result[taille];
+					    			getResult(result, taille, trameRetour);
+					    			int resultatFinal = computeData(result,taille);
+
+
+
+					    			// POUR TESTER LAFFICHAGE DE LA VALEUR
+					    			if((*unitRetour) == TEMP_KELVIN){
+					    				printf("La temperature est de %d degrés KELVIN",resultatFinal);
+					    			}
+					    			if((*unitRetour) == TEMP_CELSIUS){
+					    				printf("La temperature est de %d degrés CELSIUS",resultatFinal);
+					    			}
+					    			if((*unitRetour) == TEMP_FAHRENHEIT){
+										printf("La temperature est de %d degrés FAHRENHEIT",resultatFinal);
+					    			}
+
+
+					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+
+					    			
+					       			break;
+					       			}
+					       		case ID_LIGHT:{
+					    			printf("On a la valeur retour pour la lumiere\n");
+					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					       			break;
+					       			}
+					       		case ID_GYRO:{
+					    			printf("On a la valeur retour pour l'accelerometre\n");
+					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					       			break;
+					       			}
+					       		case ID_ANALOG:{
+					    			printf("On a la valeur retour pour la valeur des potentiomètres\n");
+					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					       			break;
+					       			}
+								default :  
+					       			break;
+			    				}
+			    			}
+			       			break;
+			       			}
+						default :  
+			       			break;
+			    	}
 			    	break;
 			    }
 			    default :  
@@ -247,7 +315,7 @@ void *thread_XBee(void *arg)
 			}
 
 		}
-		else printf("Pas de trame reçu on recommence !\n");
+		else printf("Pas de trame reçu on recommence !\n\n");
 	}
 
 

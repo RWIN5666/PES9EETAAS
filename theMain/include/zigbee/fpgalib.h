@@ -43,6 +43,11 @@ struct __attribute__((packed)) fpgaList
 #define ID_GYRO (0xEE)
 #define ID_ANALOG (0xBB)
 
+// UNITE CAPTEURS
+#define TEMP_KELVIN (0x0E)
+#define TEMP_CELSIUS (0x0C)
+#define TEMP_FAHRENHEIT (0x0F)
+#define LUM_LUMEN (0xBB)
 
 
 
@@ -57,5 +62,10 @@ void addFpga(fpgaList *liste, struct moduleFPGA * fpga);
 void addCaptorsListToFpga(struct moduleFPGA * fpga, int number, captorsList * listeCapteurs);
 int computeData(uint8_t* s, uint8_t taille);
 void copyMyandDest(uint8_t * myFPGA, uint8_t * destFPGA, struct TrameXbee * trame);
+void getDest(uint8_t * destCopy, struct TrameXbee * trameOrigine);
+uint8_t compareDest(uint8_t * destCopy, uint8_t * destFPGA);
+void getUnitAndSize(uint8_t * dest, uint8_t typeCapteur, fpgaList * fpgaListe, uint8_t *unitRetour, uint8_t *sizeRetour);
+void getResult(uint8_t * result, int size, struct TrameXbee * trameResult);
+
 
 #endif
