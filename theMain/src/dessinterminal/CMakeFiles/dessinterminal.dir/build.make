@@ -31,8 +31,8 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
+# Escaping for special characters.
+EQUALS = =
 
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/erwin/Documents/PRE/PES9EETAAS/theMain
@@ -53,15 +53,15 @@ src/dessinterminal/CMakeFiles/dessinterminal.dir/drawterminal.c.o: src/dessinter
 src/dessinterminal/CMakeFiles/dessinterminal.dir/drawterminal.c.o: src/dessinterminal/drawterminal.c
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/erwin/Documents/PRE/PES9EETAAS/theMain/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object src/dessinterminal/CMakeFiles/dessinterminal.dir/drawterminal.c.o"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/dessinterminal.dir/drawterminal.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/drawterminal.c
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/dessinterminal.dir/drawterminal.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/drawterminal.c
 
 src/dessinterminal/CMakeFiles/dessinterminal.dir/drawterminal.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/dessinterminal.dir/drawterminal.c.i"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/drawterminal.c > CMakeFiles/dessinterminal.dir/drawterminal.c.i
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/drawterminal.c > CMakeFiles/dessinterminal.dir/drawterminal.c.i
 
 src/dessinterminal/CMakeFiles/dessinterminal.dir/drawterminal.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/dessinterminal.dir/drawterminal.c.s"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/drawterminal.c -o CMakeFiles/dessinterminal.dir/drawterminal.c.s
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/drawterminal.c -o CMakeFiles/dessinterminal.dir/drawterminal.c.s
 
 src/dessinterminal/CMakeFiles/dessinterminal.dir/drawterminal.c.o.requires:
 .PHONY : src/dessinterminal/CMakeFiles/dessinterminal.dir/drawterminal.c.o.requires

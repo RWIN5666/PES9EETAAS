@@ -56,7 +56,7 @@ int main(void){
 
 
 	printf("Lancement du programme DUMMYFPGA\n");
-	int xbeeRNE = serial_init("/dev/ttyUSB1",9600);
+	int xbeeRNE = serial_init("/dev/ttyUSB1",115200);
 	int * xbeeRNEPointer = &xbeeRNE;
 
 	while(!finish){

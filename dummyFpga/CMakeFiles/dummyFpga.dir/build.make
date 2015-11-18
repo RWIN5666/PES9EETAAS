@@ -31,8 +31,8 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
+# Escaping for special characters.
+EQUALS = =
 
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga
@@ -53,15 +53,15 @@ CMakeFiles/dummyFpga.dir/main/main.c.o: CMakeFiles/dummyFpga.dir/flags.make
 CMakeFiles/dummyFpga.dir/main/main.c.o: main/main.c
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object CMakeFiles/dummyFpga.dir/main/main.c.o"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/dummyFpga.dir/main/main.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/main/main.c
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/dummyFpga.dir/main/main.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/main/main.c
 
 CMakeFiles/dummyFpga.dir/main/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/dummyFpga.dir/main/main.c.i"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/main/main.c > CMakeFiles/dummyFpga.dir/main/main.c.i
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/main/main.c > CMakeFiles/dummyFpga.dir/main/main.c.i
 
 CMakeFiles/dummyFpga.dir/main/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/dummyFpga.dir/main/main.c.s"
-	/usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/main/main.c -o CMakeFiles/dummyFpga.dir/main/main.c.s
+	/usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/main/main.c -o CMakeFiles/dummyFpga.dir/main/main.c.s
 
 CMakeFiles/dummyFpga.dir/main/main.c.o.requires:
 .PHONY : CMakeFiles/dummyFpga.dir/main/main.c.o.requires
@@ -80,11 +80,11 @@ dummyFpga_OBJECTS = \
 dummyFpga_EXTERNAL_OBJECTS =
 
 dummyFpga: CMakeFiles/dummyFpga.dir/main/main.c.o
+dummyFpga: CMakeFiles/dummyFpga.dir/build.make
 dummyFpga: src/serial0/libserial0.so
 dummyFpga: src/zigbee/libzigbee.so
 dummyFpga: src/dessinterminal/libdessinterminal.so
 dummyFpga: src/hexLib/libhexLib.so
-dummyFpga: CMakeFiles/dummyFpga.dir/build.make
 dummyFpga: CMakeFiles/dummyFpga.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C executable dummyFpga"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dummyFpga.dir/link.txt --verbose=$(VERBOSE)

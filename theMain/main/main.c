@@ -143,7 +143,7 @@ void *thread_XBee(void *arg)
     //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
 
 	//Initialisation UART XBEE
-	int xbeeCNE = serial_init("/dev/ttyUSB0",9600);
+	int xbeeCNE = serial_init("/dev/ttyUSB0",115200);
 	int * xbeeCNEPointer = &xbeeCNE;
 	struct TrameXbee * trameRetour = NULL;
 	while(!finish){
