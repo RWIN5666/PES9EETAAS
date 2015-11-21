@@ -99,17 +99,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named 42main
+# Target rules for targets named cetExecutablePermetdeSimulerUnFpga
 
 # Build rule for target.
-42main: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 42main
-.PHONY : 42main
+cetExecutablePermetdeSimulerUnFpga: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cetExecutablePermetdeSimulerUnFpga
+.PHONY : cetExecutablePermetdeSimulerUnFpga
 
 # fast build rule for target.
-42main/fast:
-	$(MAKE) -f CMakeFiles/42main.dir/build.make CMakeFiles/42main.dir/build
-.PHONY : 42main/fast
+cetExecutablePermetdeSimulerUnFpga/fast:
+	$(MAKE) -f CMakeFiles/cetExecutablePermetdeSimulerUnFpga.dir/build.make CMakeFiles/cetExecutablePermetdeSimulerUnFpga.dir/build
+.PHONY : cetExecutablePermetdeSimulerUnFpga/fast
+
+#=============================================================================
+# Target rules for targets named cetExecutableVaudra20sur20danspaslongtemps
+
+# Build rule for target.
+cetExecutableVaudra20sur20danspaslongtemps: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cetExecutableVaudra20sur20danspaslongtemps
+.PHONY : cetExecutableVaudra20sur20danspaslongtemps
+
+# fast build rule for target.
+cetExecutableVaudra20sur20danspaslongtemps/fast:
+	$(MAKE) -f CMakeFiles/cetExecutableVaudra20sur20danspaslongtemps.dir/build.make CMakeFiles/cetExecutableVaudra20sur20danspaslongtemps.dir/build
+.PHONY : cetExecutableVaudra20sur20danspaslongtemps/fast
 
 #=============================================================================
 # Target rules for targets named dessinterminal
@@ -163,12 +176,36 @@ hexLib/fast:
 	$(MAKE) -f src/hexLib/CMakeFiles/hexLib.dir/build.make src/hexLib/CMakeFiles/hexLib.dir/build
 .PHONY : hexLib/fast
 
+main/dummyFpga.o: main/dummyFpga.c.o
+.PHONY : main/dummyFpga.o
+
+# target to build an object file
+main/dummyFpga.c.o:
+	$(MAKE) -f CMakeFiles/cetExecutablePermetdeSimulerUnFpga.dir/build.make CMakeFiles/cetExecutablePermetdeSimulerUnFpga.dir/main/dummyFpga.c.o
+.PHONY : main/dummyFpga.c.o
+
+main/dummyFpga.i: main/dummyFpga.c.i
+.PHONY : main/dummyFpga.i
+
+# target to preprocess a source file
+main/dummyFpga.c.i:
+	$(MAKE) -f CMakeFiles/cetExecutablePermetdeSimulerUnFpga.dir/build.make CMakeFiles/cetExecutablePermetdeSimulerUnFpga.dir/main/dummyFpga.c.i
+.PHONY : main/dummyFpga.c.i
+
+main/dummyFpga.s: main/dummyFpga.c.s
+.PHONY : main/dummyFpga.s
+
+# target to generate assembly for a file
+main/dummyFpga.c.s:
+	$(MAKE) -f CMakeFiles/cetExecutablePermetdeSimulerUnFpga.dir/build.make CMakeFiles/cetExecutablePermetdeSimulerUnFpga.dir/main/dummyFpga.c.s
+.PHONY : main/dummyFpga.c.s
+
 main/main.o: main/main.c.o
 .PHONY : main/main.o
 
 # target to build an object file
 main/main.c.o:
-	$(MAKE) -f CMakeFiles/42main.dir/build.make CMakeFiles/42main.dir/main/main.c.o
+	$(MAKE) -f CMakeFiles/cetExecutableVaudra20sur20danspaslongtemps.dir/build.make CMakeFiles/cetExecutableVaudra20sur20danspaslongtemps.dir/main/main.c.o
 .PHONY : main/main.c.o
 
 main/main.i: main/main.c.i
@@ -176,7 +213,7 @@ main/main.i: main/main.c.i
 
 # target to preprocess a source file
 main/main.c.i:
-	$(MAKE) -f CMakeFiles/42main.dir/build.make CMakeFiles/42main.dir/main/main.c.i
+	$(MAKE) -f CMakeFiles/cetExecutableVaudra20sur20danspaslongtemps.dir/build.make CMakeFiles/cetExecutableVaudra20sur20danspaslongtemps.dir/main/main.c.i
 .PHONY : main/main.c.i
 
 main/main.s: main/main.c.s
@@ -184,7 +221,7 @@ main/main.s: main/main.c.s
 
 # target to generate assembly for a file
 main/main.c.s:
-	$(MAKE) -f CMakeFiles/42main.dir/build.make CMakeFiles/42main.dir/main/main.c.s
+	$(MAKE) -f CMakeFiles/cetExecutableVaudra20sur20danspaslongtemps.dir/build.make CMakeFiles/cetExecutableVaudra20sur20danspaslongtemps.dir/main/main.c.s
 .PHONY : main/main.c.s
 
 # Help Target
@@ -193,13 +230,17 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... 42main"
+	@echo "... cetExecutablePermetdeSimulerUnFpga"
+	@echo "... cetExecutableVaudra20sur20danspaslongtemps"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... dessinterminal"
 	@echo "... serial0"
 	@echo "... zigbee"
 	@echo "... hexLib"
+	@echo "... main/dummyFpga.o"
+	@echo "... main/dummyFpga.i"
+	@echo "... main/dummyFpga.s"
 	@echo "... main/main.o"
 	@echo "... main/main.i"
 	@echo "... main/main.s"

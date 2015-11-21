@@ -8,7 +8,7 @@
 #include <poll.h>
 #include <netinet/in.h>
 #include "zigbee/fpgalib.h"
-
+#include "hexLib/hexLib.h"
 
 
 
@@ -29,13 +29,69 @@ void rev(uint8_t* s, uint8_t taille)
 
 // Pour transformer les bouts de trame en vraie valeur a afficher 
 // TODO : fonction a affiner en fonction des formats et tout... etc...
-int computeData(uint8_t* s, uint8_t taille){
-	uint32_t result = 0;
-	for(int i = 0; i < taille ; i++){
-		printf("Resultat %d = %d\n", i, result);
-		result += s[i] << (i*8);
-	}
-	return result;
+// TODO : AJOUTER ICI LES INFOS SUR CAPTEURS AU FICHIER JSON
+int computeData(uint8_t* s, uint8_t taille, uint8_t type){
+	switch(type){
+        case 0x00:{
+            // CAS PAR DEFAUT (UTILISE POUR LE TEST)
+            uint32_t result = 0;
+            for(int i = 0; i < taille ; i++){
+                printf("Resultat %d = %d\n", i, result);
+                result += s[i] << (i*8);
+            }
+            return 1;
+            break;
+        }
+        case ID_TEMPERATURE:{
+            uint8_t byte1 = 0xA0;
+            uint8_t byteSign = (byte1 & 0x80) >> 7;
+            byte1 = byte1 & 0x7F;
+            uint8_t byte2 = 0x80;
+            uint8_t byteHalf = (byte2 & 0x80) >> 7;
+            printf("valeur de byteSign : %02x\n",byteHalf);
+            uint8_t testTrame[(2*2)+1];
+            int taille = 2;
+            sprintf(&testTrame[0],"%02x",byte1);
+            sprintf(&testTrame[2],"%02x",byte2);
+            printf("test : %s\n", testTrame);
+            uint8_t buffer[taille];
+            convertZeroPadedHexIntoByte(testTrame,buffer);
+            uint32_t test32u = 0x0F001500;
+            int test32 = (int) test32u;
+            printf("Valeur de test32u en int : %d\n", test32);
+            int testByte = (int) buffer[0];
+            printf("Valeur de testByte en int : %d\n", testByte);
+            float trucFloat = (float) testByte;
+            printf("Affichage de trucFloat apres conversion en float %f\n", trucFloat);
+            if(byteHalf) trucFloat += 0.5;
+            printf("Affichage de trucFloat apres ajout ou non de 0.5 %f\n", trucFloat);
+            if(byteSign) trucFloat = -trucFloat;
+            printf("Affichage de trucFloat  apres ou non changement de signe %f\n", trucFloat);
+            return 1;
+            break;
+        }
+        case ID_LIGHT:{
+             return 1;
+            break;
+        }
+        case ID_GYRO:{
+            // 3 valeurs, la donnee arrive sous la forme de 6 octets, deux pour chaque axe.
+            int x = (((int)s[1]) << 8) | s[0];
+            int y = (((int)s[3]) << 8) | s[2];
+            int z = (((int)s[5]) << 8) | s[4];
+            printf("Voici les valeurs :\nX -> %d\nY -> %d\nZ -> %d", x,y,z);
+             return 1;
+            break;
+        }
+        case ID_ANALOG:{
+            return 1;
+            break;
+        }
+        default:
+            return 0;
+
+
+    }
 }
 
 
@@ -258,7 +314,7 @@ void getUnitAndSize(uint8_t * dest, uint8_t typeCapteur, fpgaList * fpgaListe, u
                 printf("Avant unitRetour\n");
                 fprintf(stderr,"actualCaptor->unitData : %02x\n", actualCaptor->unitData);
                 fprintf(stderr,"actualCaptor->dataSize : %02x\n", actualCaptor->dataSize);
-               *unitRetour = actualCaptor->unitData;
+               *unitRetour= actualCaptor->unitData;
                *sizeRetour= actualCaptor->dataSize;
                printf("Après unitRetour\n"); 
                break;
@@ -290,6 +346,83 @@ void getResult(uint8_t * result, int size, struct TrameXbee * trameResult)
     for(int i = 0;i<taille;i++){
         result[i] = trameResult->trameData[i+15];
     }
+}
+
+
+void setFpgaName(struct moduleFPGA * module, uint8_t firstNameByte, uint8_t secondNameByte){
+            module->fpgaName[0] = firstNameByte;
+            module->fpgaName[1] = secondNameByte;
+}
+
+int compareName(uint8_t * nameCopy, uint8_t * nameFPGA)
+{
+    int i = 0;
+    int enCommun = 0;
+    while(i<2){
+        if(nameCopy[i] == nameFPGA[i]) enCommun++;
+        i++;
+    }
+    if(enCommun == 2){
+        printf("Les deux dest sont identiques !\n");
+        return 1;
+    }
+    else{
+        printf("Les deux dest ne sont pas identiques !\n");
+        return 0;
+    }
+}
+
+struct moduleFPGA * getModuleFromName(fpgaList * fpgaListe, uint8_t * name){
+
+    if(fpgaListe == NULL){
+        printf("Ya pas de liste gros !\n");
+        return NULL;
+    }
+
+    else {
+        struct moduleFPGA * actuel = fpgaListe->premier;
+        while (actuel != NULL)
+        {
+            if (compareName(name,actuel->fpgaName))
+            {
+                printf("On a trouve le module !\n");
+                return actuel;
+            }
+            else actuel = actuel->suivant;
+        }
+        return NULL;
+    }
+}
+
+int hasCaptor(uint8_t * name, fpgaList * fpgaListe, uint8_t code){
+
+    if (fpgaListe == NULL)
+        {
+            printf("Il n'y a pas de liste !\n");
+            return 0;
+        }
+
+    struct moduleFPGA *actuel = getModuleFromName(fpgaListe, name);
+    while (actuel != NULL)
+    {
+            struct donneeCaptor * actualCaptor = actuel->listeCapteurs->premier;
+            showCaptor(actualCaptor);
+            if(actualCaptor == NULL){
+                printf("ActualCaptor est NULL\n");
+                return 0;
+            }
+            while (actualCaptor != NULL)
+            {
+            if (code == actualCaptor->idCaptor)
+            {             
+              return 1;          
+            }
+            else {
+                actualCaptor = actualCaptor->suivant;
+            }
+            } 
+    }
+    return 0;
 }
 
 

@@ -53,15 +53,15 @@ src/hexLib/CMakeFiles/hexLib.dir/hexLib.c.o: src/hexLib/CMakeFiles/hexLib.dir/fl
 src/hexLib/CMakeFiles/hexLib.dir/hexLib.c.o: src/hexLib/hexLib.c
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/erwin/Documents/PRE/PES9EETAAS/theMain/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object src/hexLib/CMakeFiles/hexLib.dir/hexLib.c.o"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/hexLib.dir/hexLib.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib/hexLib.c
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/hexLib.dir/hexLib.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib/hexLib.c
 
 src/hexLib/CMakeFiles/hexLib.dir/hexLib.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/hexLib.dir/hexLib.c.i"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib/hexLib.c > CMakeFiles/hexLib.dir/hexLib.c.i
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib/hexLib.c > CMakeFiles/hexLib.dir/hexLib.c.i
 
 src/hexLib/CMakeFiles/hexLib.dir/hexLib.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hexLib.dir/hexLib.c.s"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib/hexLib.c -o CMakeFiles/hexLib.dir/hexLib.c.s
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib/hexLib.c -o CMakeFiles/hexLib.dir/hexLib.c.s
 
 src/hexLib/CMakeFiles/hexLib.dir/hexLib.c.o.requires:
 .PHONY : src/hexLib/CMakeFiles/hexLib.dir/hexLib.c.o.requires

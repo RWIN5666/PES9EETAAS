@@ -53,15 +53,15 @@ src/zigbee/CMakeFiles/zigbee.dir/zigbeeLib.c.o: src/zigbee/CMakeFiles/zigbee.dir
 src/zigbee/CMakeFiles/zigbee.dir/zigbeeLib.c.o: src/zigbee/zigbeeLib.c
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/erwin/Documents/PRE/PES9EETAAS/theMain/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object src/zigbee/CMakeFiles/zigbee.dir/zigbeeLib.c.o"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/zigbee.dir/zigbeeLib.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/zigbeeLib.c
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/zigbee.dir/zigbeeLib.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/zigbeeLib.c
 
 src/zigbee/CMakeFiles/zigbee.dir/zigbeeLib.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/zigbee.dir/zigbeeLib.c.i"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/zigbeeLib.c > CMakeFiles/zigbee.dir/zigbeeLib.c.i
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/zigbeeLib.c > CMakeFiles/zigbee.dir/zigbeeLib.c.i
 
 src/zigbee/CMakeFiles/zigbee.dir/zigbeeLib.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/zigbee.dir/zigbeeLib.c.s"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/zigbeeLib.c -o CMakeFiles/zigbee.dir/zigbeeLib.c.s
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/zigbeeLib.c -o CMakeFiles/zigbee.dir/zigbeeLib.c.s
 
 src/zigbee/CMakeFiles/zigbee.dir/zigbeeLib.c.o.requires:
 .PHONY : src/zigbee/CMakeFiles/zigbee.dir/zigbeeLib.c.o.requires
@@ -76,15 +76,15 @@ src/zigbee/CMakeFiles/zigbee.dir/checksum.c.o: src/zigbee/CMakeFiles/zigbee.dir/
 src/zigbee/CMakeFiles/zigbee.dir/checksum.c.o: src/zigbee/checksum.c
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/erwin/Documents/PRE/PES9EETAAS/theMain/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object src/zigbee/CMakeFiles/zigbee.dir/checksum.c.o"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/zigbee.dir/checksum.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/checksum.c
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/zigbee.dir/checksum.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/checksum.c
 
 src/zigbee/CMakeFiles/zigbee.dir/checksum.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/zigbee.dir/checksum.c.i"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/checksum.c > CMakeFiles/zigbee.dir/checksum.c.i
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/checksum.c > CMakeFiles/zigbee.dir/checksum.c.i
 
 src/zigbee/CMakeFiles/zigbee.dir/checksum.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/zigbee.dir/checksum.c.s"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/checksum.c -o CMakeFiles/zigbee.dir/checksum.c.s
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/checksum.c -o CMakeFiles/zigbee.dir/checksum.c.s
 
 src/zigbee/CMakeFiles/zigbee.dir/checksum.c.o.requires:
 .PHONY : src/zigbee/CMakeFiles/zigbee.dir/checksum.c.o.requires
@@ -99,15 +99,15 @@ src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.o: src/zigbee/CMakeFiles/zigbee.dir/f
 src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.o: src/zigbee/fpgalib.c
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/erwin/Documents/PRE/PES9EETAAS/theMain/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.o"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/zigbee.dir/fpgalib.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/fpgalib.c
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/zigbee.dir/fpgalib.c.o   -c /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/fpgalib.c
 
 src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/zigbee.dir/fpgalib.c.i"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/fpgalib.c > CMakeFiles/zigbee.dir/fpgalib.c.i
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -E /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/fpgalib.c > CMakeFiles/zigbee.dir/fpgalib.c.i
 
 src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/zigbee.dir/fpgalib.c.s"
-	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/fpgalib.c -o CMakeFiles/zigbee.dir/fpgalib.c.s
+	cd /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -S /home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/fpgalib.c -o CMakeFiles/zigbee.dir/fpgalib.c.s
 
 src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.o.requires:
 .PHONY : src/zigbee/CMakeFiles/zigbee.dir/fpgalib.c.o.requires

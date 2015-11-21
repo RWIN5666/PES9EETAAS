@@ -9,6 +9,8 @@
 #include <netinet/in.h>
 #include "zigbee/zigbeeLib.h"
 #include "zigbee/checksum.h"
+#include "hexLib/hexLib.h"
+#include "zigbee/fpgalib.h"
 
 
 
@@ -215,7 +217,7 @@ int checkFPGAState(uint8_t * dest, int * xbeeCNEPointer){
 	uint8_t diagCode = DIAG_CODE;   
     struct TrameXbee * trameCheck = computeATTrame(0x0F, dest, &diagCode);
 
-    int timeSent = 0;
+   // int timeSent = 0;
     int failCount = 0;
 
     sendTrame(xbeeCNEPointer, trameCheck);
@@ -236,4 +238,182 @@ int checkFPGAState(uint8_t * dest, int * xbeeCNEPointer){
 
 	}
 	return 0;
+}
+
+int sendCaptorInfoRequestFrame(int * xbeeCNEPointer, uint8_t requestCode, uint8_t * dest){
+	fprintf(stderr,"Request code : %02x\n", requestCode);
+	uint8_t testString [2*2 +1];
+	sprintf(&testString[0],"%02x",0x2A);
+	sprintf(&testString[2],"%02x",requestCode);
+	uint8_t bufferInfo[2];
+	convertZeroPadedHexIntoByte(testString,bufferInfo);
+	struct TrameXbee * atToSend = computeATTrame(0x0010, dest,bufferInfo);
+	int sizeSent = sendTrame(xbeeCNEPointer, atToSend);
+
+	if(sizeSent) return 0;
+	else return -1;
+}
+
+
+
+int traiterTrameRetour(requestStruct requestTester, int * xbeePointer, struct TrameXbee * trameRetour, fpgaList * listeFPGA){
+
+	if(trameRetour){
+			afficherTrame(trameRetour);
+			// // FIN DU PROGRAMME
+			uint8_t idRetour = trameRetour->header.frameID;
+			switch(idRetour){
+			    case ID_NI :{
+			    // ARRIVEE D'UN NOUVEAU FPGA DANS LE RESEAU, ON VA METTRE A JOUR LA TABLE
+			    	printf("J'ai recu une trame\n");
+			    	uint8_t destFPGA[8];
+					uint8_t myFPGA[2];
+					copyMyandDest(myFPGA, destFPGA, trameRetour);
+				    struct moduleFPGA * nouveau = computeModule(myFPGA,destFPGA);
+				    addFpga(listeFPGA,nouveau);
+				    sleep(10);
+				    //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
+				   // struct TrameXbee * trameTest = computeTrame(0x000F,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x3F");
+				    printf("On a un nouveau FPGA\n");
+					uint8_t code = requestTester.requestCode;
+					fprintf(stderr,"code : %02x\n", code);
+					uint8_t testString [1*2 +1];
+					sprintf(&testString[0],"%02x",0x3F);
+					uint8_t bufferInfo[1];
+		   			convertZeroPadedHexIntoByte(testString,bufferInfo);
+				   	struct TrameXbee * trameTest = computeATTrame(0x000F,destFPGA,bufferInfo);
+					//on va envoyer la trame créée avec sendTrame(int xbeeToUse, struct TrameXbee * trameToSend)
+					sendTrame(xbeePointer, trameTest);
+					trameRetour = getTrame(xbeePointer);
+					printf("Avant de checker le resultat\n");
+					fprintf(stderr,"Test : %02x\n", trameRetour->trameData[11]);
+					if(trameRetour->trameData[11] != 0x3F){
+						printf("On a eu autre chose\n");
+						trameRetour = getTrame(xbeePointer);
+						while(trameRetour == NULL){
+							trameRetour = getTrame(xbeePointer);
+						}
+						printf("On a recupere une autre trame\n\n");
+						afficherTrame(trameRetour);
+					}
+			       	if(trameRetour->trameData[11] == 0x3F){
+			       		printf("On recoit une reponse a la requete ?\n");
+			       		captorsList * capList = initCaptorsList();
+			     		setFpgaName(nouveau, trameRetour->trameData[12], trameRetour->trameData[13]);
+			       		uint8_t numberCaptors = trameRetour->trameData[14];
+			       		uint8_t tempSize = 0x00;
+			       		// BOUCLE POUR CHAQUE CAPTEUR
+			       		for(int i = 0; i < (int)numberCaptors; i++){
+			       		uint8_t id = trameRetour->trameData[15+i*(2*tempSize+3)];
+			       		uint8_t dataSize = trameRetour->trameData[16+i*(2*tempSize+3)];
+			       		tempSize += dataSize;
+			       		uint8_t unit = trameRetour->trameData[17+i*(2*tempSize+3)];
+			       		uint8_t * minValue = trameRetour->trameData + (18+i*(2*tempSize+3));
+			       		uint8_t * maxValue = trameRetour->trameData + (18+dataSize+i*(2*tempSize+3));
+			       		addCaptor(capList, id, dataSize, unit, minValue, maxValue);
+			       		showCaptor(capList->premier);
+			       	}
+			       		addCaptorsListToFpga(nouveau, numberCaptors, capList);
+			       	}
+			       	else {printf("Ce n'est pas une requete comme prevu...\n\n");}
+			       	requestTester.requestFromServer = 1;
+			       	break;
+			       	return 1;
+			       }
+
+			    case ID_TX_STATUS :{
+			    	if (trameRetour->trameData[4] == 0x00){
+			    		printf("La trame a bien ete transmise\n\n");
+
+			    	} 	
+			    	return 1;		    	
+			    	break;
+			    }
+
+			    case ID_RX :{
+			    	printf("On a recu une trame RX.\n\n");
+			    	// NUMERO OCTET A DETERMINER
+			    	uint8_t action = trameRetour->trameData[11];
+			    	fprintf(stderr,"Valeur de l'octet RX : %02x\n", trameRetour->trameData[11]);
+			    	switch(action){
+			    		case INFO_FPGA_REQUEST:{
+			    			printf("FPGA_REQUEST : On aurait pas du avoir cela ici\n");
+			    			return 1;
+			       			break;
+			       			}
+			       		case INFO_CAPTOR_REQUEST:{
+			    			printf("CAPTOR_REQUEST : On va recuperer la valeur\n");
+			    			uint8_t typeCapteur = trameRetour->trameData[12];
+			    			uint8_t destTemp[8];
+			    			getDest(destTemp, trameRetour);
+			    			uint8_t  sizeRetour;
+			    			uint8_t  unitRetour;
+			    			getUnitAndSize(destTemp, typeCapteur, listeFPGA, &unitRetour, &sizeRetour);
+			    			fprintf(stderr,"sizeRetour : %02x\n", sizeRetour);
+			    			fprintf(stderr, "unitRetour : %02x\n",unitRetour);
+			    			if((sizeRetour!=0x00) && (unitRetour!=0x00)){
+			    				switch(typeCapteur){
+					    		case ID_TEMPERATURE:{
+					    			printf("On a la valeur retour pour la temperature\n");
+					    			int taille = (int)(sizeRetour);
+					    			uint8_t result[taille];
+					    			getResult(result, taille, trameRetour);
+					    			rev(result,taille);
+					    			int resultatFinal = computeData(result,taille, typeCapteur);
+					    			// POUR TESTER LAFFICHAGE DE LA VALEUR
+					    			if((unitRetour) == TEMP_KELVIN){
+					    				printf("La temperature est de %d degrés KELVIN\n",resultatFinal);
+					    			}
+					    			if((unitRetour) == TEMP_CELSIUS){
+					    				printf("La temperature est de %d degrés CELSIUS\n",resultatFinal);
+					    			}
+					    			if((unitRetour) == TEMP_FAHRENHEIT){
+										printf("La temperature est de %d degrés FAHRENHEIT\n",resultatFinal);
+					    			}
+					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					    			return 1;
+					       			break;
+					       			}
+
+					       		case ID_LIGHT:{
+					    			printf("On a la valeur retour pour la lumiere\n");
+					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					    			return 1;
+					       			break;
+					       			}
+					       		case ID_GYRO:{
+					    			printf("On a la valeur retour pour l'accelerometre\n");
+					    			printf("Sur l'axe X : \n");
+					    			printf("Sur l'axe Y : \n");
+					    			printf("Sur l'axe Z : \n");
+					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					    			return 1;
+					       			break;
+					       			}
+					       		case ID_ANALOG:{
+					    			printf("On a la valeur retour pour la valeur des potentiomètres\n");
+					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					    			return 1;
+					       			break;
+					       			}
+								default :  
+									return 0;
+					       			break;
+			    				}
+			    			}
+			       			break;
+			       			}
+						default :  
+						return 0;
+			       			break;
+			    	}
+			    	break;
+			    }
+			    default :  
+			    	return 0;
+			       break;
+			}
+
+		}
+		return 0;
 }
