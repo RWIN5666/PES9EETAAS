@@ -1,6 +1,0 @@
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/CMakeFiles/cetExecutablePermetdeSimulerUnFpga.dir
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/CMakeFiles/cetExecutableVaudra20sur20danspaslongtemps.dir
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/dessinterminal/CMakeFiles/dessinterminal.dir
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib/CMakeFiles/hexLib.dir
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/serial0/CMakeFiles/serial0.dir
-/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/zigbee/CMakeFiles/zigbee.dir
