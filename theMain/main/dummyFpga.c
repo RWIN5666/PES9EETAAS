@@ -37,10 +37,27 @@ int main(void){
 	listeCapteurs = initCaptorsList();
 	uint8_t minTemp[2];
 	uint8_t maxTemp[2];
+	uint8_t fpgaName[2];
+	fpgaName[0] = 0x23;
+	fpgaName[1] = 0x31;
 	minTemp[0] = 0x00;
 	minTemp[1] = 0x00;
 	maxTemp[0] = 0x00;
 	maxTemp[1] = 0x40;
+	uint8_t question = 0x3F;
+	uint8_t numberCaptors = 0x01;
+	uint8_t id = ID_TEMPERATURE;
+	uint8_t tailleData = 0x02;
+	uint8_t unitData = 0x0C;
+    uint8_t destRequest[8];  
+    destRequest[0] = 0x00;
+	destRequest[1] = 0x00;
+	destRequest[2] = 0x00;
+	destRequest[3] = 0x00;
+	destRequest[4] = 0x00;
+	destRequest[5] = 0x00;
+	destRequest[6] = 0x00;
+	destRequest[7] = 0x00;
 	int finish = 0;
 	addCaptor(listeCapteurs,ID_TEMPERATURE,0x02,0x0C,minTemp,maxTemp);
 	//showCaptor(listeCapteurs->premier);
@@ -57,7 +74,7 @@ int main(void){
 
 
 	printf("Lancement du programme DUMMYFPGA\n");
-	int xbeeRNE = serial_init("/dev/ttyUSB1",115200);
+	int xbeeRNE = serial_init("/dev/ttyUSB1",9600);
 	int * xbeeRNEPointer = &xbeeRNE;
 
 	while(!finish){
@@ -90,33 +107,21 @@ int main(void){
 								minTemp[1] = 0x00;
 								maxTemp[0] = 0x00;
 								maxTemp[1] = 0x40;
-								uint8_t question = 0x3F;
-								uint8_t numberCaptors = 0x01;
-								uint8_t id = ID_TEMPERATURE;
-								uint8_t tailleData = 0x02;
-								uint8_t unitData = 0x0C;
-							    uint8_t destRequest[8];
-							    destRequest[0] = 0x00;
-								destRequest[1] = 0x00;
-								destRequest[2] = 0x00;
-								destRequest[3] = 0x00;
-								destRequest[4] = 0x00;
-								destRequest[5] = 0x00;
-								destRequest[6] = 0x00;
-								destRequest[7] = 0x00;
-								uint8_t testString [9*2 +1];
+								uint8_t testString [11*2 +1];
 								sprintf(&testString[0],"%02x",question);
-								sprintf(&testString[2],"%02x",numberCaptors);
-								sprintf(&testString[4],"%02x",id);
-								sprintf(&testString[6],"%02x",tailleData);
-								sprintf(&testString[8],"%02x",unitData);
-								sprintf(&testString[10],"%02x",minTemp[0]);
-								sprintf(&testString[12],"%02x",minTemp[1]);
-								sprintf(&testString[14],"%02x",maxTemp[0]);
-								sprintf(&testString[16],"%02x",maxTemp[1]);
-								uint8_t bufferInfo[9];
+								sprintf(&testString[2],"%02x",fpgaName[0]);
+								sprintf(&testString[4],"%02x",fpgaName[1]);
+								sprintf(&testString[6],"%02x",numberCaptors);
+								sprintf(&testString[8],"%02x",id);
+								sprintf(&testString[10],"%02x",tailleData);
+								sprintf(&testString[12],"%02x",unitData);
+								sprintf(&testString[14],"%02x",minTemp[0]);
+								sprintf(&testString[16],"%02x",minTemp[1]);
+								sprintf(&testString[18],"%02x",maxTemp[0]);
+								sprintf(&testString[20],"%02x",maxTemp[1]);
+								uint8_t bufferInfo[11];
 					   			convertZeroPadedHexIntoByte(testString,bufferInfo);
-								struct TrameXbee * atToSend = computeATTrame(0x17, destRequest,bufferInfo);
+								struct TrameXbee * atToSend = computeATTrame(0x19, destRequest,bufferInfo);
 								sendTrame(xbeeRNEPointer, atToSend);
 								break;
 							}

@@ -22,6 +22,7 @@ struct __attribute__((packed)) TrameXbee
 typedef struct
 {
    int requestFromServer;
+   uint8_t fpgaName[2];	
    uint8_t requestCode;
    uint8_t destRequest[8];
    pthread_mutex_t mutex_server;

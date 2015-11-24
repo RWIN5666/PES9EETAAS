@@ -22,8 +22,6 @@ void getDest(uint8_t * destCopy, struct TrameXbee * trameOrigine);
 int compareDest(uint8_t * destCopy, uint8_t * destFPGA);
 void getUnitAndSize(uint8_t * dest, uint8_t typeCapteur, fpgaList * fpgaListe, uint8_t *unitRetour, uint8_t *sizeRetour);
 void getResult(uint8_t * result, int size, struct TrameXbee * trameResult);
-
-
 void setFpgaName(struct moduleFPGA * module, uint8_t firstNameByte, uint8_t secondNameByte);
 int compareName(uint8_t * nameCopy, uint8_t * nameFPGA);
 struct moduleFPGA * getModuleFromName(fpgaList * fpgaListe, uint8_t * name);

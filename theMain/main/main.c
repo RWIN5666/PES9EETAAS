@@ -66,6 +66,8 @@ int main(void){
 	requestTester.destRequest[5] = 0x00;
 	requestTester.destRequest[6] = 0xFF;
 	requestTester.destRequest[7] = 0xFF;
+	requestTester.fpgaName[0] = 0x23;
+	requestTester.fpgaName[1] = 0x31;
 	pthread_mutex_init(&requestTester.mutex_server, NULL); /* Création du mutex */
 	//POUR AFFICHER UN TRUC SYMPA AU LANCEMENT DU PROGRAMME
 	char *filename = "main/image2.txt";
@@ -111,16 +113,13 @@ int main(void){
 void *thread_WebServer(void *arg)
 {
     printf("Nous sommes dans ce thread car vous avez demarre le WebServer.\n");
-
     /* Pour enlever le warning */
     (void) arg;
-
     pthread_mutex_lock(&requestTester.mutex_server);
     for(int i = 0; i < 10000 ; i++){
     	i++;
     }
     pthread_mutex_unlock(&requestTester.mutex_server);
-
     pthread_exit(NULL);
 }
 
@@ -137,7 +136,7 @@ void *thread_XBee(void *arg)
     //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
 
 	//Initialisation UART XBEE
-	int xbeeCNE = serial_init("/dev/ttyUSB0",115200);
+	int xbeeCNE = serial_init("/dev/ttyUSB0",9600);
 	int * xbeeCNEPointer = &xbeeCNE;
 	struct TrameXbee * trameRetour = NULL;
 	while(!finish){
@@ -146,14 +145,19 @@ void *thread_XBee(void *arg)
 			printf("On a reçu une requete du serveur\n");
 			uint8_t code = requestTester.requestCode;
 			requestTester.requestFromServer = 0;
-			uint8_t * dest = requestTester.destRequest;
-			sendCaptorInfoRequestFrame(xbeeCNEPointer, code, dest);
-			printf("On a envoye la trame pour la requete serveur\n\n");
+			//uint8_t * dest = requestTester.destRequest;
+				if(hasCaptor(requestTester.fpgaName,listeFPGA, requestTester.requestCode)){
+					struct moduleFPGA * moduleRequest = getModuleFromName(listeFPGA, requestTester.fpgaName); 
+					sendCaptorInfoRequestFrame(xbeeCNEPointer, requestTester.requestCode, moduleRequest->destFPGA);
+					printf("On a envoye la trame pour la requete serveur\n\n");
+			}
+			else printf("On a pas trouve le FPGA\n");
+			
 		}
-		if(count == 20){
+		if(count == 100){
 			requestTester.requestFromServer = 1;
 		}
-		if(count == 40){
+		if(count == 300){
 			finish = 1;
 		}
 		count++;

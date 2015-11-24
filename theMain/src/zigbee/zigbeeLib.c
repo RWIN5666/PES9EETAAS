@@ -255,6 +255,49 @@ int sendCaptorInfoRequestFrame(int * xbeeCNEPointer, uint8_t requestCode, uint8_
 }
 
 
+int sendInfoCaptorValueFrame(int * xbeeRNEPointer, uint8_t * minTemp, uint8_t * maxTemp, uint8_t * fpgaName, uint8_t numberCaptors, uint8_t id, uint8_t tailleData,uint8_t unitData){
+	// REQUETE INFO CAPTEUR
+	printf("On a reçu une requete de demande d'infos sur les capteurs !\n");
+	minTemp[0] = 0x00;
+	minTemp[1] = 0x00;
+	maxTemp[0] = 0x00;
+	maxTemp[1] = 0x40;
+	uint8_t destRequest[8];
+	destRequest[0] = 0x00;
+	destRequest[1] = 0x00;
+	destRequest[2] = 0x00;
+	destRequest[3] = 0x00;
+	destRequest[4] = 0x00;
+	destRequest[5] = 0x00;
+	destRequest[6] = 0x00;
+	destRequest[7] = 0x00;
+	uint8_t question = 0x3F;
+	uint8_t testString [11*2 +1];
+	sprintf(&testString[0],"%02x",question);
+	sprintf(&testString[2],"%02x",fpgaName[0]);
+	sprintf(&testString[4],"%02x",fpgaName[1]);
+	sprintf(&testString[6],"%02x",numberCaptors);
+	sprintf(&testString[8],"%02x",id);
+	sprintf(&testString[10],"%02x",tailleData);
+	sprintf(&testString[12],"%02x",unitData);
+	sprintf(&testString[14],"%02x",minTemp[0]);
+	sprintf(&testString[16],"%02x",minTemp[1]);
+	sprintf(&testString[18],"%02x",maxTemp[0]);
+	sprintf(&testString[20],"%02x",maxTemp[1]);
+	uint8_t bufferInfo[11];
+		convertZeroPadedHexIntoByte(testString,bufferInfo);
+	struct TrameXbee * atToSend = computeATTrame(0x19, destRequest,bufferInfo);
+	int sizeSent = sendTrame(xbeeRNEPointer, atToSend);
+	if(sizeSent) return 0;
+	else return -1;
+
+
+
+
+
+}
+
+
 
 int traiterTrameRetour(requestStruct requestTester, int * xbeePointer, struct TrameXbee * trameRetour, fpgaList * listeFPGA){
 
