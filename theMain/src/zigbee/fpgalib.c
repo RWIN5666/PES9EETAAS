@@ -425,4 +425,19 @@ int hasCaptor(uint8_t * name, fpgaList * fpgaListe, uint8_t code){
     return 0;
 }
 
+uint8_t getTotalCaptorSize(captorsList * listeCapteurs){
 
+    uint8_t totalSize;
+    struct donneeCaptor * actualCaptor = listeCapteurs->premier;
+    if(actualCaptor == NULL){
+                printf("ActualCaptor est NULL\n");
+                return 0x00;
+            }
+    while (actualCaptor != NULL)
+    {
+        totalSize += actualCaptor->dataSize;
+        fprintf(stderr,"TotalSize : %02x\n",totalSize);
+        actualCaptor = actualCaptor->suivant;     
+    }
+    return totalSize;
+}

@@ -26,6 +26,6 @@ void setFpgaName(struct moduleFPGA * module, uint8_t firstNameByte, uint8_t seco
 int compareName(uint8_t * nameCopy, uint8_t * nameFPGA);
 struct moduleFPGA * getModuleFromName(fpgaList * fpgaListe, uint8_t * name);
 int hasCaptor(uint8_t * name, fpgaList * fpgaListe, uint8_t code);
-
+uint8_t getTotalCaptorSize(captorsList * listeCapteurs);
 
 #endif

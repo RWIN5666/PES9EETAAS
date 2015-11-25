@@ -143,7 +143,6 @@ void *thread_XBee(void *arg)
  		pthread_mutex_lock(&requestTester.mutex_server);
 		if(requestTester.requestFromServer){
 			printf("On a reçu une requete du serveur\n");
-			uint8_t code = requestTester.requestCode;
 			requestTester.requestFromServer = 0;
 			//uint8_t * dest = requestTester.destRequest;
 				if(hasCaptor(requestTester.fpgaName,listeFPGA, requestTester.requestCode)){

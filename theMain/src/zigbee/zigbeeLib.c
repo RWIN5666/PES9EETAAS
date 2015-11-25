@@ -345,7 +345,7 @@ int traiterTrameRetour(requestStruct requestTester, int * xbeePointer, struct Tr
 			     		setFpgaName(nouveau, trameRetour->trameData[12], trameRetour->trameData[13]);
 			       		uint8_t numberCaptors = trameRetour->trameData[14];
 			       		uint8_t tempSize = 0x00;
-			       		// BOUCLE POUR CHAQUE CAPTEUR
+			       		// BOUCLE POUR CHAQUE CAPTEUR			       		
 			       		for(int i = 0; i < (int)numberCaptors; i++){
 			       		uint8_t id = trameRetour->trameData[15+i*(2*tempSize+3)];
 			       		uint8_t dataSize = trameRetour->trameData[16+i*(2*tempSize+3)];

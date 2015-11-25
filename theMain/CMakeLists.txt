@@ -6,6 +6,8 @@ set(MAIN main/main.c)
 set(PRJ2 cetExecutablePermetdeSimulerUnFpga)
 set(TEST main/dummyFpga.c)
 
+
+
 set(CMAKE_BUILD_TYPE Debug)
 SET(CMAKE_C_FLAGS               "${CMAKE_C_FLAGS} -W -Wall -Wno-pointer-sign -ansi -pedantic -std=c99 -Wfatal-errors")
 
@@ -25,3 +27,4 @@ add_executable(${PRJ} ${MAIN})
 add_executable(${PRJ2} ${TEST})
 target_link_libraries(${PRJ} pthread serial0 zigbee dessinterminal hexLib)
 target_link_libraries(${PRJ2} pthread serial0 zigbee dessinterminal hexLib)
+
