@@ -466,3 +466,20 @@ uint8_t getFpgaListSize(fpgaList * listeFpga){
     return totalSizeHex;
 }
 
+int fpgaIsAlreadyInsideList(fpgaList * listeFpga, uint8_t * suspiciousDest){
+
+    struct moduleFPGA * actualFpga = listeFpga->premier;
+    if(actualFpga == NULL){
+                printf("ActualCaptor est NULL\n");
+                perror("no fpga");
+            }
+    while (actualFpga != NULL)
+    {
+        if(compareDest(actualFpga->destFPGA, suspiciousDest)) return 1;
+        else actualFpga = actualFpga->suivant;     
+    }
+
+    printf("C'est un nouveau FPGA ! \n");
+    return 0;
+
+}

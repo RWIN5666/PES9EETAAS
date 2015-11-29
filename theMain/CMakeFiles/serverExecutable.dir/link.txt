@@ -1,1 +1,0 @@
-/usr/bin/gcc   -W -Wall -Wno-pointer-sign -ansi -pedantic -std=c99 -Wfatal-errors -g    CMakeFiles/serverExecutable.dir/main/main.c.o  -o serverExecutable -rdynamic -lpthread src/serial0/libserial0.a src/zigbee/libzigbee.a src/dessinterminal/libdessinterminal.a src/hexLib/libhexLib.a lib/jansson/libjansson.a 

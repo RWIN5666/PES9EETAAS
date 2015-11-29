@@ -312,7 +312,8 @@ int traiterTrameRetour(requestStruct requestTester, int * xbeePointer, struct Tr
 			    	uint8_t destFPGA[8];
 					uint8_t myFPGA[2];
 					copyMyandDest(myFPGA, destFPGA, trameRetour);
-				    struct moduleFPGA * nouveau = computeModule(myFPGA,destFPGA);
+					if(!fpgaIsAlreadyInsideList(listeFPGA, destFPGA)){
+					struct moduleFPGA * nouveau = computeModule(myFPGA,destFPGA);
 				    addFpga(listeFPGA,nouveau);
 				    sleep(10);
 				    //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
@@ -340,25 +341,14 @@ int traiterTrameRetour(requestStruct requestTester, int * xbeePointer, struct Tr
 						afficherTrame(trameRetour);
 					}
 			       	if(trameRetour->trameData[11] == 0x3F){
-			       		printf("On recoit une reponse a la requete ?\n");
-			       		captorsList * capList = initCaptorsList();
-			     		setFpgaName(nouveau, trameRetour->trameData[12], trameRetour->trameData[13]);
-			       		uint8_t numberCaptors = trameRetour->trameData[14];
-			       		uint8_t tempSize = 0x00;
-			       		// BOUCLE POUR CHAQUE CAPTEUR			       		
-			       		for(int i = 0; i < (int)numberCaptors; i++){
-			       		uint8_t id = trameRetour->trameData[15+i*(2*tempSize+3)];
-			       		uint8_t dataSize = trameRetour->trameData[16+i*(2*tempSize+3)];
-			       		tempSize += dataSize;
-			       		uint8_t unit = trameRetour->trameData[17+i*(2*tempSize+3)];
-			       		uint8_t * minValue = trameRetour->trameData + (18+i*(2*tempSize+3));
-			       		uint8_t * maxValue = trameRetour->trameData + (18+dataSize+i*(2*tempSize+3));
-			       		addCaptor(capList, id, dataSize, unit, minValue, maxValue);
-			       		showCaptor(capList->premier);
-			       	}
-			       		addCaptorsListToFpga(nouveau, numberCaptors, capList);
+						computeCaptorsListWithReceivedInfoFrame(nouveau,trameRetour);
 			       	}
 			       	else {printf("Ce n'est pas une requete comme prevu...\n\n");}
+					
+
+					}
+					else printf("Desole, ce FPGA est deja dans la liste.\n");
+				    
 			       	requestTester.requestFromServer = 1;
 			       	break;
 			       	return 1;
@@ -512,9 +502,25 @@ int sendInfoCaptorValueFrameWithList(int * xbeeRNEPointer, uint8_t * name, capto
 }
 
 
-int computeCaptorsListWithReceivedInfoFrame(captorsList * liste, struct TrameXbee * receivedTrame){
+int computeCaptorsListWithReceivedInfoFrame(struct moduleFPGA * nouveau, struct TrameXbee * trameRetour){
 
-
+	printf("On recoit une reponse a la requete ?\n");
+	captorsList * capList = initCaptorsList();
+	setFpgaName(nouveau, trameRetour->trameData[12], trameRetour->trameData[13]);
+	uint8_t numberCaptors = trameRetour->trameData[14];
+	uint8_t tempSize = 0x00;
+	// BOUCLE POUR CHAQUE CAPTEUR			       		
+	for(int i = 0; i < ((int)numberCaptors); i++){
+	uint8_t id = trameRetour->trameData[15+(2*((int)tempSize)+3*i)];
+	uint8_t dataSize = trameRetour->trameData[16+(2*((int)tempSize)+3*i)];
+	uint8_t unit = trameRetour->trameData[17+(2*((int)tempSize)+3*i)];
+	uint8_t * minValue = trameRetour->trameData + (18+(2*((int)tempSize)+3*i));
+	uint8_t * maxValue = trameRetour->trameData + (18+dataSize+(2*((int)tempSize)+3*i));
+	tempSize += dataSize;
+	addCaptor(capList, id, dataSize, unit, minValue, maxValue);
+	showCaptor(capList->premier);
+	}
+	addCaptorsListToFpga(nouveau, numberCaptors, capList);
 
 
 	return 0;

@@ -28,7 +28,7 @@ struct moduleFPGA * getModuleFromName(fpgaList * fpgaListe, uint8_t * name);
 int hasCaptor(uint8_t * name, fpgaList * fpgaListe, uint8_t code);
 uint8_t getCaptorsListSize(captorsList * listeCapteurs);
 uint8_t getFpgaListSize(fpgaList * listeFpga);
-
+int fpgaIsAlreadyInsideList(fpgaList * listeFpga, uint8_t * suspiciousDest);
 
 
 
