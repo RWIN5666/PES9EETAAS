@@ -11,6 +11,7 @@
 struct termios oldattr;
 
 int serial_init(const char *devname, speed_t baudrate);
+int serial_init_V2(const char *devname, speed_t baudrate);
 
 #endif
 	

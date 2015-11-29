@@ -299,10 +299,8 @@ int sendInfoCaptorValueFrame(int * xbeeRNEPointer, uint8_t * minTemp, uint8_t * 
 
 
 
-int traiterTrameRetour(struct requestStruct requestTester, int * toSetRequest, int * xbeePointer, struct TrameXbee * trameRetour, fpgaList * listeFPGA){
+int traiterTrameRetour(requestStruct requestTester, int * xbeePointer, struct TrameXbee * trameRetour, fpgaList * listeFPGA){
 
-	// OK = 1, !OK = 0
-	int codeRetour = 0;
 	if(trameRetour){
 			afficherTrame(trameRetour);
 			// // FIN DU PROGRAMME
@@ -359,20 +357,19 @@ int traiterTrameRetour(struct requestStruct requestTester, int * toSetRequest, i
 			       		showCaptor(capList->premier);
 			       	}
 			       		addCaptorsListToFpga(nouveau, numberCaptors, capList);
-
 			       	}
 			       	else {printf("Ce n'est pas une requete comme prevu...\n\n");}
 			       	requestTester.requestFromServer = 1;
-			       	*toSetRequest = 1;
-			       	codeRetour = 1;
-			       		break;
+			       	break;
+			       	return 1;
 			       }
 
 			    case ID_TX_STATUS :{
 			    	if (trameRetour->trameData[4] == 0x00){
 			    		printf("La trame a bien ete transmise\n\n");
-			    		codeRetour = 1;
-			    	} 			    	
+
+			    	} 	
+			    	return 1;		    	
 			    	break;
 			    }
 
@@ -384,6 +381,7 @@ int traiterTrameRetour(struct requestStruct requestTester, int * toSetRequest, i
 			    	switch(action){
 			    		case INFO_FPGA_REQUEST:{
 			    			printf("FPGA_REQUEST : On aurait pas du avoir cela ici\n");
+			    			return 1;
 			       			break;
 			       			}
 			       		case INFO_CAPTOR_REQUEST:{
@@ -416,6 +414,7 @@ int traiterTrameRetour(struct requestStruct requestTester, int * toSetRequest, i
 										printf("La temperature est de %d degrés FAHRENHEIT\n",resultatFinal);
 					    			}
 					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					    			return 1;
 					       			break;
 					       			}
 
@@ -430,37 +429,34 @@ int traiterTrameRetour(struct requestStruct requestTester, int * toSetRequest, i
 					    			printf("Sur l'axe X : \n");
 					    			printf("Sur l'axe Y : \n");
 					    			printf("Sur l'axe Z : \n");
-					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS;
+					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					    			return 1;
 					       			break;
 					       			}
 					       		case ID_ANALOG:{
 					    			printf("On a la valeur retour pour la valeur des potentiomètres\n");
 					    			//TODO: METTRE A JOUR LE FICHIER QUI STOCKE LES VALEURS
+					    			return 1;
 					       			break;
 					       			}
-								default :  ;
+								default :  
+									return 0;
 					       			break;
 			    				}
 			    			}
 			       			break;
 			       			}
 						default :  
+						return 0;
 			       			break;
 			    	}
-			    	codeRetour = 1;
 			    	break;
 			    }
 			    default :  
-			    	codeRetour = 0;
-			        break;
+			    	return 0;
+			       break;
 			}
 
 		}
-		else {
-			printf("Il y a eu un petit souci\n");
-			codeRetour = 1;
-		}
-		printf("On sort de traiterTrameRetour\n");
-		return codeRetour;
-
+		return 0;
 }

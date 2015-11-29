@@ -17,6 +17,5 @@ int checkFPGAState(uint8_t * dest, int * xbeeCNEPointer);
 int sendCaptorInfoRequestFrame(int * xbeeCNEPointer, uint8_t requestCode, uint8_t * dest);
 int sendInfoCaptorValueFrame(int * xbeeCNEPointer,uint8_t * minTemp, uint8_t * maxTemp, uint8_t * fpgaName, uint8_t numberCaptors, uint8_t id, uint8_t tailleData,uint8_t unitData);
 int traiterTrameRetour(requestStruct requestTester, int * xbeePointer, struct TrameXbee * trameRetour, fpgaList * listeFPGA);
-int sendInfoCaptorValueFrameWithList(int * xbeeRNEPointer, captorsList * liste);
 
 #endif

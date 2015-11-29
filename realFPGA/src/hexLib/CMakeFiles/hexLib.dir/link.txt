@@ -1,0 +1,2 @@
+/usr/bin/ar cr libhexLib.a  CMakeFiles/hexLib.dir/hexLib.c.o
+/usr/bin/ranlib libhexLib.a
