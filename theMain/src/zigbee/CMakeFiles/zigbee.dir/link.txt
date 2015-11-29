@@ -1,1 +1,2 @@
-/usr/bin/gcc  -fPIC  -W -Wall -Wno-pointer-sign -ansi -pedantic -std=c99 -Wfatal-errors -g   -shared -Wl,-soname,libzigbee.so -o libzigbee.so CMakeFiles/zigbee.dir/zigbeeLib.c.o CMakeFiles/zigbee.dir/checksum.c.o CMakeFiles/zigbee.dir/fpgalib.c.o 
+/usr/bin/ar cr libzigbee.a  CMakeFiles/zigbee.dir/zigbeeLib.c.o CMakeFiles/zigbee.dir/checksum.c.o CMakeFiles/zigbee.dir/fpgalib.c.o
+/usr/bin/ranlib libzigbee.a

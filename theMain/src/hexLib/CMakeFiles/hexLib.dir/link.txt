@@ -1,1 +1,2 @@
-/usr/bin/gcc  -fPIC  -W -Wall -Wno-pointer-sign -ansi -pedantic -std=c99 -Wfatal-errors -g   -shared -Wl,-soname,libhexLib.so -o libhexLib.so CMakeFiles/hexLib.dir/hexLib.c.o 
+/usr/bin/ar cr libhexLib.a  CMakeFiles/hexLib.dir/hexLib.c.o
+/usr/bin/ranlib libhexLib.a

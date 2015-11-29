@@ -3,7 +3,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/zigbee.dir/checksum.c.o"
   "CMakeFiles/zigbee.dir/fpgalib.c.o"
   "libzigbee.pdb"
-  "libzigbee.so"
+  "libzigbee.a"
 )
 
 # Per-language clean rules from dependency scanning.

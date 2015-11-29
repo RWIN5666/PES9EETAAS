@@ -1,7 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/dessinterminal.dir/drawterminal.c.o"
   "libdessinterminal.pdb"
-  "libdessinterminal.so"
+  "libdessinterminal.a"
 )
 
 # Per-language clean rules from dependency scanning.

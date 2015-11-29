@@ -43,6 +43,7 @@ fpgaList * listeFPGA = NULL;
 int premierPassage = 0;
 int finish = 0;
 int count = 0;
+char * devname;
 requestStruct requestTester; 	// POUR TESTER LES REQUETES RECUES PAR LE SERVEUR
 								// LE THREAD SERVER METTRA A JOUR CES VALEURS POUR LA PARTIE ZIGBEE
 
@@ -50,9 +51,23 @@ requestStruct requestTester; 	// POUR TESTER LES REQUETES RECUES PAR LE SERVEUR
 
 
 // MAIN
-int main(void){
+int main(int argc, char ** argv){
+
+
+
 
 	// INITIALISATION VALEURS
+	
+
+	if(argc < 1){
+		printf("Please provide a dev name.\n");
+		return 0;
+	} 
+		
+	devname = argv[1];
+	printf("Lancement du programme Main...\n");
+
+
 	tailleTableau = 0;
 	listeFPGA = initFpgaList();
 	// ON PREND LE CAS OU LE SERVEUR VEUT LA TEMPERATURE
@@ -136,7 +151,8 @@ void *thread_XBee(void *arg)
     //struct TrameXbee * trameTest = computeTrame(0x0011,0x10,"\x01\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFE\x00\x00\x01\x02\x03");
 
 	//Initialisation UART XBEE
-	int xbeeCNE = serial_init("/dev/ttyUSB0",9600);
+
+	int xbeeCNE = serial_init(devname,9600);
 	int * xbeeCNEPointer = &xbeeCNE;
 	struct TrameXbee * trameRetour = NULL;
 	while(!finish){
@@ -153,12 +169,13 @@ void *thread_XBee(void *arg)
 			else printf("On a pas trouve le FPGA\n");
 			
 		}
-		if(count == 100){
+		if(count == 10){
 			requestTester.requestFromServer = 1;
 		}
-		if(count == 300){
+		if(count == 30){
 			finish = 1;
 		}
+		printf("Valeur Count : %d\n", count);
 		count++;
 		pthread_mutex_unlock(&requestTester.mutex_server);
 		// ROUTINE CLASSIQUE D'ATTENTE DE TRAME RETOUR

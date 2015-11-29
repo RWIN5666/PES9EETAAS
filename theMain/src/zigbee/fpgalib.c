@@ -43,10 +43,12 @@ int computeData(uint8_t* s, uint8_t taille, uint8_t type){
             break;
         }
         case ID_TEMPERATURE:{
-            uint8_t byte1 = 0xA0;
+
+            // DANS LE CAS DU LM75 OU LA DONNEE TIENT SUR 2 OCTETS
+            uint8_t byte1 = s[0];
+            uint8_t byte2 = s[1];
             uint8_t byteSign = (byte1 & 0x80) >> 7;
             byte1 = byte1 & 0x7F;
-            uint8_t byte2 = 0x80;
             uint8_t byteHalf = (byte2 & 0x80) >> 7;
             printf("valeur de byteSign : %02x\n",byteHalf);
             uint8_t testTrame[(2*2)+1];

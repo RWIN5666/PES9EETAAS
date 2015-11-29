@@ -1,7 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/hexLib.dir/hexLib.c.o"
   "libhexLib.pdb"
-  "libhexLib.so"
+  "libhexLib.a"
 )
 
 # Per-language clean rules from dependency scanning.

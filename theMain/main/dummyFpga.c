@@ -28,27 +28,17 @@ WEB PAR WEBSOCKET
 
 // POUR SIMULER LE FONCTIONNEMENT
 captorsList * listeCapteurs;
-
-
+char * devname;
 // MAIN
-int main(void){
-
-	// INITIALISATION VALEURS
-	listeCapteurs = initCaptorsList();
-	uint8_t minTemp[2];
-	uint8_t maxTemp[2];
-	uint8_t fpgaName[2];
-	fpgaName[0] = 0x23;
-	fpgaName[1] = 0x31;
-	minTemp[0] = 0x00;
-	minTemp[1] = 0x00;
-	maxTemp[0] = 0x00;
-	maxTemp[1] = 0x40;
-	uint8_t question = 0x3F;
-	uint8_t numberCaptors = 0x01;
-	uint8_t id = ID_TEMPERATURE;
-	uint8_t tailleData = 0x02;
-	uint8_t unitData = 0x0C;
+int main(int argc, char ** argv){
+	printf("Lancement du programme Main...\n");
+	// CHOIX PERIPHERIQUE POUR LE ZIGBEE
+	if(argc < 1){
+		printf("Please provide a dev name.\n");
+		return 0;
+	} 
+	devname = argv[1];
+	// POUR POUVOIR FACILEMENT ENVOYER VERS LE COORDINATEUR
     uint8_t destRequest[8];  
     destRequest[0] = 0x00;
 	destRequest[1] = 0x00;
@@ -58,9 +48,30 @@ int main(void){
 	destRequest[5] = 0x00;
 	destRequest[6] = 0x00;
 	destRequest[7] = 0x00;
-	int finish = 0;
-	addCaptor(listeCapteurs,ID_TEMPERATURE,0x02,0x0C,minTemp,maxTemp);
-	//showCaptor(listeCapteurs->premier);
+
+	//CREATION D'UNE LISTE DE CAPTEUR
+	listeCapteurs = initCaptorsList();
+	uint8_t question = 0x3F; // Pour pouvoir repondre a la demande '?'
+	uint8_t numberCaptors = 0x01; // Nombre de capteurs
+
+	// INITIALISATION D'UN UNIQUE CAPTEUR (A FAIRE POUR TOUS LES CAPTEURS)
+	uint8_t id = ID_TEMPERATURE; // Type de capteur
+	uint8_t unitData = 0x0C; // unite (ici en degre celsius)
+	uint8_t dataSize = 0x02; // le nombre d'octets qui composent la donnee (ici 2)
+	uint8_t minTemp[2]; // Valeurs min et max et leur affectation (on suppose dataSize = 0x02)
+	uint8_t maxTemp[2];
+	minTemp[0] = 0x00;
+	minTemp[1] = 0x00;
+	maxTemp[0] = 0x00;
+	maxTemp[1] = 0x40;
+	uint8_t fpgaName[2]; 	// Nom du FPGA (ici "#1")
+	fpgaName[0] = 0x23;
+	fpgaName[1] = 0x31;
+	addCaptor(listeCapteurs,ID_TEMPERATURE,dataSize,unitData,minTemp,maxTemp);
+	//showCaptor(listeCapteurs->premier); // Pour afficher les differents champs du capteur
+
+	// A FAIRE POUR TOUS LES AUTRES CAPTEURS
+
 	//POUR AFFICHER UN TRUC SYMPA AU LANCEMENT DU PROGRAMME
 	char *filename = "main/image2.txt";
 	FILE *fptr = NULL;
@@ -72,12 +83,22 @@ int main(void){
 	print_image(fptr);
 	fclose(fptr);
 
-
-	printf("Lancement du programme DUMMYFPGA\n");
-	int xbeeRNE = serial_init("/dev/ttyUSB1",9600);
+	if(argc < 1){
+		printf("Please provide a dev name.\n");
+		return 0;
+	} 
+		
+	char * devname = argv[1];
+	printf("Lancement du programme DUMMYFPGA...\n");
+	int xbeeRNE = serial_init(devname,9600);
 	int * xbeeRNEPointer = &xbeeRNE;
 
+
+	int count = 0;
+	int finish = 0;
 	while(!finish){
+		printf("Count Value : %d", count);
+		count++;
 		struct TrameXbee * trameRetour = getTrame(xbeeRNEPointer);
 		if(trameRetour){
 				afficherTrame(trameRetour);
@@ -113,7 +134,7 @@ int main(void){
 								sprintf(&testString[4],"%02x",fpgaName[1]);
 								sprintf(&testString[6],"%02x",numberCaptors);
 								sprintf(&testString[8],"%02x",id);
-								sprintf(&testString[10],"%02x",tailleData);
+								sprintf(&testString[10],"%02x",dataSize);
 								sprintf(&testString[12],"%02x",unitData);
 								sprintf(&testString[14],"%02x",minTemp[0]);
 								sprintf(&testString[16],"%02x",minTemp[1]);

@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 
-set(PRJ cetExecutableVaudra20sur20danspaslongtemps)
+set(PRJ serverExecutable)
 set(MAIN main/main.c)
 
-set(PRJ2 cetExecutablePermetdeSimulerUnFpga)
+set(PRJ2 fpgaExecutable)
 set(TEST main/dummyFpga.c)
 
 
@@ -24,7 +24,7 @@ add_subdirectory(src/hexLib)
 
 
 add_executable(${PRJ} ${MAIN})
-add_executable(${PRJ2} ${TEST})
-target_link_libraries(${PRJ} pthread serial0 zigbee dessinterminal hexLib)
-target_link_libraries(${PRJ2} pthread serial0 zigbee dessinterminal hexLib)
+#add_executable(${PRJ2} ${TEST})
+target_link_libraries(${PRJ} pthread serial0 zigbee dessinterminal hexLib ${CMAKE_CURRENT_SOURCE_DIR}/lib/jansson/libjansson.a)
+#target_link_libraries(${PRJ2} pthread serial0 zigbee dessinterminal hexLib)
 

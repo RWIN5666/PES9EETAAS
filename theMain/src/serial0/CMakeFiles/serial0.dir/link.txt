@@ -1,1 +1,2 @@
-/usr/bin/gcc  -fPIC  -W -Wall -Wno-pointer-sign -ansi -pedantic -std=c99 -Wfatal-errors -g   -shared -Wl,-soname,libserial0.so -o libserial0.so CMakeFiles/serial0.dir/serial0.c.o 
+/usr/bin/ar cr libserial0.a  CMakeFiles/serial0.dir/serial0.c.o
+/usr/bin/ranlib libserial0.a

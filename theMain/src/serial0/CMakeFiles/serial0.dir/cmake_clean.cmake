@@ -1,7 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/serial0.dir/serial0.c.o"
   "libserial0.pdb"
-  "libserial0.so"
+  "libserial0.a"
 )
 
 # Per-language clean rules from dependency scanning.

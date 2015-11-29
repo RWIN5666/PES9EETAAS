@@ -44,6 +44,7 @@ struct __attribute__((packed)) donneeCaptor
 typedef struct captorsList captorsList;
 struct __attribute__((packed)) captorsList 
 {	
+	uint8_t numberCaptors;
 	struct donneeCaptor * premier;
 };
 
@@ -62,6 +63,7 @@ struct __attribute__((packed)) moduleFPGA
 typedef struct fpgaList fpgaList;
 struct __attribute__((packed)) fpgaList 
 {	
+	uint8_t number;
 	struct moduleFPGA * premier;
 };
 
