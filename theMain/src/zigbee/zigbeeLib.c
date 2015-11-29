@@ -463,54 +463,7 @@ int traiterTrameRetour(requestStruct requestTester, int * xbeePointer, struct Tr
 
 
 
-int sendInfoCaptorValueFrameWithList(int * xbeeRNEPointer, uint8_t * name captorsList * liste){
-
-
-	if (liste == NULL)
-    {
-        perror("No Captors List");
-    }
-	printf("On a reçu une requete de demande d'infos sur les capteurs !\n");
-	uint8_t listSize = getCaptorsListSize(liste);
-	int listSizeInt = (int) listSize;
-	uint8_t testString [11*2*listSize +1];
-	uint8_t bufferInfo[11*listSize];
-    struct donneeCaptor *actuel = liste->premier;
-    sprintf(&testString[0],"%02x",question);
-    int i = 0;
-    while (i < listSizeInt)
-    {
-		sprintf(&testString[2+20*i],"%02x",actuel->);
-		sprintf(&testString[4+20*i],"%02x",fpgaName[1]);
-		sprintf(&testString[6+20*i],"%02x",numberCaptors);
-		sprintf(&testString[8+20*i],"%02x",id);
-		sprintf(&testString[10+20*i],"%02x",tailleData);
-		sprintf(&testString[12+20*i],"%02x",unitData);
-		sprintf(&testString[14+20*i],"%02x",minTemp[0]);
-		sprintf(&testString[16+20*i],"%02x",minTemp[1]);
-		sprintf(&testString[18+20*i],"%02x",maxTemp[0]);
-		sprintf(&testString[20+20*i],"%02x",maxTemp[1]);
-        else actuel = actuel->suivant;
-    }
-
-
-    
-	
-	
-	convertZeroPadedHexIntoByte(testString,bufferInfo);
-	struct TrameXbee * atToSend = computeATTrame(0x19, destRequest,bufferInfo);
-	int sizeSent = sendTrame(xbeeRNEPointer, atToSend);
-	if(sizeSent) return 0;
-	else return -1;
-
-
-
-
-
-	minTemp[0] = 0x00;
-	minTemp[1] = 0x00;
-	maxTemp[0] = 0x00;
-	maxTemp[1] = 0x40;
+int sendInfoCaptorValueFrameWithList(int * xbeeRNEPointer, uint8_t * name, captorsList * liste){
 	uint8_t destRequest[8];
 	destRequest[0] = 0x00;
 	destRequest[1] = 0x00;
@@ -520,26 +473,49 @@ int sendInfoCaptorValueFrameWithList(int * xbeeRNEPointer, uint8_t * name captor
 	destRequest[5] = 0x00;
 	destRequest[6] = 0x00;
 	destRequest[7] = 0x00;
-	uint8_t question = 0x3F;
-	uint8_t testString [11*2 +1];
-	sprintf(&testString[0],"%02x",question);
-	sprintf(&testString[2],"%02x",fpgaName[0]);
-	sprintf(&testString[4],"%02x",fpgaName[1]);
+	if (liste == NULL)
+    {
+        perror("No Captors List");
+    }
+	printf("On a reçu une requete de demande d'infos sur les capteurs !\n");
+	uint8_t numberCaptors = getCaptorsListSize(liste);
+	int numberCaptorsInt = (int) numberCaptors;
+	uint8_t testString [11*2*numberCaptorsInt +1];
+	uint8_t bufferInfo[11*numberCaptorsInt];
+    struct donneeCaptor *actuel = liste->premier;
+    sprintf(&testString[0],"%02x",0x3F);
+    sprintf(&testString[2],"%02x",name[0]);
+	sprintf(&testString[4],"%02x",name[1]);
 	sprintf(&testString[6],"%02x",numberCaptors);
-	sprintf(&testString[8],"%02x",id);
-	sprintf(&testString[10],"%02x",tailleData);
-	sprintf(&testString[12],"%02x",unitData);
-	sprintf(&testString[14],"%02x",minTemp[0]);
-	sprintf(&testString[16],"%02x",minTemp[1]);
-	sprintf(&testString[18],"%02x",maxTemp[0]);
-	sprintf(&testString[20],"%02x",maxTemp[1]);
-	uint8_t bufferInfo[11];
-		convertZeroPadedHexIntoByte(testString,bufferInfo);
-	struct TrameXbee * atToSend = computeATTrame(0x19, destRequest,bufferInfo);
+    int i = 0;
+
+    while (i < numberCaptorsInt)
+    {
+		sprintf(&testString[8+14*i],"%02x",actuel->idCaptor);
+		sprintf(&testString[10+14*i],"%02x",actuel->dataSize);
+		sprintf(&testString[12+14*i],"%02x",actuel->unitData);
+		sprintf(&testString[14+14*i],"%02x",actuel->minData[0]);
+		sprintf(&testString[16+14*i],"%02x",actuel->minData[1]);
+		sprintf(&testString[18+14*i],"%02x",actuel->maxData[0]);
+		sprintf(&testString[20+14*i],"%02x",actuel->maxData[1]);
+		i++;
+        actuel = actuel->suivant;
+    }
+
+	convertZeroPadedHexIntoByte(testString,bufferInfo);
+	uint8_t frameSize = 0x19 + ((uint8_t)7*(i-1));
+	struct TrameXbee * atToSend = computeATTrame(frameSize, destRequest,bufferInfo);
 	int sizeSent = sendTrame(xbeeRNEPointer, atToSend);
 	if(sizeSent) return 0;
 	else return -1;
 
+}
 
 
+int computeCaptorsListWithReceivedInfoFrame(captorsList * liste, struct TrameXbee * receivedTrame){
+
+
+
+
+	return 0;
 }

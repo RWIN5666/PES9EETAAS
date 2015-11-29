@@ -429,37 +429,40 @@ int hasCaptor(uint8_t * name, fpgaList * fpgaListe, uint8_t code){
 
 uint8_t getCaptorsListSize(captorsList * listeCapteurs){
 
-    uint8_t totalSize;
+    int totalSizeInt = 0;
+    uint8_t totalSizeHex = 0x00;
     struct donneeCaptor * actualCaptor = listeCapteurs->premier;
     if(actualCaptor == NULL){
                 printf("ActualCaptor est NULL\n");
-                return 0x00;
+                perror("No Captor");
             }
     while (actualCaptor != NULL)
     {
-        totalSize += actualCaptor->dataSize;
-        fprintf(stderr,"TotalSize : %02x\n",totalSize);
+        totalSizeInt++;
+        fprintf(stderr,"TotalSize : %d\n",totalSizeInt);
         actualCaptor = actualCaptor->suivant;     
     }
-    return totalSize;
+    totalSizeHex = (uint8_t) totalSizeInt;
+    return totalSizeHex;
 }
 
 
-uint8_t getFpgaListSize(fpgaList * liste){
+uint8_t getFpgaListSize(fpgaList * listeFpga){
 
-    uint8_t totalSize;
-    struct donneeCaptor * actualCaptor = listeCapteurs->premier;
-    if(actualCaptor == NULL){
+    int totalSizeInt = 0;
+    uint8_t totalSizeHex = 0x00;
+    struct moduleFPGA * actualFpga = listeFpga->premier;
+    if(actualFpga == NULL){
                 printf("ActualCaptor est NULL\n");
-                return 0x00;
+                perror("no fpga");
             }
-    while (actualCaptor != NULL)
+    while (actualFpga != NULL)
     {
-        totalSize += actualCaptor->dataSize;
-        fprintf(stderr,"TotalSize : %02x\n",totalSize);
-        actualCaptor = actualCaptor->suivant;     
+        totalSizeInt++;
+        fprintf(stderr,"TotalSize : %d\n",totalSizeInt);
+        actualFpga = actualFpga->suivant;     
     }
-    return totalSize;
-
+    totalSizeHex = (uint8_t) totalSizeInt;
+    return totalSizeHex;
 }
 
