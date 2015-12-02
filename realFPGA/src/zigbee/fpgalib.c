@@ -9,7 +9,7 @@
 #include <netinet/in.h>
 #include "zigbee/fpgalib.h"
 #include "hexLib/hexLib.h"
-
+#include "jansson/jansson.h"
 
 
 // POUR INVERSER LES CARACTERES (vu qu'ils arrivent dans le desordre)
@@ -427,19 +427,59 @@ int hasCaptor(uint8_t * name, fpgaList * fpgaListe, uint8_t code){
     return 0;
 }
 
-uint8_t getTotalCaptorSize(captorsList * listeCapteurs){
+uint8_t getCaptorsListSize(captorsList * listeCapteurs){
 
-    uint8_t totalSize;
+    int totalSizeInt = 0;
+    uint8_t totalSizeHex = 0x00;
     struct donneeCaptor * actualCaptor = listeCapteurs->premier;
     if(actualCaptor == NULL){
                 printf("ActualCaptor est NULL\n");
-                return 0x00;
+                perror("No Captor");
             }
     while (actualCaptor != NULL)
     {
-        totalSize += actualCaptor->dataSize;
-        fprintf(stderr,"TotalSize : %02x\n",totalSize);
+        totalSizeInt++;
+        fprintf(stderr,"TotalSize : %d\n",totalSizeInt);
         actualCaptor = actualCaptor->suivant;     
     }
-    return totalSize;
+    totalSizeHex = (uint8_t) totalSizeInt;
+    return totalSizeHex;
+}
+
+
+uint8_t getFpgaListSize(fpgaList * listeFpga){
+
+    int totalSizeInt = 0;
+    uint8_t totalSizeHex = 0x00;
+    struct moduleFPGA * actualFpga = listeFpga->premier;
+    if(actualFpga == NULL){
+                printf("ActualCaptor est NULL\n");
+                perror("no fpga");
+            }
+    while (actualFpga != NULL)
+    {
+        totalSizeInt++;
+        fprintf(stderr,"TotalSize : %d\n",totalSizeInt);
+        actualFpga = actualFpga->suivant;     
+    }
+    totalSizeHex = (uint8_t) totalSizeInt;
+    return totalSizeHex;
+}
+
+int fpgaIsAlreadyInsideList(fpgaList * listeFpga, uint8_t * suspiciousDest){
+
+    struct moduleFPGA * actualFpga = listeFpga->premier;
+    if(actualFpga == NULL){
+                printf("ActualCaptor est NULL\n");
+                perror("no fpga");
+            }
+    while (actualFpga != NULL)
+    {
+        if(compareDest(actualFpga->destFPGA, suspiciousDest)) return 1;
+        else actualFpga = actualFpga->suivant;     
+    }
+
+    printf("C'est un nouveau FPGA ! \n");
+    return 0;
+
 }

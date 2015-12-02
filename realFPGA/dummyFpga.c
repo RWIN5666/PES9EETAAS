@@ -23,7 +23,6 @@ WEB PAR WEBSOCKET
 #include "zigbee/checksum.h"
 #include "zigbee/fpgalib.h"
 #include "serial0/serial0.h"
-#include "dessinterminal/drawterminal.h"
 #include "hexLib/hexLib.h"
 
 // POUR SIMULER LE FONCTIONNEMENT
@@ -33,11 +32,16 @@ char * devname;
 int main(int argc, char ** argv){
 	printf("Lancement du programme Main...\n");
 	// CHOIX PERIPHERIQUE POUR LE ZIGBEE
+
 	if(argc < 1){
 		printf("Please provide a dev name.\n");
 		return 0;
 	} 
-	devname = argv[1];
+
+	char * devname = argv[1];
+	printf("Lancement du programme DUMMYFPGA...\n");
+	int xbeeRNE = serial_init(devname,9600);
+	int * xbeeRNEPointer = &xbeeRNE;
 	// POUR POUVOIR FACILEMENT ENVOYER VERS LE COORDINATEUR
     uint8_t destRequest[8];  
     destRequest[0] = 0x00;
@@ -52,7 +56,7 @@ int main(int argc, char ** argv){
 	//CREATION D'UNE LISTE DE CAPTEUR
 	listeCapteurs = initCaptorsList();
 	uint8_t question = 0x3F; // Pour pouvoir repondre a la demande '?'
-	uint8_t numberCaptors = 0x01; // Nombre de capteurs
+	uint8_t numberCaptors = 0x01; // Nombre de capteurs (A mettre a jour)
 
 	// INITIALISATION D'UN UNIQUE CAPTEUR (A FAIRE POUR TOUS LES CAPTEURS)
 	uint8_t id = ID_TEMPERATURE; // Type de capteur
@@ -60,38 +64,19 @@ int main(int argc, char ** argv){
 	uint8_t dataSize = 0x02; // le nombre d'octets qui composent la donnee (ici 2)
 	uint8_t minTemp[2]; // Valeurs min et max et leur affectation (on suppose dataSize = 0x02)
 	uint8_t maxTemp[2];
-	minTemp[0] = 0x00;
+	minTemp[0] = 0x00; // A METTRE A JOUR EN FONCTION DES DONNEES
 	minTemp[1] = 0x00;
 	maxTemp[0] = 0x00;
 	maxTemp[1] = 0x40;
 	uint8_t fpgaName[2]; 	// Nom du FPGA (ici "#1")
 	fpgaName[0] = 0x23;
 	fpgaName[1] = 0x31;
-	addCaptor(listeCapteurs,ID_TEMPERATURE,dataSize,unitData,minTemp,maxTemp);
+	addCaptor(listeCapteurs,id,dataSize,unitData,minTemp,maxTemp);
 	//showCaptor(listeCapteurs->premier); // Pour afficher les differents champs du capteur
 
 	// A FAIRE POUR TOUS LES AUTRES CAPTEURS
 
-	//POUR AFFICHER UN TRUC SYMPA AU LANCEMENT DU PROGRAMME
-	char *filename = "main/image2.txt";
-	FILE *fptr = NULL;
-	if((fptr = fopen(filename,"r")) == NULL)
-	  {
-		fprintf(stderr,"error opening %s\n",filename);
-		return 1;
-	  }
-	print_image(fptr);
-	fclose(fptr);
-
-	if(argc < 1){
-		printf("Please provide a dev name.\n");
-		return 0;
-	} 
-		
-	char * devname = argv[1];
-	printf("Lancement du programme DUMMYFPGA...\n");
-	int xbeeRNE = serial_init(devname,9600);
-	int * xbeeRNEPointer = &xbeeRNE;
+	
 
 
 	int count = 0;
@@ -124,26 +109,7 @@ int main(int argc, char ** argv){
 							case 0x3F :{
 								// REQUETE INFO CAPTEUR
 								printf("On a reçu une requete de demande d'infos sur les capteurs !\n");
-								minTemp[0] = 0x00;
-								minTemp[1] = 0x00;
-								maxTemp[0] = 0x00;
-								maxTemp[1] = 0x40;
-								uint8_t testString [11*2 +1];
-								sprintf(&testString[0],"%02x",question);
-								sprintf(&testString[2],"%02x",fpgaName[0]);
-								sprintf(&testString[4],"%02x",fpgaName[1]);
-								sprintf(&testString[6],"%02x",numberCaptors);
-								sprintf(&testString[8],"%02x",id);
-								sprintf(&testString[10],"%02x",dataSize);
-								sprintf(&testString[12],"%02x",unitData);
-								sprintf(&testString[14],"%02x",minTemp[0]);
-								sprintf(&testString[16],"%02x",minTemp[1]);
-								sprintf(&testString[18],"%02x",maxTemp[0]);
-								sprintf(&testString[20],"%02x",maxTemp[1]);
-								uint8_t bufferInfo[11];
-					   			convertZeroPadedHexIntoByte(testString,bufferInfo);
-								struct TrameXbee * atToSend = computeATTrame(0x19, destRequest,bufferInfo);
-								sendTrame(xbeeRNEPointer, atToSend);
+								sendInfoCaptorValueFrameWithList(xbeeRNEPointer,name,listeCapteurs);
 								break;
 							}
 
