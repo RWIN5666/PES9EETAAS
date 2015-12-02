@@ -1,0 +1,78 @@
+De coordinateur vers coordinateur
+
+Trame 0x08
+envoi : 7E 00 04 08 01 4D 59 50 (ATID)
+retour : 7E 00 07 88 01 4D 59 00 00 00 D0
+
+envoi : 7E 00 04 08 01 43 48 6B (ATCH)
+retour : 7E 00 06 88 01 43 48 00 1A D1
+
+envoi : 7E 00 04 08 01 4E 52 56 (ATNR)
+retour : 7E 00 05 88 01 4E 52 00 D6 7E 00 02 8A 03 72 7E 00 02 8A 06 6F
+
+envoi : 7E 00 04 08 01 4E 44 64 (ATND)
+retour : 7E 00 07 88 01 4D 59 00 00 00 D0
+
+envoi : 7E 00 04 08 01 53 48 5B (ATSH)
+retour : 7E 00 09 88 01 53 48 00 00 13 A2 00 26
+
+envoi : 7E 00 04 08 01 53 4C 57 (ATSL)
+retour : 7E 00 09 88 01 53 4C test00 40 89 EC 32 F0
+
+
+envoi : 7E 00 04 08 01 4E 49 5F (ATNI)
+retour : 7E 00 09 88 01 53 4C 00 40 89 EC 32 F
+
+
+Trame 0x10œ	
+de coordinateur vers les RNE
+envoi : 7E 00 13 10 01 00 00 00 00 FF FF FF FF FF FE 00 00 73 61 6C 75 74 CC
+retour : 7E 00 09 88 01 53 4C 00 40 89 EC 32 F
+
+
+
+de RNE2 à tout le monde
+
+
+
+
+De RNE1 vers RNE1 
+Trame 0x08
+envoi : 7E 00 04 08 01 4D 59 50 (ATID)
+retour : 7E 00 07 88 01 4D 59 00 8A 8D B9
+
+envoi : 7E 00 04 08 01 43 48 6B (ATCH)
+retour : 7E 00 06 88 01 43 48 00 1A D1
+
+envoi : 7E 00 04 08 01 4E 52 56 (ATNR)
+retour : 7E 00 05 88 01 4E 52 00 D6 7E 00 02 8A 03 72 7E 00 02 8A 06 6F
+
+envoi : 7E 00 04 08 01 4E 44 64 (ATND)
+retour : 7E 00 07 88 01 4D 59 00 00 00 D0
+
+envoi : 7E 00 04 08 01 53 48 5B (ATSH)
+retour : 7E 00 09 88 01 53 48 00 00 13 A2 00 26
+
+envoi : 7E 00 04 08 01 53 4C 57 (ATSL)
+retour : 7E 00 09 88 01 53 4C 00 40 89 EC 32 F0
+
+
+envoi : 7E 00 04 08 01 4E 49 5F (ATNI)
+retour : 7E 00 09 88 01 53 4C 00 40 89 EC 32 F
+
+
+
+
+
+DE RNE2 à CNE
+7E 00 27 95 00 13 A2 00 - 40 89 EC 00 B4 BA 02 B4    ~.'.....  @.......
+BA 00 13 A2 00 40 89 EC - 00 52 4E 45 32 00 FF FE    .....@..  .RNE2...
+01 03 C1 05 10 1E 00 02 - 00 00 AA
+
+
+
+
+
+7E 00 11 10 01 00 00 00 00 00 00 FF FF FF FE 00 00 01 02 03 ED
+
+

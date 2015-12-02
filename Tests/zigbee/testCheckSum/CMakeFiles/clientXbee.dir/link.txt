@@ -1,0 +1,1 @@
+/usr/bin/cc   -W -Wall -ansi -pedantic -std=c99 -Wfatal-errors -g    CMakeFiles/clientXbee.dir/main/client.c.o  -o clientXbee -rdynamic src/serial0/libserial0.so src/zigbee/libzigbee.so -Wl,-rpath,/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/src/serial0:/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/src/zigbee 

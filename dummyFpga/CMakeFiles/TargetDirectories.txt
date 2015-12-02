@@ -1,0 +1,5 @@
+/home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/dessinterminal/CMakeFiles/dessinterminal.dir
+/home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/CMakeFiles/dummyFpga.dir
+/home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/hexLib/CMakeFiles/hexLib.dir
+/home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/serial0/CMakeFiles/serial0.dir
+/home/erwin/Documents/PRE/PES9EETAAS/dummyFpga/src/zigbee/CMakeFiles/zigbee.dir

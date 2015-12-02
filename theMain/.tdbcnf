@@ -1,0 +1,1 @@
+tdb:cmdbgcolor white debug:trcback 1 tdb:bgcolor white tdb:xterm {xterm -bg black} tdb:winstderr 0 tdb:cmdfont {} tdb:types {} tdb:font {} tdb:cmdforeground {} tdb:geom 1680x926 tdb:gdbpath /usr/bin/gdb tdb:foreground {}

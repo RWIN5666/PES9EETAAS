@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC  -W -Wall -ansi -pedantic -std=c99 -Wfatal-errors -g   -shared -Wl,-soname,libdessinterminal.so -o libdessinterminal.so CMakeFiles/dessinterminal.dir/drawterminal.c.o 

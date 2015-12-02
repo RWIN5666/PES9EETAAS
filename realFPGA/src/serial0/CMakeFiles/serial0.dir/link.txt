@@ -1,0 +1,2 @@
+/usr/bin/ar cr libserial0.a  CMakeFiles/serial0.dir/serial0.c.o
+/usr/bin/ranlib libserial0.a

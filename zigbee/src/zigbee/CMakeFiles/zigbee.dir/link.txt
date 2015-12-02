@@ -1,1 +1,0 @@
-/usr/bin/gcc  -fPIC  -W -Wall -ansi -pedantic -std=c99 -Wfatal-errors -g  -shared -Wl,-soname,libzigbee.so -o libzigbee.so CMakeFiles/zigbee.dir/zigbeeLib.c.o CMakeFiles/zigbee.dir/checksum.c.o 

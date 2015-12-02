@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+./include/hexLib/hexLib.h
+stdint.h
+-
+
+/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib/hexLib.c
+stdio.h
+-
+stdlib.h
+-
+fcntl.h
+-
+unistd.h
+-
+string.h
+-
+hexLib/hexLib.h
+/home/erwin/Documents/PRE/PES9EETAAS/theMain/src/hexLib/hexLib/hexLib.h
+stdint.h
+-
+

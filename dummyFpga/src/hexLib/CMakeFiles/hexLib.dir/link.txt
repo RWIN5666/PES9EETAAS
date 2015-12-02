@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC  -W -Wall -ansi -pedantic -std=c99 -Wfatal-errors -g   -shared -Wl,-soname,libhexLib.so -o libhexLib.so CMakeFiles/hexLib.dir/hexLib.c.o 

@@ -1,0 +1,57 @@
+98a99
+> 		fprintf(stderr,"%02x ", trameToPrint->header.frameID);
+115,118c116,117
+< 
+< 	uint8_t bufferHeader[3];
+< 	
+< 	int retour = poll(fds,(nfds_t) 1, (int)10000);
+---
+> 	int retour = 0;
+> 	uint8_t bufferHeader[4];
+120c119,125
+< 	if(retour == -1){ 
+---
+> 
+> 	do{
+> 
+> 		retour = poll(fds,(nfds_t) 1, (int)10000);
+> 	}while(retour == 0);
+> 
+> 	if(retour < 0){ 
+126d130
+< 	fprintf(stderr,"erreur\n");
+130c134
+< 	if (!read(fds[0].fd, bufferHeader, 3)) {
+---
+> 	if (!read(fds[0].fd, bufferHeader, 4)) {
+137c141,145
+< 	uint16_t tailleData = (uint16_t)(((uint16_t)(bufferHeader[2] << 8)) | ((uint16_t)(bufferHeader[1])));
+---
+> 	uint16_t tailleData = ntohs(((uint16_t)bufferHeader[2] << 8) | bufferHeader[1]);
+> 
+> 	uint8_t ID = bufferHeader[3];
+> 
+> 
+144a153,154
+> 	trameRetour->header.frameID = ID;
+> 
+146d155
+< 	printf("erreur\n");
+158a168,170
+> 
+> 
+> 
+160c172
+< 	for(int i = 0; i < dataSize ; i++){
+---
+> 	for(int i = 0; i < dataSize + 1 ; i++){
+165a178,186
+> 
+> 
+> 	printf("Copie dans la trame\n");
+> 
+> 	for(int i = 0; i < dataSize + 1; i++){
+> 
+> 		trameRetour->trameData[i] = bufferData[i];
+> 
+> 	}

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libzigbee.a  CMakeFiles/zigbee.dir/zigbeeLib.c.o CMakeFiles/zigbee.dir/checksum.c.o CMakeFiles/zigbee.dir/fpgalib.c.o
+/usr/bin/ranlib libzigbee.a

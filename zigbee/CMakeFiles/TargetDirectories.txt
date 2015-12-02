@@ -1,3 +1,0 @@
-/home/erwin/Documents/PROJETELEC/Tests/cMake/CMakeFiles/comXbee.dir
-/home/erwin/Documents/PROJETELEC/Tests/cMake/src/serial/CMakeFiles/serial.dir
-/home/erwin/Documents/PROJETELEC/Tests/cMake/src/zigbee/CMakeFiles/zigbee.dir

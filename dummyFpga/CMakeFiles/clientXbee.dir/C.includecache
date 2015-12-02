@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+./include/serial/serial0.h
+stdio.h
+-
+stdlib.h
+-
+termios.h
+-
+fcntl.h
+-
+unistd.h
+-
+
+./include/zigbee/zigbeeLib.h
+
+/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/main/client.c
+stdio.h
+-
+stdlib.h
+-
+termios.h
+-
+fcntl.h
+-
+unistd.h
+-
+string.h
+-
+stdint.h
+-
+poll.h
+-
+zigbee/zigbeeLib.h
+/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/main/zigbee/zigbeeLib.h
+serial/serial0.h
+/home/erwin/Documents/S9/PRE/code/zigbee/zigBeeClient/main/serial/serial0.h
+

@@ -1,0 +1,1 @@
+/usr/bin/gcc   -W -Wall -ansi -pedantic -std=c99 -Wfatal-errors -g    CMakeFiles/testCheckSum.dir/main/main.c.o  -o testCheckSum -rdynamic src/zigbee/libzigbee.so -Wl,-rpath,/home/erwin/Documents/PRE/PES9EETAAS/zigbee/testCheckSum/src/zigbee 

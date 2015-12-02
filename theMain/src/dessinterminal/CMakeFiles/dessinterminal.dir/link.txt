@@ -1,0 +1,2 @@
+/usr/bin/ar cr libdessinterminal.a  CMakeFiles/dessinterminal.dir/drawterminal.c.o
+/usr/bin/ranlib libdessinterminal.a
